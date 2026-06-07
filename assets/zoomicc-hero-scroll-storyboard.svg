@@ -1,0 +1,221 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1280" viewBox="0 0 1920 1280">
+  <defs>
+    <pattern id="paperGrid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#15140f" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#15140f" opacity="0.13"/>
+    </pattern>
+    <filter id="paperShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#15140f" flood-opacity="0.15"/>
+    </filter>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="12" stdDeviation="13" flood-color="#15140f" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrowCoral" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10Z" fill="#ed6f5c"/>
+    </marker>
+    <style>
+      .bg { fill: #efe7d2; }
+      .grid { fill: url(#paperGrid); }
+      .ink { fill: #15140f; }
+      .mute { fill: #5a5448; }
+      .faint { fill: #8b8676; }
+      .paper { fill: #f7f1de; }
+      .warm { fill: #ece4cf; }
+      .coral { fill: #ed6f5c; }
+      .olive { fill: #6e7448; }
+      .mustard { fill: #e9b94a; }
+      .line { stroke: #15140f; stroke-width: 1; stroke-opacity: 0.16; fill: none; }
+      .line-dark { stroke: #15140f; stroke-width: 1.5; stroke-opacity: 0.5; fill: none; }
+      .line-coral { stroke: #ed6f5c; stroke-width: 2.5; stroke-linecap: round; fill: none; }
+      .dash { stroke-dasharray: 10 11; }
+      .mono { font-family: Consolas, "SF Mono", monospace; text-transform: uppercase; letter-spacing: 0.12em; }
+      .sans { font-family: "Segoe UI", system-ui, sans-serif; letter-spacing: -0.035em; }
+      .serif { font-family: Georgia, serif; font-style: italic; letter-spacing: -0.04em; }
+      .nav { font-size: 18px; font-weight: 700; }
+      .micro { font-size: 14px; fill: #8b8676; }
+      .tiny { font-size: 12px; fill: #8b8676; }
+      .node-label { font-size: 12px; fill: #15140f; text-anchor: middle; }
+      .display { font-size: 72px; font-weight: 820; fill: #15140f; }
+      .italic { fill: #ed6f5c; font-family: Georgia, serif; font-style: italic; font-weight: 400; }
+      .icon-card { fill: #f7f1de; stroke: #15140f; stroke-opacity: 0.22; stroke-width: 1; filter: url(#softShadow); }
+      .icon-card.alt { fill: #ece4cf; }
+      .icon-stroke { stroke: #15140f; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+      .icon-fill { fill: #15140f; }
+      .ghost { opacity: 0.3; }
+      .mid { opacity: 0.62; }
+      .final { opacity: 1; }
+    </style>
+  </defs>
+
+  <rect width="1920" height="1280" class="bg"/>
+  <rect width="1920" height="1280" class="grid"/>
+  <rect x="0" y="0" width="1920" height="1280" fill="url(#dotGrid)" opacity="0.14"/>
+
+  <line x1="0" y1="86" x2="1920" y2="86" class="line"/>
+  <text x="116" y="55" class="sans nav ink">Zoomicc</text>
+  <text x="218" y="55" class="serif nav coral">.</text>
+  <text x="1554" y="55" class="mono micro">pinned hero map</text>
+
+  <!-- Left hero copy remains one stable composition -->
+  <g id="hero-copy">
+    <text x="142" y="188" class="mono micro">scroll 00-100</text>
+    <text x="142" y="290" class="sans display">Automation that helps</text>
+    <text x="142" y="374" class="sans display">small teams <tspan class="italic">grow</tspan></text>
+    <text x="142" y="458" class="sans display">without adding admin<tspan class="coral">.</tspan></text>
+    <rect x="146" y="548" width="214" height="52" rx="26" fill="#15140f"/>
+    <text x="178" y="581" class="mono" font-size="14" fill="#efe7d2">WhatsApp Zoomicc</text>
+    <rect x="378" y="548" width="224" height="52" rx="26" fill="#f7f1de" stroke="#15140f" stroke-opacity="0.22"/>
+    <text x="410" y="581" class="mono" font-size="14" fill="#15140f">Automation growth</text>
+    <line x1="146" y1="690" x2="810" y2="690" class="line"/>
+    <text x="146" y="732" class="mono tiny">stable copy / moving system</text>
+  </g>
+
+  <!-- Pinned hero art -->
+  <g id="hero-art" transform="translate(1094 178)">
+    <rect x="-28" y="-28" width="714" height="714" class="paper" stroke="#15140f" stroke-opacity="0.18" filter="url(#paperShadow)"/>
+    <image x="0" y="0" width="658" height="658" href="./zoomicc-hero-growth-v2.png" preserveAspectRatio="xMidYMid slice" opacity="0.96"/>
+    <path d="M-10 -10h34M-10 -10v34M668 -10h-34M668 -10v34M-10 668h34M-10 668v-34M668 668h-34M668 668v-34" stroke="#ed6f5c" stroke-width="2.4" fill="none"/>
+    <rect x="22" y="590" width="190" height="40" fill="#efe7d2" stroke="#15140f" stroke-opacity="0.16"/>
+    <text x="42" y="616" class="mono tiny">sticky canvas</text>
+  </g>
+
+  <!-- Scroll rail -->
+  <g id="scroll-rail" transform="translate(86 148)">
+    <path d="M0 0V872" stroke="#15140f" stroke-opacity="0.22" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="7" class="coral"/>
+    <circle cx="0" cy="218" r="5" class="ink"/>
+    <circle cx="0" cy="436" r="5" class="olive"/>
+    <circle cx="0" cy="654" r="5" class="mustard"/>
+    <circle cx="0" cy="872" r="7" class="coral"/>
+    <text x="-34" y="5" class="mono tiny">0</text>
+    <text x="-46" y="223" class="mono tiny">25</text>
+    <text x="-46" y="441" class="mono tiny">50</text>
+    <text x="-46" y="659" class="mono tiny">75</text>
+    <text x="-54" y="877" class="mono tiny">100</text>
+  </g>
+
+  <!-- Motion paths: from messy edge icons into hub, then into workflow -->
+  <g id="motion-paths">
+    <path d="M930 228C1012 284 1080 348 1230 420" class="line-coral dash" opacity="0.42" marker-end="url(#arrowCoral)"/>
+    <path d="M1716 268C1604 328 1490 382 1346 444" class="line-coral dash" opacity="0.42" marker-end="url(#arrowCoral)"/>
+    <path d="M882 562C998 544 1114 518 1256 478" class="line-coral dash" opacity="0.42" marker-end="url(#arrowCoral)"/>
+    <path d="M1720 610C1582 584 1474 538 1366 488" class="line-coral dash" opacity="0.42" marker-end="url(#arrowCoral)"/>
+    <path d="M1216 882C1238 734 1268 610 1310 506" class="line-coral dash" opacity="0.38" marker-end="url(#arrowCoral)"/>
+    <path d="M1322 506C1310 704 1198 874 936 956" class="line-coral" opacity="0.9"/>
+    <path d="M936 956H1726" class="line-coral" opacity="0.95" marker-end="url(#arrowCoral)"/>
+  </g>
+
+  <!-- Central Zoomicc hub -->
+  <g id="zoomicc-hub" transform="translate(1252 412)">
+    <circle cx="80" cy="80" r="78" fill="#efe7d2" stroke="#15140f" stroke-opacity="0.24" stroke-width="1.5" filter="url(#softShadow)"/>
+    <circle cx="80" cy="80" r="54" fill="#ed6f5c" opacity="0.16"/>
+    <circle cx="80" cy="80" r="13" class="coral"/>
+    <path d="M52 58H108L54 104H112" stroke="#15140f" stroke-width="8" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+    <text x="60" y="184" class="mono tiny">hub</text>
+  </g>
+
+  <!-- Messy icon starts, with mostly visual language -->
+  <g id="start-icons" class="ghost">
+    <g transform="translate(846 190)">
+      <rect width="78" height="78" rx="22" class="icon-card"/>
+      <path d="M24 23C16 31 16 47 25 56C35 66 52 64 60 53C68 42 64 28 52 21C43 15 31 16 24 23Z" class="icon-stroke"/>
+      <path d="M24 55L18 68L33 61" class="icon-stroke"/>
+      <path d="M35 31C43 47 44 48 54 51" class="icon-stroke"/>
+    </g>
+    <g transform="translate(1696 218) rotate(6)">
+      <rect width="78" height="78" rx="22" class="icon-card alt"/>
+      <rect x="18" y="24" width="42" height="32" rx="3" class="icon-stroke"/>
+      <path d="M20 27L39 43L58 27" class="icon-stroke"/>
+    </g>
+    <g transform="translate(804 520) rotate(-5)">
+      <rect width="78" height="78" rx="22" class="icon-card"/>
+      <rect x="22" y="16" width="34" height="46" rx="3" class="icon-stroke"/>
+      <path d="M30 30H48M30 42H48M30 54H42" class="icon-stroke"/>
+    </g>
+    <g transform="translate(1690 578) rotate(5)">
+      <rect width="78" height="78" rx="22" class="icon-card"/>
+      <path d="M24 22H54L60 60H18Z" class="icon-stroke"/>
+      <path d="M30 22C30 13 48 13 48 22" class="icon-stroke"/>
+    </g>
+    <g transform="translate(1184 854) rotate(-4)">
+      <rect width="78" height="78" rx="22" class="icon-card alt"/>
+      <path d="M22 22H56V58H22Z" class="icon-stroke"/>
+      <path d="M30 32H48M30 43H48" class="icon-stroke"/>
+      <circle cx="51" cy="55" r="9" class="coral"/>
+    </g>
+  </g>
+
+  <!-- Mid states: icons have moved close to hub -->
+  <g id="mid-icons" class="mid">
+    <g transform="translate(1164 330) scale(.72)">
+      <rect width="78" height="78" rx="22" class="icon-card"/>
+      <path d="M24 23C16 31 16 47 25 56C35 66 52 64 60 53C68 42 64 28 52 21C43 15 31 16 24 23Z" class="icon-stroke"/>
+      <path d="M24 55L18 68L33 61" class="icon-stroke"/>
+      <path d="M35 31C43 47 44 48 54 51" class="icon-stroke"/>
+    </g>
+    <g transform="translate(1442 350) scale(.72)">
+      <rect width="78" height="78" rx="22" class="icon-card alt"/>
+      <rect x="18" y="24" width="42" height="32" rx="3" class="icon-stroke"/>
+      <path d="M20 27L39 43L58 27" class="icon-stroke"/>
+    </g>
+    <g transform="translate(1168 548) scale(.72)">
+      <rect width="78" height="78" rx="22" class="icon-card"/>
+      <rect x="22" y="16" width="34" height="46" rx="3" class="icon-stroke"/>
+      <path d="M30 30H48M30 42H48M30 54H42" class="icon-stroke"/>
+    </g>
+    <g transform="translate(1450 566) scale(.72)">
+      <rect width="78" height="78" rx="22" class="icon-card"/>
+      <path d="M24 22H54L60 60H18Z" class="icon-stroke"/>
+      <path d="M30 22C30 13 48 13 48 22" class="icon-stroke"/>
+    </g>
+  </g>
+
+  <!-- Final workflow strip -->
+  <g id="workflow-strip" transform="translate(232 906)">
+    <rect x="0" y="0" width="1494" height="156" fill="#f7f1de" fill-opacity="0.52" stroke="#15140f" stroke-opacity="0.18"/>
+    <path d="M80 78H1414" class="line-coral"/>
+    <g transform="translate(46 40)">
+      <circle cx="38" cy="38" r="38" class="paper" stroke="#15140f" stroke-opacity="0.24"/>
+      <path d="M18 24L31 18L45 24L58 18V53L45 60L31 54L18 60Z" class="icon-stroke"/>
+      <path d="M31 18V54M45 24V60" class="icon-stroke"/>
+      <circle cx="38" cy="39" r="5" class="coral"/>
+      <text x="38" y="108" class="mono node-label">MAP</text>
+    </g>
+    <g transform="translate(392 40)">
+      <circle cx="38" cy="38" r="38" class="warm" stroke="#15140f" stroke-opacity="0.24"/>
+      <path d="M41 14L22 42H38L33 62L55 31H40Z" fill="#ed6f5c" stroke="#15140f" stroke-width="2.4" stroke-linejoin="round"/>
+      <circle cx="21" cy="22" r="4" class="icon-fill"/>
+      <circle cx="58" cy="54" r="4" class="icon-fill"/>
+      <text x="38" y="108" class="mono node-label">TRIGGER</text>
+    </g>
+    <g transform="translate(738 40)">
+      <circle cx="38" cy="38" r="38" class="paper" stroke="#15140f" stroke-opacity="0.24"/>
+      <circle cx="38" cy="38" r="22" class="icon-stroke"/>
+      <path d="M34 26L51 38L34 50Z" fill="#15140f"/>
+      <path d="M16 38H8M68 38H60M38 16V8M38 68V60" class="icon-stroke"/>
+      <text x="38" y="108" class="mono node-label">ACTION</text>
+    </g>
+    <g transform="translate(1084 40)">
+      <circle cx="38" cy="38" r="38" class="warm" stroke="#15140f" stroke-opacity="0.24"/>
+      <circle cx="38" cy="38" r="25" class="icon-stroke"/>
+      <circle cx="38" cy="38" r="14" class="icon-stroke"/>
+      <circle cx="38" cy="38" r="5" class="coral"/>
+      <path d="M54 22L62 14M62 14H50M62 14V26" class="icon-stroke"/>
+      <text x="38" y="108" class="mono node-label">GOAL</text>
+    </g>
+  </g>
+
+  <!-- Minimal non-slide key -->
+  <g id="notes" transform="translate(146 1138)">
+    <circle cx="0" cy="0" r="7" class="coral"/>
+    <text x="22" y="5" class="mono micro">no cuts</text>
+    <path d="M188 0H300" class="line-coral" marker-end="url(#arrowCoral)"/>
+    <text x="326" y="5" class="mono micro">drift</text>
+    <circle cx="514" cy="0" r="7" class="ink"/>
+    <text x="536" y="5" class="mono micro">organize</text>
+    <circle cx="756" cy="0" r="7" class="olive"/>
+    <text x="778" y="5" class="mono micro">workflow</text>
+  </g>
+</svg>

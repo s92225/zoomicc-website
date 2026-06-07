@@ -1,0 +1,9 @@
+.hyperframes-cache/
+.od-skills/
+generated-plugin/
+*.tgz
+*.artifact.json
+.tmp-*.png
+mq*-image.png
+node_modules/
+.vercel/

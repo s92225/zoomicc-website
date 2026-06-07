@@ -1,0 +1,1394 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zoomicc — Automation for Hong Kong SMEs</title>
+  <meta name="description" content="Zoomicc helps Hong Kong SMEs turn daily operations into reliable automated workflows using Make, n8n, Agentic AI, and Microsoft Power Automate.">
+  <style>
+    :root {
+      --paper: #efe7d2;
+      --paper-warm: #ece4cf;
+      --paper-dark: #ddd2b6;
+      --ink: #15140f;
+      --ink-soft: #2a2620;
+      --ink-mute: #5a5448;
+      --ink-faint: #8b8676;
+      --coral: #ed6f5c;
+      --coral-soft: #f08e7c;
+      --mustard: #e9b94a;
+      --olive: #6e7448;
+      --bone: #f7f1de;
+      --line: rgba(21, 20, 15, 0.16);
+      --line-soft: rgba(21, 20, 15, 0.08);
+      --line-faint: rgba(21, 20, 15, 0.05);
+      --shadow: 0 30px 60px -30px rgba(21, 20, 15, 0.2);
+      --serif: "Playfair Display", "Iowan Old Style", Georgia, serif;
+      --sans: "Inter Tight", "Avenir Next", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background: var(--paper); }
+    body {
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.55;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.9;
+      mix-blend-mode: multiply;
+      background-image:
+        radial-gradient(circle at 12% 18%, rgba(106, 92, 56, 0.07), transparent 28%),
+        radial-gradient(circle at 88% 72%, rgba(106, 92, 56, 0.06), transparent 32%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.18 0 0 0 0 0.16 0 0 0 0 0.12 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: auto, auto, 240px 240px;
+    }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; }
+    .shell { position: relative; z-index: 2; }
+    .container {
+      width: min(100% - 48px, 1360px);
+      margin: 0 auto;
+      position: relative;
+    }
+    .container.wide { width: min(100% - 48px, 1480px); }
+    .side-rail {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 36px;
+      z-index: 4;
+      pointer-events: none;
+      display: grid;
+      place-items: center;
+      border-color: var(--line-faint);
+      color: var(--ink-faint);
+    }
+    .side-rail.left { left: 0; border-right: 1px solid var(--line-faint); }
+    .side-rail.right { right: 0; border-left: 1px solid var(--line-faint); }
+    .side-rail span {
+      writing-mode: vertical-rl;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.38em;
+    }
+    .side-rail.right span { transform: rotate(180deg); }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 0;
+      background: var(--paper);
+      position: relative;
+      z-index: 5;
+    }
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      white-space: nowrap;
+    }
+    .topbar b { color: var(--ink); font-weight: 600; }
+    .topbar .mid, .topbar .right { display: inline-flex; gap: 20px; align-items: center; }
+    .pulse {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: var(--coral);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse { 50% { opacity: 0.35; } }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 20px 0;
+      background: rgba(239, 231, 210, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      transform: translateY(0);
+      transition: transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1), border-color 180ms ease;
+    }
+    .nav.is-pinned { border-bottom-color: var(--line); }
+    .nav.is-hidden { transform: translateY(-100%); }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      font-family: var(--sans);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--coral);
+      background: var(--bone);
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+    .nav-links a { text-decoration: none; color: var(--ink-mute); }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      padding: 11px 17px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      color: var(--ink) !important;
+      background: var(--bone);
+    }
+
+    section { position: relative; padding: 120px 0; }
+    section.tight { padding: 90px 0; }
+    .sec-rule {
+      border-top: 1px dotted rgba(21, 20, 15, 0.34);
+      padding-top: 18px;
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 36px;
+    }
+    .roman {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-style: italic;
+      color: var(--coral);
+    }
+    .label {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .ix { color: var(--coral); }
+    .display {
+      font-family: var(--sans);
+      font-size: clamp(54px, 7.6vw, 118px);
+      line-height: 0.9;
+      letter-spacing: -0.045em;
+      font-weight: 850;
+      text-wrap: balance;
+    }
+    .display em,
+    h2 em,
+    .word em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+    }
+    .dot { color: var(--coral); }
+    .lead {
+      max-width: 760px;
+      color: var(--ink-mute);
+      font-size: clamp(18px, 1.7vw, 24px);
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+    .btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: var(--sans);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      transition: translate 160ms ease, background 160ms ease;
+    }
+    .btn:hover { translate: 0 -2px; }
+    .btn-primary { background: var(--ink); color: var(--paper); }
+    .btn-secondary { border: 1px solid var(--line); color: var(--ink); background: rgba(247, 241, 222, 0.54); }
+    .btn-whatsapp { background: #1f7a4c; color: #f7f1de; border: 1px solid rgba(21, 20, 15, 0.2); }
+
+    .hero { min-height: calc(100vh - 106px); padding-top: 88px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.82fr);
+      gap: clamp(42px, 6vw, 86px);
+      align-items: end;
+      margin-top: 44px;
+    }
+    .hero-copy { display: grid; gap: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+      max-width: 710px;
+    }
+    .stat {
+      min-height: 142px;
+      border: 1px dotted rgba(21, 20, 15, 0.4);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: rgba(247, 241, 222, 0.28);
+    }
+    .ring {
+      font-family: var(--sans);
+      font-size: 34px;
+      font-weight: 850;
+      line-height: 1;
+    }
+    .stat-label {
+      display: block;
+      margin-top: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .hero-foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 26px;
+      border-top: 1px solid var(--line-soft);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+    }
+    .hero-art {
+      position: relative;
+      aspect-ratio: 1;
+      min-height: 420px;
+      padding: 24px;
+      background: var(--bone);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .hero-art img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.92) contrast(1.02); }
+    .hero-art::after {
+      content: "01 / SME OPERATIONS";
+      position: absolute;
+      left: 24px;
+      bottom: 24px;
+      padding: 8px 11px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.13em;
+    }
+    .corner {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-color: var(--coral);
+      z-index: 2;
+    }
+    .corner.tl { left: 12px; top: 12px; border-left: 1px solid; border-top: 1px solid; }
+    .corner.tr { right: 12px; top: 12px; border-right: 1px solid; border-top: 1px solid; }
+    .corner.bl { left: 12px; bottom: 12px; border-left: 1px solid; border-bottom: 1px solid; }
+    .corner.br { right: 12px; bottom: 12px; border-right: 1px solid; border-bottom: 1px solid; }
+
+    .wire {
+      padding: 0;
+      border-block: 1px solid var(--line);
+      overflow: hidden;
+      background: rgba(247, 241, 222, 0.26);
+    }
+    .wire-track {
+      display: flex;
+      gap: 34px;
+      padding: 16px 0;
+      width: max-content;
+      animation: ticker 36s linear infinite;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+
+    .growth-lab {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(247, 241, 222, 0.24), rgba(239, 231, 210, 0));
+    }
+    .growth-board {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.52fr) minmax(0, 1fr);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: stretch;
+    }
+    .growth-copy {
+      border-top: 1px dotted rgba(21, 20, 15, 0.34);
+      padding-top: 18px;
+      display: grid;
+      align-content: space-between;
+      gap: 28px;
+    }
+    .scenario-list { display: grid; gap: 10px; margin-top: 18px; }
+    .scenario-btn {
+      width: 100%;
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      text-align: left;
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.48);
+      padding: 12px;
+      cursor: pointer;
+      color: var(--ink);
+    }
+    .scenario-btn.is-active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .scenario-btn b { font-family: var(--sans); font-size: 15px; letter-spacing: -0.01em; }
+    .scenario-btn span:first-child,
+    .scenario-btn small {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: currentColor;
+      opacity: 0.72;
+    }
+    .growth-canvas {
+      min-height: 560px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(21, 20, 15, 0.05) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(21, 20, 15, 0.05) 1px, transparent 1px),
+        rgba(247, 241, 222, 0.5);
+      background-size: 72px 72px;
+      padding: clamp(18px, 3vw, 34px);
+      position: relative;
+      overflow: hidden;
+    }
+    .growth-canvas::after {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border: 1px dotted rgba(21, 20, 15, 0.22);
+      pointer-events: none;
+    }
+    .flow-map {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .flow-node {
+      min-height: 126px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      padding: 16px;
+      display: grid;
+      align-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .flow-node::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      top: 14px;
+      height: 2px;
+      background: var(--coral);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 480ms ease;
+    }
+    .flow-node.is-lit::before { transform: scaleX(1); }
+    .flow-node small {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .flow-node b {
+      font-family: var(--sans);
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-top: 26px;
+    }
+    .growth-chart {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 0.7fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .metric-stack { display: grid; gap: 12px; }
+    .metric { border-top: 1px solid var(--line); padding-top: 12px; }
+    .metric strong {
+      display: block;
+      font-family: var(--sans);
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 0.9;
+      letter-spacing: -0.055em;
+    }
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .bar-field {
+      min-height: 250px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      align-items: end;
+      border-left: 1px dotted rgba(21, 20, 15, 0.28);
+      border-bottom: 1px dotted rgba(21, 20, 15, 0.28);
+      padding: 18px 14px 0;
+    }
+    .growth-bar {
+      min-height: 26px;
+      background: var(--ink);
+      border-top: 6px solid var(--coral);
+      transition: height 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    .flow-caption {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      max-width: 760px;
+      color: var(--ink-mute);
+      font-size: 15px;
+    }
+    .growth-reference {
+      position: relative;
+      z-index: 1;
+      margin-top: 22px;
+      border: 1px solid rgba(21, 20, 15, 0.22);
+      background: var(--paper);
+      padding: 10px;
+    }
+    .growth-reference img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.92) contrast(1.02);
+    }
+    .growth-reference span {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.96fr) minmax(320px, 0.72fr);
+      gap: clamp(42px, 6vw, 86px);
+      align-items: start;
+    }
+    .about-copy, .cap-copy, .testimonial-copy, .cta-copy { display: grid; gap: 24px; }
+    h2 {
+      font-family: var(--sans);
+      font-size: clamp(40px, 4.6vw, 68px);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      text-wrap: balance;
+      font-weight: 850;
+    }
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .note {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      color: var(--ink-mute);
+      font-size: 15px;
+    }
+    .note b {
+      display: block;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .founder-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .founder-card {
+      min-height: 210px;
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.48);
+      padding: 22px;
+      display: grid;
+      align-content: space-between;
+    }
+    .founder-card strong {
+      font-family: var(--sans);
+      font-size: 30px;
+      letter-spacing: -0.04em;
+      line-height: 0.96;
+    }
+    .founder-card p { margin-top: 12px; color: var(--ink-mute); }
+    .experience-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 22px;
+      padding-top: 14px;
+      border-top: 1px dotted rgba(21, 20, 15, 0.28);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .art-card {
+      position: relative;
+      background: var(--bone);
+      border: 1px solid var(--line);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .art-card img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+    .art-caption {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 34px;
+    }
+    .card {
+      min-height: 278px;
+      background: rgba(247, 241, 222, 0.46);
+      border: 1px solid var(--line);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .num {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      color: var(--coral);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+    }
+    .tag { color: var(--ink-faint); }
+    .card h3, .lab h3, .method-step h3 {
+      font-family: var(--sans);
+      font-size: 24px;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      margin-top: 34px;
+    }
+    .card p, .lab p, .method-step p {
+      margin-top: 16px;
+      color: var(--ink-mute);
+      font-size: 15px;
+    }
+
+    .labs-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.86fr) auto;
+      gap: 32px;
+      align-items: end;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+    .pill {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: transparent;
+      padding: 8px 13px;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .pill.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .labs-grid {
+      margin-top: 44px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .lab {
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.42);
+      padding: 12px 12px 18px;
+      transition: opacity 180ms ease, scale 180ms ease;
+    }
+    .lab.is-muted { opacity: 0.34; scale: 0.985; }
+    .lab-img { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--paper-dark); }
+    .lab-img img { width: 100%; height: 100%; object-fit: cover; }
+    .badge {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 1;
+      padding: 6px 8px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .num-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .method-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(260px, 0.42fr);
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 44px;
+    }
+    .method-aside {
+      border-left: 1px dotted rgba(21, 20, 15, 0.35);
+      padding-left: 22px;
+      color: var(--ink-mute);
+      font-size: 18px;
+    }
+    .progress-shell {
+      margin-top: 20px;
+      height: 4px;
+      background: var(--line-soft);
+      overflow: hidden;
+    }
+    .progress-bar {
+      width: 25%;
+      height: 100%;
+      background: var(--coral);
+      transition: width 240ms ease;
+    }
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .method-step {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      cursor: pointer;
+    }
+    .method-thumb {
+      margin-top: 18px;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 1px solid var(--line-soft);
+      filter: saturate(0.88);
+    }
+    .method-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .method-step.active .num,
+    .method-step.active h3 { color: var(--coral); }
+
+    .work {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 86px 0;
+      overflow: hidden;
+    }
+    .work .roman, .work .dot, .work em { color: var(--coral-soft); }
+    .work .label, .work p { color: rgba(239, 231, 210, 0.64); }
+    .work-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.74fr) repeat(2, minmax(260px, 0.44fr));
+      gap: 34px;
+      align-items: center;
+    }
+    .work-card {
+      display: block;
+      text-decoration: none;
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid rgba(239, 231, 210, 0.2);
+      padding: 14px;
+      transform: rotate(-2.4deg);
+      box-shadow: 0 34px 80px -44px #000;
+    }
+    .work-card.alt { transform: rotate(2.2deg) translateY(24px); }
+    .work-card img { aspect-ratio: 3 / 4; width: 100%; object-fit: cover; }
+    .work-card h3 { font-family: var(--sans); font-size: 26px; letter-spacing: -0.03em; margin: 14px 0 8px; }
+    .small-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--coral);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .quote {
+      font-family: var(--sans);
+      font-size: clamp(36px, 5vw, 72px);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+      text-wrap: balance;
+    }
+    .author {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-top: 24px;
+      color: var(--ink-mute);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .author::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--coral);
+    }
+    .partners {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 36px;
+    }
+    .partner {
+      min-height: 82px;
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      color: var(--ink-mute);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 14px;
+      background: rgba(247, 241, 222, 0.38);
+    }
+
+    .cta-panel {
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.45);
+      padding: clamp(28px, 5vw, 62px);
+      display: grid;
+      grid-template-columns: minmax(0, 0.86fr) minmax(280px, 0.45fr);
+      gap: 42px;
+      align-items: center;
+    }
+    .cta-art { position: relative; }
+    .cta-art img { aspect-ratio: 1; width: 100%; object-fit: cover; border: 1px solid var(--line); }
+    .ribbon {
+      position: absolute;
+      right: -16px;
+      bottom: 22px;
+      transform: rotate(-3deg);
+      background: var(--coral);
+      color: var(--paper);
+      padding: 10px 16px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    footer {
+      padding: 76px 0 34px;
+      border-top: 1px solid var(--line);
+    }
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(4, 1fr);
+      gap: 30px;
+      color: var(--ink-mute);
+      font-size: 14px;
+    }
+    footer h4 {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    footer a { display: block; text-decoration: none; margin: 8px 0; color: var(--ink-mute); }
+    .word {
+      margin-top: 70px;
+      font-family: var(--sans);
+      font-size: clamp(66px, 13vw, 190px);
+      line-height: 0.82;
+      letter-spacing: -0.07em;
+      font-weight: 900;
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      translate: 0 28px;
+      transition: opacity 680ms ease, translate 760ms cubic-bezier(0.22, 0.61, 0.36, 1), scale 760ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    [data-reveal="left"] { translate: -36px 0; }
+    [data-reveal="right"] { translate: 36px 0; }
+    [data-reveal="scale"] { translate: 0 0; scale: 0.96; }
+    [data-reveal="rise-lg"] { translate: 0 64px; scale: 0.985; }
+    [data-reveal][data-revealed="true"] { opacity: 1; translate: 0 0; scale: 1; }
+    .cards > .card:nth-child(2), .labs-grid > .lab:nth-child(2), .method-grid > .method-step:nth-child(2) { --reveal-delay: 90ms; }
+    .cards > .card:nth-child(3), .labs-grid > .lab:nth-child(3), .method-grid > .method-step:nth-child(3) { --reveal-delay: 180ms; }
+    .cards > .card:nth-child(4), .labs-grid > .lab:nth-child(4), .method-grid > .method-step:nth-child(4) { --reveal-delay: 270ms; }
+    .labs-grid > .lab:nth-child(5) { --reveal-delay: 360ms; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      [data-reveal] { opacity: 1 !important; translate: 0 0 !important; scale: 1 !important; }
+    }
+    @media (max-width: 1080px) {
+      .hero-grid, .split, .cta-panel, .work-grid { grid-template-columns: 1fr; }
+      .growth-board, .growth-chart { grid-template-columns: 1fr; }
+      .hero-art { min-height: 0; max-width: 620px; }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .labs-grid { grid-template-columns: repeat(3, 1fr); }
+      .flow-map { grid-template-columns: repeat(2, 1fr); }
+      .method-grid { grid-template-columns: repeat(2, 1fr); }
+      .foot-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+      .work-card, .work-card.alt { transform: none; }
+    }
+    @media (max-width: 760px) {
+      .side-rail { display: none; }
+      .container, .container.wide { width: min(100% - 32px, 100%); }
+      .topbar .mid, .topbar .right span:not(:first-child), .nav-links a:not(.nav-cta) { display: none; }
+      .topbar-inner { font-size: 9px; gap: 12px; }
+      .nav-inner { gap: 12px; }
+      .brand { font-size: 16px; }
+      .sec-rule { grid-template-columns: 1fr; gap: 18px; }
+      section { padding: 78px 0; }
+      .hero { padding-top: 54px; }
+      .display { font-size: clamp(48px, 15vw, 74px); }
+      .hero-stats, .note-grid, .cards, .labs-grid, .method-grid, .partners, .foot-grid { grid-template-columns: 1fr; }
+      .founder-grid, .flow-map { grid-template-columns: 1fr; }
+      .stat { border-radius: 18px; min-height: 112px; }
+      .hero-foot, .labs-head, .method-intro { grid-template-columns: 1fr; display: grid; }
+      .pills { justify-content: flex-start; }
+      .cta-panel { padding: 24px; }
+      .word { font-size: clamp(64px, 22vw, 116px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="side-rail left"><span>Zoomicc Field Notes</span></div>
+  <div class="side-rail right"><span>Hong Kong SME Automation</span></div>
+  <div class="shell">
+    <div class="topbar">
+      <div class="container topbar-inner">
+        <span><span class="pulse"></span><b>Vol. 01</b> Operational Futures</span>
+        <span class="mid"><span>Hong Kong</span><span>Make / n8n / Agentic AI</span></span>
+        <span class="right"><span>EN</span><span>2026</span></span>
+      </div>
+    </div>
+
+    <nav class="nav" id="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="#top" aria-label="Zoomicc home"><span class="brand-mark">Z</span><span>Zoomicc</span></a>
+        <div class="nav-links" aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#capabilities">Services</a>
+          <a href="#lab">Problems</a>
+          <a href="#method">Method</a>
+          <a href="#contact" class="nav-cta">Start audit</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero" id="top" data-od-id="hero">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">I.</span>
+            <div class="hero-grid">
+              <div class="hero-copy">
+                <span class="label" data-reveal="">HK automation agency <span class="ix">/ No. 01</span></span>
+                <h1 class="display" data-reveal="">Automation that helps small teams <em>grow</em> without adding admin<span class="dot">.</span></h1>
+                <p class="lead" data-reveal="">Zoomicc helps Hong Kong SME owners increase business efficiency by setting up automated business flows across sales, operations, ecommerce, reporting, and customer follow-up. We build with Make, n8n, Agentic AI, and Microsoft Power Automate.</p>
+                <div class="hero-actions" data-reveal="">
+                  <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Zoomicc%2C%20I%20want%20to%20audit%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp Zoomicc</a>
+                  <a class="btn btn-secondary" href="#growth">See automation growth</a>
+                </div>
+                
+                <div class="hero-foot" data-reveal="">
+                  <span>Agent T + Agent M</span>
+                  <span>Clear systems / no AI theatre</span>
+                </div>
+              </div>
+              <div class="hero-art" data-reveal="scale">
+                <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+                <img src="./assets/zoomicc-hero-growth-v2.png" alt="Original editorial collage showing Hong Kong SME operations turning into automated business growth">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wire" aria-label="Workflow ticker">
+        <div class="wire-track">
+          <span>Lead capture -&gt; WhatsApp reply -&gt; CRM update -&gt; invoice draft -&gt; approval queue -&gt; customer follow-up -&gt; stock alert -&gt; owner report -&gt;</span>
+          <span>Lead capture -&gt; WhatsApp reply -&gt; CRM update -&gt; invoice draft -&gt; approval queue -&gt; customer follow-up -&gt; stock alert -&gt; owner report -&gt;</span>
+        </div>
+      </section>
+
+
+      <section class="growth-lab" id="growth" data-od-id="growth-lab">
+        <div class="container wide">
+          <div class="growth-board">
+            <div class="growth-copy" data-reveal="">
+              <div>
+                <span class="label">Interactive automation frame <span class="ix">/ Hyperframe study</span></span>
+                <h2 style="margin-top: 24px;">Click a workflow. Watch the business system become <em>lighter</em><span class="dot">.</span></h2>
+                <p class="lead" style="margin-top: 20px;">A small automation should change visible operating pressure: fewer missed leads, faster admin, clearer owner decisions. This frame shows the shape of that change without pretending every business has the same numbers.</p>
+              </div>
+              <div class="scenario-list" aria-label="Automation scenarios">
+                <button class="scenario-btn is-active" type="button" data-scenario="lead"><span>01</span><b>Lead follow-up</b><small>Revenue</small></button>
+                <button class="scenario-btn" type="button" data-scenario="order"><span>02</span><b>Order operations</b><small>Ecommerce</small></button>
+                <button class="scenario-btn" type="button" data-scenario="owner"><span>03</span><b>Owner reporting</b><small>Control</small></button>
+              </div>
+            </div>
+            <div class="growth-canvas" data-reveal="scale" aria-live="polite">
+              <div class="flow-map">
+                <div class="flow-node is-lit"><small id="node-1-label">Capture</small><b id="node-1">WhatsApp, form, ad lead</b></div>
+                <div class="flow-node is-lit"><small id="node-2-label">Route</small><b id="node-2">Assign owner and SLA</b></div>
+                <div class="flow-node is-lit"><small id="node-3-label">Act</small><b id="node-3">Draft reply and reminder</b></div>
+                <div class="flow-node is-lit"><small id="node-4-label">Measure</small><b id="node-4">Daily lead status</b></div>
+              </div>
+              <div class="growth-chart">
+                <div class="metric-stack">
+                  <div class="metric"><strong id="metric-1">3h</strong><span id="metric-1-label">reply lag reduced</span></div>
+                  <div class="metric"><strong id="metric-2">1</strong><span id="metric-2-label">owner per lead</span></div>
+                  <div class="metric"><strong id="metric-3">6</strong><span id="metric-3-label">weekly touchpoints</span></div>
+                </div>
+                <div class="bar-field" aria-label="Illustrative business growth bars">
+                  <div class="growth-bar" style="height: 34%;"></div>
+                  <div class="growth-bar" style="height: 42%;"></div>
+                  <div class="growth-bar" style="height: 54%;"></div>
+                  <div class="growth-bar" style="height: 68%;"></div>
+                  <div class="growth-bar" style="height: 79%;"></div>
+                  <div class="growth-bar" style="height: 88%;"></div>
+                </div>
+              </div>
+              <p class="flow-caption" id="flow-caption">Automation is not a dashboard decoration. It turns scattered enquiry moments into owned next actions, then gives the owner a clear view of what is still open.</p>
+              <figure class="growth-reference">
+                <img src="./assets/zoomicc-workflow-method.png" alt="Original editorial workflow map showing enquiry, routing, automation, and owner dashboard">
+                <span><b>Workflow map</b><b>Original collage</b></span>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="about" id="about" data-od-id="about">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">II.</span>
+            <div class="split">
+              <div class="about-copy" data-reveal="">
+                <span class="label">About Zoomicc <span class="ix">/ No. 02</span></span>
+                <h2>Built by operators who know where SME work gets <em>stuck</em><span class="dot">.</span></h2>
+                <p class="lead">Zoomicc is led by Agent T and Agent M: a marketing operator and an automation/ecommerce operator. The work is deliberately practical: map the messy business flow, automate the repeatable parts, keep humans in control of judgment.</p>
+                <div class="founder-grid">
+                  <article class="founder-card">
+                    <div>
+                      <span class="label">Agent T</span>
+                      <strong>Crypto marketing operator</strong>
+                      <p>8 years of campaign, community, funnel, and growth operations experience. Focus: lead quality, customer journeys, conversion loops, and follow-up cadence.</p>
+                    </div>
+                    <div class="experience-row"><span>08 years</span><span>Marketing systems</span></div>
+                  </article>
+                  <article class="founder-card">
+                    <div>
+                      <span class="label">Agent M</span>
+                      <strong>AI automation and ecommerce expert</strong>
+                      <p>10 years running ecommerce operations. Focus: order flow, fulfilment handoffs, admin reduction, AI-assisted service, and tool integration.</p>
+                    </div>
+                    <div class="experience-row"><span>10 years</span><span>Ecommerce ops</span></div>
+                  </article>
+                </div>
+              </div>
+              <div class="art-card" data-reveal="right">
+                <img src="./assets/zoomicc-about-agents.png" alt="Original editorial collage showing Agent T and Agent M operator expertise">
+                <div class="art-caption"><span>02 / Audit desk</span><span>Paper system</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="capabilities" id="capabilities" data-od-id="capabilities">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">III.</span>
+            <div>
+              <div class="split">
+                <div class="art-card" data-reveal="left">
+                  <img src="./assets/zoomicc-service-map.png" alt="Original editorial collage showing SME automation service modules">
+                  <div class="art-caption"><span>03 / Capability map</span><span>Systems layer</span></div>
+                </div>
+                <div class="cap-copy" data-reveal="">
+                  <span class="label">Offer services <span class="ix">· Nº 03</span></span>
+                  <h2>Four services for <em>practical</em> business automation<span class="dot">.</span></h2>
+                  <p class="lead">Each offer can stand alone, but the useful work happens when they connect: intake becomes clean data, clean data triggers decisions, and decisions become customer-facing action.</p>
+                </div>
+              </div>
+              <div class="cards">
+                <article class="card" data-reveal=""><div><div class="num">01<span class="tag">Intake</span></div><h3>Lead and message routing</h3><p>Capture web forms, WhatsApp enquiries, email requests, and ad leads into one queue with assignment, SLA, and follow-up rules.</p></div></article>
+                <article class="card" data-reveal=""><div><div class="num">02<span class="tag">Operations</span></div><h3>Order and admin flows</h3><p>Generate invoices, update inventory, reconcile sheets, notify teams, and reduce the repetitive admin hidden inside every sale.</p></div></article>
+                <article class="card" data-reveal=""><div><div class="num">03<span class="tag">AI agents</span></div><h3>Classification and drafting</h3><p>Use Agentic AI for tagging, summarising, routing, drafting replies, preparing quotes, and escalating edge cases to humans.</p></div></article>
+                <article class="card" data-reveal=""><div><div class="num">04<span class="tag">Reporting</span></div><h3>Daily operating visibility</h3><p>Produce lightweight dashboards and daily briefs so owners can see bottlenecks before the team loses another afternoon.</p></div></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="labs" id="lab" data-od-id="labs">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">IV.</span>
+            <div>
+              <div class="labs-head">
+                <div data-reveal="">
+                  <span class="label">Problem solving <span class="ix">· Nº 04</span></span>
+                  <h2 style="margin-top: 28px;">Four bottlenecks Zoomicc turns into <em>managed</em> systems<span class="dot">.</span></h2>
+                </div>
+                <div class="pills" data-reveal="right" aria-label="Filter workflow cards">
+                  <button class="pill active" data-filter="all">All</button>
+                  <button class="pill" data-filter="sales">Sales</button>
+                  <button class="pill" data-filter="admin">Admin</button>
+                  <button class="pill" data-filter="cx">CX</button>
+                  <button class="pill" data-filter="reporting">Reports</button>
+                </div>
+              </div>
+              <div class="labs-grid">
+                <article class="lab" data-reveal="" data-kind="sales"><div class="lab-img"><span class="badge">Sales</span><img src="./assets/zoomicc-problem-map.png" alt="Original editorial collage for missed lead follow-up problems"></div><div class="num-row"><span>Nº 01</span><span>Problem</span></div><h3>Leads vanish between apps</h3><p>WhatsApp, forms, email, and ad leads arrive everywhere. Zoomicc creates one intake lane with owner, SLA, and next action.</p></article>
+                <article class="lab" data-reveal="" data-kind="admin"><div class="lab-img"><span class="badge">Admin</span><img src="./assets/zoomicc-service-map.png" alt="Original editorial collage for manual admin and order operations"></div><div class="num-row"><span>Nº 02</span><span>Problem</span></div><h3>Admin repeats after every sale</h3><p>Invoices, stock sheets, courier updates, and payment notes become a controlled sequence instead of manual copy-paste.</p></article>
+                <article class="lab" data-reveal="" data-kind="cx"><div class="lab-img"><span class="badge">CX</span><img src="./assets/zoomicc-workflow-method.png" alt="Original editorial collage for customer message triage workflows"></div><div class="num-row"><span>Nº 03</span><span>Problem</span></div><h3>Messages need triage first</h3><p>AI tags intent, urgency, product line, and handoff owner so humans reply faster with context already prepared.</p></article>
+                <article class="lab" data-reveal="" data-kind="reporting"><div class="lab-img"><span class="badge">Reports</span><img src="./assets/zoomicc-testimonial-trust.png" alt="Original editorial collage for owner reporting and operating visibility"></div><div class="num-row"><span>Nº 04</span><span>Problem</span></div><h3>Owners discover issues too late</h3><p>A daily operating brief surfaces open tasks, stuck orders, urgent messages, and bottlenecks before the day is lost.</p></article>
+                <aside class="lab" data-reveal="scale"><div class="lab-img"><span class="badge">Index</span><img src="./assets/zoomicc-hero-growth-v2.png" alt="Original editorial collage for Zoomicc problem index"></div><div class="num-row"><span>Plate</span><span>Editorial</span></div><h3>One process, one first build</h3><p>The first automation starts with the workflow causing the most visible drag.</p></aside>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="method" id="method" data-od-id="method">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">V.</span>
+            <div>
+              <div class="method-intro">
+                <div data-reveal="">
+                  <span class="label">Workflow <span class="ix">· Nº 05</span></span>
+                  <h2 style="margin-top: 28px;">A four-step workflow from <em>messy handoff</em> to monitored system<span class="dot">.</span></h2>
+                </div>
+                <div class="method-aside" data-reveal="right">
+                  <p>Click each step to see the build progress. The same four-stage loop is used for small fixes and full operating systems.</p>
+                  <div class="progress-shell" aria-hidden="true"><div class="progress-bar" id="method-progress"></div></div>
+                </div>
+              </div>
+              <div class="method-grid">
+                <article class="method-step active" data-reveal="" data-step="1"><div class="num">01</div><h3>Audit</h3><p>Pick one painful process and map the trigger, owner, data source, exception, and desired customer response.</p><div class="method-thumb"><img src="./assets/zoomicc-workflow-method.png" alt="Original workflow collage: audit stage"></div></article>
+                <article class="method-step" data-reveal="" data-step="2"><div class="num">02</div><h3>Wire</h3><p>Connect the first Make, n8n, Power Automate, or AI-agent flow around the systems your team already uses.</p><div class="method-thumb"><img src="./assets/zoomicc-service-map.png" alt="Original workflow collage: wiring automation systems"></div></article>
+                <article class="method-step" data-reveal="" data-step="3"><div class="num">03</div><h3>Guard</h3><p>Add logs, fallback alerts, approval gates, and human review points so the automation is safe to run daily.</p><div class="method-thumb"><img src="./assets/zoomicc-problem-map.png" alt="Original workflow collage: safety checks and exception handling"></div></article>
+                <article class="method-step" data-reveal="" data-step="4"><div class="num">04</div><h3>Operate</h3><p>Hand over the flow diagram, train the team, and keep a maintenance rhythm for changes, errors, and improvements.</p><div class="method-thumb"><img src="./assets/zoomicc-testimonial-trust.png" alt="Original workflow collage: daily operation and trust"></div></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tight" data-od-id="work">
+        <div class="work">
+          <div class="container wide">
+            <div class="sec-rule">
+              <span class="roman">VI.</span>
+              <div class="work-grid">
+                <div data-reveal="">
+                  <span class="label">Mock case studies <span class="ix">/ No. 06</span></span>
+                  <h2>Two mock cases to show the <em>shape</em> of the work<span class="dot">.</span></h2>
+                  <p class="lead" style="margin-top: 22px;">These are placeholder cases for the first pass. They show the kind of business flow Zoomicc can build; real client details can replace them later.</p>
+                </div>
+                <a class="work-card" href="#contact" data-reveal="">
+                  <span class="small-label">Mock case 01</span>
+                  <img src="./assets/zoomicc-case-sales-followup.png" alt="Original editorial collage for sales follow-up mock case study">
+                  <h3>Local service company</h3>
+                  <p>Website enquiries and WhatsApp leads become one assigned pipeline with reminders, quote drafts, and owner visibility.</p>
+                </a>
+                <a class="work-card alt" href="#contact" data-reveal="">
+                  <span class="small-label">Mock case 02</span>
+                  <img src="./assets/zoomicc-case-ecommerce-ops.png" alt="Original editorial collage for ecommerce operations mock case study">
+                  <h3>Small ecommerce brand</h3>
+                  <p>Shopify orders, stock notes, invoices, courier updates, and customer messages move through one monitored workflow.</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="testimonial" data-od-id="testimonial">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">VII.</span>
+            <div class="split">
+              <div class="testimonial-copy" data-reveal="">
+                <span class="label">Testimonial <span class="ix">· Nº 07</span></span>
+                <p class="quote">“Zoomicc made our follow-up feel calm: the team knew who owned each request, what was waiting, and what had already moved.”</p>
+                <div class="author">Pilot client note, Hong Kong SME</div>
+                <div class="partners" aria-label="Tool ecosystem">
+                  <div class="partner" data-reveal="">Make</div>
+                  <div class="partner" data-reveal="">n8n</div>
+                  <div class="partner" data-reveal="">Agentic AI</div>
+                  <div class="partner" data-reveal="">Power Automate</div>
+                  <div class="partner" data-reveal="">Microsoft 365</div>
+                </div>
+              </div>
+              <div class="art-card" data-reveal="right">
+                <img src="./assets/zoomicc-testimonial-trust.png" alt="Original editorial collage for testimonial and operating trust">
+                <div class="art-caption"><span>07 / Operating note</span><span>Human in loop</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="contact" data-od-id="cta">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">VIII.</span>
+            <div class="cta-panel">
+              <div class="cta-copy" data-reveal="">
+                <span class="label">Contact us <span class="ix">/ No. 08</span></span>
+                <h2>Send one messy workflow on <em>WhatsApp</em><span class="dot">.</span></h2>
+                <p class="lead">Tell us the process that wastes the most time: lead follow-up, order admin, quoting, reporting, approvals, or customer service. Zoomicc will map a practical first automation path.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Zoomicc%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">Start on WhatsApp</a>
+              </div>
+              <div class="cta-art" data-reveal="right">
+                <img src="./assets/zoomicc-whatsapp-cta.png" alt="Original editorial collage for Zoomicc WhatsApp consultation call to action">
+                <div class="ribbon">ZOOMICC · FIN.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="foot-grid">
+          <div>
+            <h4>Zoomicc</h4>
+            <p>Automation systems for Hong Kong SMEs. Built around operational reality, not platform hype.</p>
+          </div>
+          <div><h4>Pages</h4><a href="#about">About</a><a href="#capabilities">Services</a><a href="#lab">Problems</a></div>
+          <div><h4>Stacks</h4><a href="#capabilities">Make</a><a href="#capabilities">n8n</a><a href="#capabilities">Power Automate</a></div>
+          <div><h4>Focus</h4><a href="#lab">Lead flow</a><a href="#lab">Ecommerce ops</a><a href="#lab">AI routing</a></div>
+          <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Zoomicc%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="#contact">Audit request</a></div>
+        </div>
+        <div class="word" data-reveal="rise-lg">Work <em>flows</em>.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var revealItems = document.querySelectorAll("[data-reveal]:not([data-revealed])");
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        revealItems.forEach(function (el) { el.dataset.revealed = "true"; });
+      } else if ("IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.dataset.revealed = "true";
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+        revealItems.forEach(function (el) { observer.observe(el); });
+      } else {
+        revealItems.forEach(function (el) { el.dataset.revealed = "true"; });
+      }
+
+      var nav = document.getElementById("nav");
+      var lastY = window.scrollY;
+      window.addEventListener("scroll", function () {
+        var y = window.scrollY;
+        nav.classList.toggle("is-pinned", y > 24);
+        nav.classList.toggle("is-hidden", y > 180 && y > lastY);
+        lastY = y;
+      }, { passive: true });
+
+      var pills = Array.prototype.slice.call(document.querySelectorAll(".pill"));
+      var labs = Array.prototype.slice.call(document.querySelectorAll(".lab"));
+      pills.forEach(function (pill) {
+        pill.addEventListener("click", function () {
+          var filter = pill.dataset.filter;
+          pills.forEach(function (p) { p.classList.toggle("active", p === pill); });
+          labs.forEach(function (lab) {
+            lab.classList.toggle("is-muted", filter !== "all" && lab.dataset.kind !== filter);
+          });
+        });
+      });
+
+      var methodSteps = Array.prototype.slice.call(document.querySelectorAll(".method-step"));
+      var progress = document.getElementById("method-progress");
+      methodSteps.forEach(function (step) {
+        step.addEventListener("click", function () {
+          var current = Number(step.dataset.step || 1);
+          methodSteps.forEach(function (s) { s.classList.toggle("active", s === step); });
+          progress.style.width = (current * 25) + "%";
+        });
+      });
+
+      var scenarios = {
+        lead: {
+          nodes: [
+            ["Capture", "WhatsApp, form, ad lead"],
+            ["Route", "Assign owner and SLA"],
+            ["Act", "Draft reply and reminder"],
+            ["Measure", "Daily lead status"]
+          ],
+          metrics: [["3h", "reply lag reduced"], ["1", "owner per lead"], ["6", "weekly touchpoints"]],
+          bars: [34, 42, 54, 68, 79, 88],
+          caption: "Automation is not a dashboard decoration. It turns scattered enquiry moments into owned next actions, then gives the owner a clear view of what is still open."
+        },
+        order: {
+          nodes: [
+            ["Order", "Shopify or POS sale"],
+            ["Admin", "Invoice and stock update"],
+            ["Notify", "Courier and customer message"],
+            ["Exception", "Flag missing data"]
+          ],
+          metrics: [["4", "manual handoffs removed"], ["1", "shared order record"], ["24h", "cleaner fulfilment view"]],
+          bars: [28, 36, 49, 63, 76, 84],
+          caption: "Order automation protects the margin hidden inside admin work: fewer duplicate entries, fewer missed updates, and cleaner fulfilment visibility."
+        },
+        owner: {
+          nodes: [
+            ["Collect", "Sales, ops, service signals"],
+            ["Summarise", "AI daily operating brief"],
+            ["Escalate", "Open risks and stuck tasks"],
+            ["Decide", "Owner action list"]
+          ],
+          metrics: [["1", "daily owner brief"], ["4", "risk categories"], ["0", "spreadsheet chase"]],
+          bars: [31, 39, 47, 58, 72, 91],
+          caption: "Owner reporting turns scattered team updates into a short operating brief, so decisions happen before small issues become daily firefighting."
+        }
+      };
+      var scenarioButtons = Array.prototype.slice.call(document.querySelectorAll(".scenario-btn"));
+      var bars = Array.prototype.slice.call(document.querySelectorAll(".growth-bar"));
+      function paintScenario(key) {
+        var data = scenarios[key] || scenarios.lead;
+        data.nodes.forEach(function (node, i) {
+          document.getElementById("node-" + (i + 1) + "-label").textContent = node[0];
+          document.getElementById("node-" + (i + 1)).textContent = node[1];
+        });
+        data.metrics.forEach(function (metric, i) {
+          document.getElementById("metric-" + (i + 1)).textContent = metric[0];
+          document.getElementById("metric-" + (i + 1) + "-label").textContent = metric[1];
+        });
+        bars.forEach(function (bar, i) { bar.style.height = data.bars[i] + "%"; });
+        document.getElementById("flow-caption").textContent = data.caption;
+      }
+      scenarioButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          scenarioButtons.forEach(function (item) { item.classList.toggle("is-active", item === button); });
+          paintScenario(button.dataset.scenario);
+        });
+      });
+
+    })();
+  </script>
+
+
+
+</body></html>
