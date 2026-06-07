@@ -7,3 +7,5 @@ generated-plugin/
 mq*-image.png
 node_modules/
 .vercel/
+
+.vercel
