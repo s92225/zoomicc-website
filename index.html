@@ -2,7 +2,7 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zoomicc — Automation for Hong Kong SMEs</title>
+  <title>Zoomicc - Automation for Hong Kong SMEs</title>
   <meta name="description" content="Zoomicc helps Hong Kong SMEs turn daily operations into reliable automated workflows using Make, n8n, Agentic AI, and Microsoft Power Automate.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23efe7d2'/%3E%3Ccircle cx='32' cy='32' r='22' fill='%2315140f'/%3E%3Cpath d='M23 41 41 23M27 23h14v14' fill='none' stroke='%23f7f1de' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <style>
@@ -31,7 +31,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; background: var(--paper); }
+    html { scroll-behavior: smooth; background: var(--paper); overflow-x: hidden; }
     body {
       min-height: 100vh;
       background: var(--paper);
@@ -69,16 +69,7 @@
     }
     .container.wide { width: min(100% - 48px, var(--page-width)); }
     .side-rail {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      width: 36px;
-      z-index: 4;
-      pointer-events: none;
-      display: grid;
-      place-items: center;
-      border-color: var(--line-faint);
-      color: var(--ink-faint);
+      display: none;
     }
     .side-rail.left { left: 0; border-right: 1px solid var(--line-faint); }
     .side-rail.right { right: 0; border-left: 1px solid var(--line-faint); }
@@ -239,6 +230,32 @@
       color: var(--ink) !important;
       background: var(--bone);
     }
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid rgba(21, 20, 15, 0.2);
+      border-radius: 999px;
+      background: rgba(247, 241, 222, 0.6);
+    }
+    .lang-switch button {
+      min-height: 32px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink-mute);
+      padding: 0 10px;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .lang-switch button.is-active {
+      background: var(--ink);
+      color: var(--paper);
+    }
 
     section { position: relative; padding: 120px 0; }
     section.tight { padding: 90px 0; }
@@ -310,10 +327,9 @@
     .btn-whatsapp { background: #1f7a4c; color: #f7f1de; border: 1px solid rgba(21, 20, 15, 0.2); }
 
     .post-hero-cta {
-      padding: 58px 0 70px;
+      padding: 30px 0 38px;
       background: var(--bone);
       border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
     }
     .hero-cta-band {
       display: flex;
@@ -330,11 +346,101 @@
     }
     .hero-cta-copy h2 {
       font-family: var(--sans);
-      font-size: clamp(24px, 3vw, 40px);
+      font-size: clamp(28px, 3.8vw, 54px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 820px;
+    }
+    .hero-cta-copy h2 span {
+      display: block;
+      margin-top: 10px;
+      font-family: var(--mono);
+      font-size: clamp(12px, 1vw, 15px);
+      line-height: 1.45;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .proof-slider {
+      border-top: 1px solid var(--line);
+      background: var(--bone);
+      padding: 32px 0 44px;
+    }
+    .proof-shell {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr) auto;
+      gap: clamp(18px, 3vw, 40px);
+      align-items: center;
+    }
+    .proof-shell .label { color: var(--ink-faint); }
+    .proof-track {
+      position: relative;
+      min-height: 136px;
+      overflow: hidden;
+    }
+    .proof-slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 132px minmax(0, 1fr);
+      align-items: center;
+      gap: 28px;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 460ms ease, transform 460ms ease;
+    }
+    .proof-avatar {
+      width: 124px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      box-shadow: 8px 8px 0 rgba(237, 111, 92, 0.24);
+    }
+    .proof-avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .proof-content {
+      display: grid;
+      gap: 12px;
+      min-width: 0;
+    }
+    .proof-slide.is-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .proof-quote {
+      font-family: var(--sans);
+      font-size: clamp(24px, 3vw, 42px);
       line-height: 1;
       letter-spacing: -0.04em;
-      max-width: 620px;
+      text-wrap: balance;
     }
+    .proof-author {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .proof-dots {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .proof-dots button {
+      width: 9px;
+      height: 9px;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+    }
+    .proof-dots button.is-active { background: var(--coral); border-color: var(--coral); }
 
     .hero { min-height: calc(100vh - 106px); padding-top: 88px; }
     .hero-grid {
@@ -424,14 +530,18 @@
     .corner.br { right: 12px; bottom: 12px; border-right: 1px solid; border-bottom: 1px solid; }
 
     .scroll-hero {
-      min-height: 245vh;
+      min-height: 260vh;
       padding: 0;
       border-bottom: 1px solid var(--line);
+      overflow: visible;
     }
     .hero-pin {
-      position: sticky;
+      position: fixed;
       top: 0;
-      min-height: 100vh;
+      left: 0;
+      right: 0;
+      height: 100svh;
+      min-height: 100svh;
       display: flex;
       align-items: stretch;
       overflow: hidden;
@@ -440,6 +550,15 @@
         linear-gradient(180deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
         var(--paper);
       background-size: 84px 84px;
+      z-index: 3;
+      transform: translateZ(0);
+    }
+    .scroll-hero.is-after .hero-pin {
+      position: absolute;
+      top: auto;
+      bottom: 0;
+      left: 0;
+      right: 0;
     }
     .scroll-hero-canvas {
       --hero-p: 0;
@@ -449,17 +568,20 @@
       --workflow-p: 0;
       --goal-p: 0;
       --motion-p: 0;
+      --exit-p: 0;
       width: 100%;
-      min-height: 100vh;
-      padding: clamp(42px, 5vh, 68px) clamp(40px, 4vw, 76px);
+      height: 100svh;
+      min-height: 100svh;
+      padding: 0;
       display: block;
       position: relative;
       isolation: isolate;
+      overflow: hidden;
     }
     .scroll-hero-canvas::before {
       content: "";
       position: absolute;
-      inset: 28px 36px;
+      inset: clamp(18px, 2.4vw, 36px);
       border: 1px dotted rgba(21, 20, 15, 0.24);
       pointer-events: none;
       z-index: -1;
@@ -519,6 +641,15 @@
       font-weight: 760;
       transition: color 80ms linear;
     }
+    .hero-subtitle {
+      max-width: 560px;
+      font-family: var(--sans);
+      font-size: clamp(18px, 1.8vw, 26px);
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      color: var(--ink-soft);
+      text-shadow: 0 1px 0 rgba(247, 241, 222, 0.86), 0 10px 30px rgba(247, 241, 222, 0.75);
+    }
     .admin-noise {
       display: inline-grid;
       grid-auto-flow: column;
@@ -545,21 +676,36 @@
       height: 100%;
       min-width: 0;
       overflow: visible;
+      opacity: 1;
+      transform: none;
     }
     .scroll-system .hero-art {
-      width: min(calc(100vw - clamp(64px, 8vw, 150px)), calc((100vh - clamp(120px, 15vh, 188px)) * 1.777));
-      aspect-ratio: 1672 / 941;
-      min-height: 0;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: auto;
+      min-height: 100%;
       position: absolute;
-      left: 50%;
-      top: 50%;
+      inset: 0;
       transform:
-        translate(-50%, calc(-50% - (var(--hero-p) * 10px)))
-        rotate(calc(-0.7deg + (var(--hero-p) * 1.4deg)))
-        scale(calc(1 - (var(--workflow-p) * 0.04)));
+        scale(calc(1.02 + (var(--hero-p) * 0.035)))
+        rotate(calc(-0.35deg + (var(--hero-p) * 0.7deg)));
       transform-origin: center;
       z-index: 2;
-      opacity: calc(1 - (var(--motion-p) * 0.62));
+      opacity: calc(0.98 - (var(--motion-p) * 0.42));
+      border: 0;
+      box-shadow: none;
+      background: transparent;
+      overflow: hidden;
+    }
+    .scroll-system .hero-art picture,
+    .scroll-system .hero-art img {
+      width: 100%;
+      height: 100%;
+    }
+    .scroll-system .hero-art img {
+      object-fit: cover;
+      object-position: center center;
+      filter: saturate(0.92) contrast(1.02);
     }
     .scroll-hero-copy .lead,
     .scroll-hero-copy .hero-actions,
@@ -1122,6 +1268,165 @@
     @keyframes appFloat {
       50% { transform: translateY(-5px) rotate(-2deg); }
     }
+    .flow-hint {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      text-align: right;
+      max-width: 260px;
+    }
+    .workflow-mode-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px;
+      border: 1px solid rgba(21, 20, 15, 0.18);
+      border-radius: 999px;
+      background: rgba(247, 241, 222, 0.58);
+      justify-self: end;
+    }
+    .workflow-mode-toggle button {
+      min-height: 36px;
+      min-width: 112px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink-mute);
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .workflow-mode-toggle button.is-active {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .workflow-stage {
+      position: relative;
+      min-height: 390px;
+    }
+    .workflow-stage > .manual-flow,
+    .workflow-stage > .app-flow {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 420ms ease, transform 420ms ease;
+    }
+    .workflow-stage > .manual-flow {
+      transform: translateX(-14px);
+    }
+    .workflow-stage > .app-flow {
+      margin-top: 0;
+      transform: translateX(14px);
+    }
+    .workflow-stage:not(.is-after) > .manual-flow,
+    .workflow-stage.is-after > .app-flow {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+    .workflow-stage.is-after > .manual-flow {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-14px);
+    }
+    .manual-flow {
+      position: relative;
+      min-height: 390px;
+      border: 1px solid rgba(21, 20, 15, 0.18);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(21, 20, 15, 0.08), transparent 18%),
+        linear-gradient(90deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        rgba(239, 231, 210, 0.42);
+      background-size: auto, 60px 60px, 60px 60px, auto;
+      overflow: hidden;
+    }
+    .manual-line {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .manual-line path {
+      fill: none;
+      stroke: rgba(21, 20, 15, 0.34);
+      stroke-width: 0.52;
+      stroke-dasharray: 4 4;
+      vector-effect: non-scaling-stroke;
+    }
+    .manual-line line {
+      stroke: rgba(21, 20, 15, 0.34);
+      stroke-width: 0.52;
+      stroke-dasharray: 4 4;
+      vector-effect: non-scaling-stroke;
+      stroke-linecap: round;
+    }
+    .manual-node {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: 136px;
+      min-height: 132px;
+      transform: translate(-50%, -50%) rotate(var(--r, 0deg));
+      border: 0;
+      background: transparent;
+      padding: 0;
+      display: grid;
+      justify-items: center;
+      align-content: start;
+      gap: 8px;
+      text-align: center;
+      box-shadow: 0 20px 38px -32px rgba(21, 20, 15, 0.64);
+    }
+    .manual-node:hover,
+    .manual-node:focus-visible {
+      z-index: 6;
+      outline: 0;
+    }
+    .manual-icon {
+      width: 52px;
+      height: 52px;
+      border: 1px solid rgba(21, 20, 15, 0.22);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--bone);
+      color: var(--ink);
+      box-shadow: 0 16px 32px -26px rgba(21, 20, 15, 0.7);
+    }
+    .manual-icon svg {
+      width: 25px;
+      height: 25px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .manual-node b {
+      display: block;
+      max-width: 132px;
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+    .manual-node small {
+      display: block;
+      width: min(132px, 100%);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.35;
+      color: var(--ink-mute);
+    }
     .flow-map {
       position: relative;
       z-index: 1;
@@ -1416,6 +1721,26 @@
       flex-direction: column;
       justify-content: space-between;
     }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      margin-top: 22px;
+      border: 1px solid rgba(21, 20, 15, 0.18);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--coral);
+      background: rgba(237, 111, 92, 0.08);
+    }
+    .service-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
     .num {
       display: flex;
       justify-content: space-between;
@@ -1431,7 +1756,7 @@
       font-size: 24px;
       line-height: 1.02;
       letter-spacing: -0.03em;
-      margin-top: 34px;
+      margin-top: 22px;
     }
     .card p, .lab p, .method-step p {
       margin-top: 16px;
@@ -2142,13 +2467,19 @@
       .case-feature { grid-template-columns: 1fr; }
       .case-solution-map { min-height: 420px; }
       .scroll-hero-copy { inset: clamp(78px, 12vh, 112px) 28px; }
-      .scroll-system { min-height: 100vh; }
-      .scroll-system .hero-art { width: min(92vw, calc((100vh - 150px) * 1.777)); }
+      .scroll-system { min-height: 100svh; height: 100svh; }
+      .scroll-system .hero-art {
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        max-width: none;
+      }
       .growth-board, .growth-chart { grid-template-columns: 1fr; }
       .workflow-title-row { display: grid; }
       .workflow-tabs { grid-template-columns: 1fr; }
       .scenario-btn { min-height: 78px; }
-      .hero-art { min-height: 0; max-width: 620px; }
+      .proof-shell { grid-template-columns: 1fr; }
+      .hero-art { min-height: 0; }
       .cards { grid-template-columns: repeat(2, 1fr); }
       .pain-map { min-height: 760px; }
       .owner-plate { width: min(68vw, 520px); min-width: 300px; }
@@ -2160,6 +2491,10 @@
     @media (max-width: 760px) {
       .side-rail { display: none; }
       .container, .container.wide { width: min(100% - 32px, 100%); }
+      html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
       .sec-rule > *,
       .split > *,
       .growth-board > *,
@@ -2172,6 +2507,10 @@
       .method-aside {
         max-width: 100%;
         box-sizing: border-box;
+      }
+      .wire {
+        overflow: hidden;
+        max-width: 100vw;
       }
       .wire-track {
         width: 200%;
@@ -2232,6 +2571,12 @@
         border-bottom: 1px solid rgba(21, 20, 15, 0.08);
       }
       .nav-links a:last-child { border-bottom: 0; }
+      .lang-switch {
+        width: 100%;
+        justify-content: stretch;
+        margin: 8px 0;
+      }
+      .lang-switch button { flex: 1; }
       .nav-cta {
         min-width: 0;
         width: 100%;
@@ -2242,8 +2587,8 @@
       .sec-rule { grid-template-columns: 1fr; gap: 18px; }
       section { padding: 78px 0; }
       .hero { padding-top: 54px; }
-      .scroll-hero { min-height: 205svh; padding: 0; }
-      .hero-pin { min-height: 100svh; }
+      .scroll-hero { min-height: 245svh; padding: 0; }
+      .hero-pin { height: 100svh; min-height: 100svh; }
       .scroll-hero-canvas {
         min-height: 100svh;
         height: 100svh;
@@ -2295,14 +2640,18 @@
         white-space: nowrap;
       }
       .scroll-hero-copy .lead { font-size: 16px; }
-      .scroll-system { min-height: 100svh; height: 100svh; }
+      .hero-subtitle {
+        max-width: 300px;
+        font-size: 17px;
+      }
+      .scroll-system { min-height: 100svh; height: 100svh; overflow: hidden; }
       .scroll-system .hero-art {
         left: 0;
         top: 0;
         right: 0;
         bottom: 0;
         inset: 0;
-        width: 100vw;
+        width: 100%;
         height: 100svh;
         aspect-ratio: auto;
         min-height: 100svh;
@@ -2311,6 +2660,7 @@
         box-shadow: none;
         background: transparent;
         transform: none;
+        overflow: hidden;
         opacity: calc(0.98 - (var(--motion-p) * 0.42));
       }
       .scroll-system .hero-art img {
@@ -2339,8 +2689,19 @@
       .scroll-rail { display: none; }
       .display { font-size: clamp(48px, 15vw, 74px); }
       .hero-stats, .note-grid, .cards, .method-grid, .partners, .foot-grid { grid-template-columns: 1fr; }
-      .post-hero-cta { padding: 44px 0 54px; }
+      .post-hero-cta { padding: 28px 0 38px; }
       .hero-cta-copy { display: grid; gap: 18px; }
+      .hero-cta-copy h2 { font-size: clamp(24px, 8vw, 36px); }
+      .proof-slider { padding: 28px 0 36px; }
+      .proof-shell { gap: 16px; }
+      .proof-track { min-height: 250px; }
+      .proof-slide {
+        grid-template-columns: 1fr;
+        justify-items: start;
+        align-content: center;
+      }
+      .proof-avatar { width: 112px; }
+      .proof-quote { font-size: clamp(25px, 8vw, 34px); }
       .case-tabs { grid-template-columns: 1fr; }
       .case-feature { padding: 16px; }
       .case-feature h3 { font-size: clamp(34px, 12vw, 48px); }
@@ -2447,7 +2808,20 @@
       .workflow-panel { gap: 14px; }
       .workflow-title-row { gap: 10px; padding-bottom: 10px; }
       .workflow-title-row h3 { font-size: clamp(25px, 9vw, 36px); }
+      .flow-hint { text-align: left; }
+      .workflow-stage,
+      .manual-flow,
       .app-flow { min-width: 0; min-height: 560px; margin-inline: 0; }
+      .manual-node {
+        width: 76px;
+        min-height: 64px;
+        padding: 0;
+      }
+      .manual-icon {
+        width: 44px;
+        height: 44px;
+      }
+      .manual-node small { width: 112px; font-size: 7px; }
       .pain-map {
         min-height: 660px;
         padding: 14px;
@@ -2517,6 +2891,10 @@
           <a href="#lab">Signals</a>
           <a href="#work">Case study</a>
           <a href="#method">Method</a>
+          <span class="lang-switch" aria-label="Language switch">
+            <button class="is-active" type="button" data-lang="en" aria-pressed="true">ENG</button>
+            <button type="button" data-lang="zh" aria-pressed="false">&#32321;&#20013;</button>
+          </span>
           <a href="#contact" class="nav-cta">Start audit</a>
         </div>
       </div>
@@ -2528,7 +2906,8 @@
           <div class="scroll-hero-canvas" data-hero-scroll="">
             <div class="scroll-hero-copy">
               <span class="label">HK automation agency</span>
-              <h1 class="display"><span class="mobile-title-line">Automation</span> <span class="mobile-title-line">that helps</span> <span class="mobile-title-line">small teams</span> <span class="mobile-title-line"><em>grow</em><span class="dot">.</span></span></h1>
+              <h1 class="display"><span class="mobile-title-line">Your business,</span> <span class="mobile-title-line">on <em>autopilot</em><span class="dot">.</span></span></h1>
+              <p class="hero-subtitle">Automation that helps small teams grow.</p>
               <p class="lead">Zoomicc helps Hong Kong SME owners increase business efficiency by setting up automated business flows across sales, operations, ecommerce, reporting, and customer follow-up.</p>
               <div class="hero-actions">
                 <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Zoomicc%2C%20I%20want%20to%20audit%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp Zoomicc</a>
@@ -2610,10 +2989,46 @@
         <div class="container wide">
           <div class="hero-cta-band">
             <div class="hero-cta-copy" data-reveal="">
-              <h2>Show us the workflow. We map the first automation path<span class="dot">.</span></h2>
+              <h2>&ldquo;I&rsquo;ve watched so many AI tutorials. How do I actually apply this to my business?&rdquo;<span>Does that sound familiar?</span></h2>
               <div class="hero-actions">
                 <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Zoomicc%2C%20I%20want%20to%20map%20one%20workflow." target="_blank" rel="noreferrer">Start on WhatsApp</a>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof-slider" data-proof-slider="" aria-label="Client notes">
+        <div class="container wide">
+          <div class="proof-shell">
+            <span class="label">Client notes</span>
+            <div class="proof-track">
+              <article class="proof-slide is-active">
+                <figure class="proof-avatar"><img src="assets/zoomicc-testimonial-avatar-handbag-owner.png" alt="Handbag consignment owner portrait"></figure>
+                <div class="proof-content">
+                  <p class="proof-quote">&ldquo;We finally know what needs a reply without checking five places.&rdquo;</p>
+                  <p class="proof-author">Handbag consignment owner</p>
+                </div>
+              </article>
+              <article class="proof-slide">
+                <figure class="proof-avatar"><img src="assets/zoomicc-testimonial-avatar-retail-ops.png" alt="Retail operations lead portrait"></figure>
+                <div class="proof-content">
+                  <p class="proof-quote">&ldquo;The daily updates feel much easier to follow now.&rdquo;</p>
+                  <p class="proof-author">Retail operations lead</p>
+                </div>
+              </article>
+              <article class="proof-slide">
+                <figure class="proof-avatar"><img src="assets/zoomicc-testimonial-avatar-sme-founder.png" alt="Hong Kong SME founder portrait"></figure>
+                <div class="proof-content">
+                  <p class="proof-quote">&ldquo;It feels like our work finally has a proper route.&rdquo;</p>
+                  <p class="proof-author">SME founder, Hong Kong</p>
+                </div>
+              </article>
+            </div>
+            <div class="proof-dots" aria-label="Choose testimonial">
+              <button class="is-active" type="button" aria-label="Show testimonial 1" data-proof-dot="0"></button>
+              <button type="button" aria-label="Show testimonial 2" data-proof-dot="1"></button>
+              <button type="button" aria-label="Show testimonial 3" data-proof-dot="2"></button>
             </div>
           </div>
         </div>
@@ -2632,8 +3047,8 @@
           <div class="growth-board">
             <div class="growth-copy" data-reveal="">
               <div>
-                <span class="label">Automation workflow model <span class="ix">/ Client operations</span></span>
-                <h2 style="margin-top: 24px;">See how everyday tools become one <em>operating flow</em><span class="dot">.</span></h2>
+                <span class="label">Workflow model <span class="ix">/ Client operations</span></span>
+                <h2 style="margin-top: 24px;">Manual versus <em>automated</em><span class="dot">.</span></h2>
               </div>
               <div class="workflow-tabs" aria-label="Automation workflow choices">
                 <button class="scenario-btn is-active" type="button" data-scenario="ecomm"><i>CS</i><span><b>Auto Ecomm CS</b><small>WhatsApp service flow</small></span></button>
@@ -2645,11 +3060,23 @@
               <div class="workflow-panel">
                 <div class="workflow-title-row">
                   <div>
-                    <span class="label" id="flow-kicker">WhatsApp service flow</span>
-                    <h3 id="flow-title">Auto Ecomm CS</h3>
+                    <span class="label" id="flow-kicker">Manual</span>
+                    <h3 id="flow-title">Manual ecomm CS</h3>
+                  </div>
+                  <div class="workflow-mode-toggle" role="group" aria-label="Choose workflow view">
+                    <button class="is-active" type="button" data-workflow-mode="manual" aria-pressed="true">Manual</button>
+                    <button type="button" data-workflow-mode="automated" aria-pressed="false">Automated</button>
                   </div>
                 </div>
-                <div class="app-flow" id="app-flow" aria-label="Selected automation application flow"></div>
+                <div class="workflow-stage" id="workflow-stage" tabindex="0" aria-label="Manual ecommerce CS flow">
+                  <div class="manual-flow" id="manual-flow" aria-label="Manual ecommerce customer service flow">
+                    <svg class="manual-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                      <path d="M15 48 C25 22 38 75 48 42 S72 35 86 62"></path>
+                      <path d="M23 72 C36 54 48 84 63 58 S78 23 88 36"></path>
+                    </svg>
+                  </div>
+                  <div class="app-flow" id="app-flow" aria-label="Selected automation application flow"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -2662,7 +3089,7 @@
             <div class="split">
               <div class="about-copy" data-reveal="">
                 <span class="label">About Zoomicc <span class="ix">/ Operator team</span></span>
-                <h2>Built by operators who know how SME work <em>moves</em><span class="dot">.</span></h2>
+                <h2>Built by SME <em>operators</em><span class="dot">.</span></h2>
                 <p class="lead">Zoomicc is led by Agent T and Agent M: a marketing operator and an automation/ecommerce operator. The work is deliberately practical: map the active business flow, automate the repeatable parts, keep humans in control of judgment.</p>
                 <div class="founder-grid">
                   <article class="founder-card">
@@ -2700,15 +3127,15 @@
               <div>
                 <div class="cap-copy" data-reveal="">
                   <span class="label">Services <span class="ix">/ Automation scope</span></span>
-                  <h2>Practical services for <em>business automation</em><span class="dot">.</span></h2>
+                  <h2>Automation <em>services</em><span class="dot">.</span></h2>
                   <p class="lead">Zoomicc designs and builds practical workflows for sales, operations, customer service, reporting, and AI-assisted routing using the tools your team already works with.</p>
                 </div>
               </div>
               <div class="cards">
-                <article class="card" data-reveal=""><div><div class="num">01<span class="tag">Build</span></div><h3>Custom Workflow Development</h3><p>Design and build tailored automations across forms, WhatsApp, email, CRMs, sheets, ecommerce systems, invoices, and internal approvals.</p></div></article>
-                <article class="card" data-reveal=""><div><div class="num">02<span class="tag">Audit</span></div><h3>Strategy &amp; Auditing</h3><p>Review the current operating flow, identify where automation creates the most leverage, and turn the roadmap into practical first builds.</p></div></article>
-                <article class="card" data-reveal=""><div><div class="num">03<span class="tag">Training</span></div><h3>Automation Training Service</h3><p>Train owners and teams to understand the workflows, manage handoffs, review outputs, and work confidently with automation tools.</p></div></article>
-                <article class="card" data-reveal=""><div><div class="num">04<span class="tag">Agents</span></div><h3>AI Agent Design</h3><p>Create AI agents for retrieval, routing, drafting, classification, follow-up, and human handoff inside the business systems already in use.</p></div></article>
+                <article class="card" data-reveal=""><div><div class="num">01<span class="tag">Build</span></div><div class="service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h6v6H4z"></path><path d="M14 11h6v6h-6z"></path><path d="M10 10h4"></path><path d="M17 7v4"></path></svg></div><h3>Custom Workflow Development</h3><p>Design and build tailored automations across forms, WhatsApp, email, CRMs, sheets, ecommerce systems, invoices, and internal approvals.</p></div></article>
+                <article class="card" data-reveal=""><div><div class="num">02<span class="tag">Tune</span></div><div class="service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="M8 16v-5"></path><path d="M12 16V8"></path><path d="M16 16v-3"></path><path d="M19 5 5 19"></path></svg></div><h3>AI Agent Finetuning</h3><p>Refine agent prompts, retrieval logic, routing rules, and review loops so AI outputs match the way your business actually works.</p></div></article>
+                <article class="card" data-reveal=""><div><div class="num">03<span class="tag">Training</span></div><div class="service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"></path><path d="M8 20h8"></path><path d="M12 18v2"></path><path d="m9 10 2 2 4-4"></path></svg></div><h3>Corporate Training</h3><p>Train teams to identify useful AI opportunities, operate the new workflows, review outputs, and keep automation practical.</p></div></article>
+                <article class="card" data-reveal=""><div><div class="num">04<span class="tag">RAG</span></div><div class="service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M4.9 4.9 7 7"></path><path d="m17 17 2.1 2.1"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><circle cx="12" cy="12" r="5"></circle><path d="M10 11h.01"></path><path d="M14 11h.01"></path><path d="M10 15h4"></path></svg></div><h3>RAG Pipeline</h3><p>Connect business knowledge, documents, sheets, and product data into retrieval pipelines for customer service and internal teams.</p></div></article>
               </div>
             </div>
           </div>
@@ -2723,7 +3150,7 @@
               <div class="labs-head">
                 <div data-reveal="">
                   <span class="label">Owner focus <span class="ix">/ Admin load</span></span>
-                  <h2 style="margin-top: 28px;">Daily admin pulls owners away from <em>running</em> the business<span class="dot">.</span></h2>
+                  <h2 style="margin-top: 28px;">Admin work pulls <em>focus</em><span class="dot">.</span></h2>
                   <p class="pain-map-note">Automation helps route repeat work into clear systems, so owners can keep attention on customers, products, and decisions.</p>
                 </div>
               </div>
@@ -2770,7 +3197,7 @@
               <div class="method-intro">
                 <div data-reveal="">
                   <span class="label">Automation start point <span class="ix">/ Working method</span></span>
-                  <h2 style="margin-top: 28px;">Start with one workflow, then build the <em>automation path</em><span class="dot">.</span></h2>
+                  <h2 style="margin-top: 28px;">Map one workflow <em>first</em><span class="dot">.</span></h2>
                   <p class="lead">Bring one repeatable workflow. Zoomicc maps the work, defines the trigger, builds the action, and agrees what success should look like.</p>
                 </div>
                 <div class="method-aside" data-reveal="right">
@@ -2808,7 +3235,7 @@
               <div class="work-grid">
                 <div data-reveal="">
                   <span class="label">Case studies <span class="ix">/ Applied workflows</span></span>
-                  <h2>Business workflows shaped into <em>reliable</em> systems<span class="dot">.</span></h2>
+                  <h2>Case studies<span class="dot">.</span></h2>
                   <p class="lead" style="margin-top: 22px;">A closer look at how one owner workflow can become a practical automation system.</p>
                 </div>
                 <div class="case-list" data-case-showcase="">
@@ -2929,33 +3356,15 @@
         </div>
       </section>
 
-      <section class="testimonial" data-od-id="testimonial">
-        <div class="container">
-          <div class="sec-rule">
-            <span class="roman">VII.</span>
-            <div class="split">
-              <div class="testimonial-copy" data-reveal="">
-                <span class="label">Testimonial <span class="ix">/ Client note</span></span>
-                <p class="quote">Before Zoomicc, I kept checking WhatsApp, invoices, and stock notes myself. Now the team knows the next step, and I can focus on buying and selling better handbags.</p>
-                <div class="author">Handbag consignment owner, Hong Kong</div>
-              </div>
-              <div class="art-card" data-reveal="right">
-                <img src="./assets/zoomicc-handbag-consignment-testimonial-v1.png" alt="Editorial collage of a handbag consignment business owner">
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section class="cta" id="contact" data-od-id="cta">
         <div class="container">
           <div class="sec-rule">
-            <span class="roman">VIII.</span>
+            <span class="roman">VII.</span>
             <div class="cta-panel">
               <div class="cta-copy" data-reveal="">
                 <span class="label">Contact <span class="ix">/ Workflow briefing</span></span>
-                <h2>Send one active workflow on <em>WhatsApp</em><span class="dot">.</span></h2>
-                <p class="lead">Share one workflow. We will map the first automation path.</p>
+                <h2>Start on <em>WhatsApp</em><span class="dot">.</span></h2>
+                <p class="lead">Tell us the workflow you want to improve.</p>
                 <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Zoomicc%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">Start on WhatsApp</a>
               </div>
             </div>
@@ -3075,6 +3484,7 @@
         }
         var titleProgress = smoothstep(0.06, 0.3, progress);
         var motionProgress = smoothstep(0.28, 1, progress);
+        heroSection.classList.toggle("is-after", progress >= 0.998);
         heroCanvas.style.setProperty("--hero-p", smoothstep(0.08, 1, progress).toFixed(4));
         heroCanvas.style.setProperty("--title-p", titleProgress.toFixed(4));
         heroCanvas.style.setProperty("--motion-p", smoothstep(0.02, 0.18, motionProgress).toFixed(4));
@@ -3082,6 +3492,7 @@
         heroCanvas.style.setProperty("--route-p", smoothstep(0.28, 0.66, motionProgress).toFixed(4));
         heroCanvas.style.setProperty("--workflow-p", smoothstep(0.58, 0.92, motionProgress).toFixed(4));
         heroCanvas.style.setProperty("--goal-p", smoothstep(0.78, 1, motionProgress).toFixed(4));
+        heroCanvas.style.setProperty("--exit-p", smoothstep(0.92, 1, progress).toFixed(4));
         deskItems.forEach(function (item) { placeDeskItem(item, motionProgress); });
         workflowNodes.forEach(function (node) {
           var at = Number(node.dataset.at || 0.7);
@@ -3141,6 +3552,369 @@
         if (event.key === "Escape") setNavMenu(false);
       });
 
+      var langButtons = Array.prototype.slice.call(document.querySelectorAll("[data-lang]"));
+      var currentLang = "en";
+      var languageCopies = [
+        [".nav-links a[href='#about']","About","&#38364;&#26044;"],
+        [".nav-links a[href='#capabilities']","Services","&#26381;&#21209;"],
+        [".nav-links a[href='#lab']","Signals","&#35338;&#34399;"],
+        [".nav-links a[href='#work']","Case study","&#26696;&#20363;"],
+        [".nav-links a[href='#method']","Method","&#26041;&#27861;"],
+        [".nav-cta","Start audit","&#38283;&#22987;&#35413;&#20272;"],
+        [".scroll-hero-copy .label","HK automation agency","&#39321;&#28207;&#33258;&#21205;&#21270;&#39015;&#21839;"],
+        [".scroll-hero-copy h1.display","<span class=\"mobile-title-line\">Your business,</span> <span class=\"mobile-title-line\">on <em>autopilot</em><span class=\"dot\">.</span></span>","<span class=\"mobile-title-line\">&#35731;&#26989;&#21209;</span> <span class=\"mobile-title-line\">&#33258;&#21205;&#36939;&#20316;<span class=\"dot\">.</span></span>"],
+        [".hero-subtitle","Automation that helps small teams grow.","&#33258;&#21205;&#21270;&#31995;&#32113;&#65292;&#21332;&#21161;&#23567;&#22296;&#38538;&#25104;&#38263;&#12290;"],
+        [".scroll-hero-copy .lead","Zoomicc helps Hong Kong SME owners increase business efficiency by setting up automated business flows across sales, operations, ecommerce, reporting, and customer follow-up.","Zoomicc &#21332;&#21161;&#39321;&#28207;&#20013;&#23567;&#20225;&#25226;&#26085;&#24120;&#27969;&#31243;&#35722;&#25104;&#21487;&#25345;&#32396;&#36939;&#20316;&#30340;&#33258;&#21205;&#21270;&#31995;&#32113;&#12290;"],
+        [".scroll-hero-copy .btn-whatsapp","WhatsApp Zoomicc","WhatsApp &#32879;&#32097; Zoomicc"],
+        [".scroll-hero-copy .btn-secondary","See automation growth","&#26597;&#30475;&#33258;&#21205;&#21270;&#27969;&#31243;"],
+        [".hero-cta-copy h2","&ldquo;I&rsquo;ve watched so many AI tutorials. How do I actually apply this to my business?&rdquo;<span>Does that sound familiar?</span>","&#12300;&#25105;&#30475;&#20102;&#24456;&#22810; AI &#25945;&#23416;&#65292;&#20294;&#21040;&#24213;&#24590;&#27171;&#22871;&#29992;&#21040;&#33258;&#24049;&#30340;&#29983;&#24847;&#65311;&#12301;<span>&#36889;&#32893;&#36215;&#20358;&#20687;&#20320;&#21966;&#65311;</span>"],
+        [".post-hero-cta .btn-whatsapp","Start on WhatsApp","WhatsApp &#38283;&#22987;"],
+        [".proof-shell > .label","Client notes","&#23458;&#25142;&#22238;&#39243;"],
+        [".proof-slide:nth-child(1) .proof-quote","&ldquo;We finally know what needs a reply without checking five places.&rdquo;","&#12300;&#32066;&#26044;&#19981;&#29992;&#38283;&#20116;&#20491;&#22320;&#26041;&#65292;&#25165;&#30693;&#36947;&#21738;&#20491;&#23458;&#20154;&#35201;&#22238;&#35206;&#12290;&#12301;"],
+        [".proof-slide:nth-child(1) .proof-author","Handbag consignment owner","&#25163;&#34955;&#23492;&#21806;&#24215;&#20027;"],
+        [".proof-slide:nth-child(2) .proof-quote","&ldquo;The daily updates feel much easier to follow now.&rdquo;","&#12300;&#27599;&#22825;&#30340;&#26356;&#26032;&#28165;&#26970;&#24456;&#22810;&#12290;&#12301;"],
+        [".proof-slide:nth-child(2) .proof-author","Retail operations lead","&#38646;&#21806;&#29151;&#36939;&#36000;&#36012;&#20154;"],
+        [".proof-slide:nth-child(3) .proof-quote","&ldquo;It feels like our work finally has a proper route.&rdquo;","&#12300;&#27599;&#26085;&#24037;&#20316;&#32066;&#26044;&#26377;&#19968;&#26781;&#28165;&#26970;&#36335;&#32218;&#12290;&#12301;"],
+        [".proof-slide:nth-child(3) .proof-author","SME founder, Hong Kong","&#39321;&#28207;&#20013;&#23567;&#20225;&#21109;&#36774;&#20154;"],
+        [".growth-copy .label","Workflow model <span class=\"ix\">/ Client operations</span>","&#27969;&#31243;&#27169;&#22411; <span class=\"ix\">/ &#23458;&#25142;&#29151;&#36939;</span>"],
+        [".growth-copy h2","Manual versus <em>automated</em><span class=\"dot\">.</span>","&#20154;&#25163;&#27969;&#31243; vs <em>&#33258;&#21205;&#21270;</em><span class=\"dot\">.</span>"],
+        ["[data-workflow-mode='manual']","Manual","&#20154;&#25163;"],
+        ["[data-workflow-mode='automated']","Automated","&#33258;&#21205;&#21270;"],
+        [".scenario-btn[data-scenario='ecomm'] b","Auto Ecomm CS","&#33258;&#21205;&#38651;&#21830;&#23458;&#26381;"],
+        [".scenario-btn[data-scenario='ecomm'] small","WhatsApp service flow","WhatsApp &#23458;&#26381;&#27969;&#31243;"],
+        [".scenario-btn[data-scenario='merchant'] b","Consignment merchant onboarding","&#23492;&#21806;&#21830;&#25142;&#20837;&#22580;"],
+        [".scenario-btn[data-scenario='merchant'] small","Signed form to records","&#31614;&#32626;&#34920;&#26684;&#21040;&#35352;&#37636;"],
+        [".scenario-btn[data-scenario='salary'] b","Month-end salary calculation","&#26376;&#32080;&#34218;&#37228;&#35336;&#31639;"],
+        [".scenario-btn[data-scenario='salary'] small","Sales data to payslip","&#37559;&#21806;&#36039;&#26009;&#21040;&#31975;&#21934;"],
+        [".about-copy .label","About Zoomicc <span class=\"ix\">/ Operator team</span>","&#38364;&#26044; Zoomicc <span class=\"ix\">/ &#29151;&#36939;&#22296;&#38538;</span>"],
+        [".about-copy h2","Built by SME <em>operators</em><span class=\"dot\">.</span>","&#30001;&#20013;&#23567;&#20225;<em>&#29151;&#36939;&#32773;</em>&#24314;&#31435;<span class=\"dot\">.</span>"],
+        [".about-copy .lead","Zoomicc is led by Agent T and Agent M: a marketing operator and an automation/ecommerce operator. The work is deliberately practical: map the active business flow, automate the repeatable parts, keep humans in control of judgment.","Zoomicc &#30001; Agent T &#21644; Agent M &#20027;&#23566;&#65306;&#19968;&#20301;&#24066;&#22580;&#29151;&#36939;&#32773;&#65292;&#19968;&#20301;&#33258;&#21205;&#21270;&#33287;&#38651;&#21830;&#29151;&#36939;&#32773;&#12290;&#25105;&#20497;&#30340;&#26041;&#27861;&#24456;&#23526;&#38555;&#65306;&#20808;&#25972;&#29702;&#29694;&#26377;&#26989;&#21209;&#27969;&#31243;&#65292;&#25226;&#37325;&#35079;&#30340;&#37096;&#20998;&#33258;&#21205;&#21270;&#65292;&#20445;&#30041;&#20154;&#30340;&#21028;&#26039;&#12290;"],
+        [".founder-card:nth-child(1) .founder-role","Crypto marketing operator","&#21152;&#23494;&#24066;&#22580;&#29151;&#36939;&#32773;"],
+        [".founder-card:nth-child(1) p","8 years of campaign, community, funnel, and growth operations experience. Focus: lead quality, customer journeys, conversion loops, and follow-up cadence.","8 &#24180;&#27963;&#21205;&#12289;&#31038;&#32676;&#12289;&#28431;&#26007;&#33287;&#22686;&#38263;&#29151;&#36939;&#32147;&#39511;&#12290;&#23560;&#27880;&#65306;&#39640;&#21697;&#36074;&#23458;&#28304;&#12289;&#23458;&#25142;&#26053;&#31243;&#12289;&#36681;&#21270;&#27969;&#31243;&#21644;&#36319;&#36914;&#31680;&#22863;&#12290;"],
+        [".founder-card:nth-child(2) .founder-role","AI automation and ecommerce expert","AI &#33258;&#21205;&#21270;&#33287;&#38651;&#21830;&#23560;&#23478;"],
+        [".founder-card:nth-child(2) p","10 years running ecommerce operations. Focus: order flow, fulfilment handoffs, AI-assisted service, and tool integration.","10 &#24180;&#38651;&#21830;&#29151;&#36939;&#32147;&#39511;&#12290;&#23560;&#27880;&#65306;&#35330;&#21934;&#27969;&#31243;&#12289;&#23653;&#32004;&#20132;&#25509;&#12289;AI &#36628;&#21161;&#23458;&#26381;&#21644;&#24037;&#20855;&#25972;&#21512;&#12290;"],
+        [".cap-copy .label","Services <span class=\"ix\">/ Automation scope</span>","&#26381;&#21209; <span class=\"ix\">/ &#33258;&#21205;&#21270;&#31684;&#22285;</span>"],
+        [".cap-copy h2","Automation <em>services</em><span class=\"dot\">.</span>","&#33258;&#21205;&#21270;<em>&#26381;&#21209;</em><span class=\"dot\">.</span>"],
+        [".cap-copy .lead","Zoomicc designs and builds practical workflows for sales, operations, customer service, reporting, and AI-assisted routing using the tools your team already works with.","Zoomicc &#28858;&#37559;&#21806;&#12289;&#29151;&#36939;&#12289;&#23458;&#26381;&#12289;&#22577;&#34920;&#21450; AI &#20998;&#27969;&#35373;&#35336;&#23526;&#29992;&#30340;&#33258;&#21205;&#21270;&#27969;&#31243;&#12290;"],
+        [".cards .card:nth-child(1) h3","Custom Workflow Development","&#23458;&#35069;&#27969;&#31243;&#38283;&#30332;"],
+        [".cards .card:nth-child(1) p","Design and build tailored automations across forms, WhatsApp, email, CRMs, sheets, ecommerce systems, invoices, and internal approvals.","&#35373;&#35336;&#21450;&#24314;&#31435;&#34920;&#26684;&#12289;WhatsApp&#12289;&#38651;&#37109;&#12289;CRM&#12289;&#35430;&#31639;&#34920;&#12289;&#38651;&#21830;&#12289;&#30332;&#31080;&#21450;&#20839;&#37096;&#25209;&#26680;&#30340;&#23458;&#35069;&#33258;&#21205;&#21270;&#12290;"],
+        [".cards .card:nth-child(2) h3","AI Agent Finetuning","AI Agent &#24494;&#35519;"],
+        [".cards .card:nth-child(2) p","Refine agent prompts, retrieval logic, routing rules, and review loops so AI outputs match the way your business actually works.","&#24494;&#35519; Agent &#25552;&#31034;&#12289;&#25847;&#21462;&#36923;&#36655;&#12289;&#20998;&#27969;&#35215;&#21063;&#21450;&#23529;&#26680;&#27969;&#31243;&#65292;&#35731; AI &#36664;&#20986;&#26356;&#36028;&#36817;&#30495;&#23526;&#26989;&#21209;&#12290;"],
+        [".cards .card:nth-child(3) h3","Corporate Training","&#20225;&#26989;&#22521;&#35347;"],
+        [".cards .card:nth-child(3) p","Train teams to identify useful AI opportunities, operate the new workflows, review outputs, and keep automation practical.","&#22521;&#35347;&#22296;&#38538;&#25214;&#20986;&#21487;&#29992;&#30340; AI &#27231;&#26371;&#12289;&#25805;&#20316;&#26032;&#27969;&#31243;&#12289;&#27298;&#35222;&#36664;&#20986;&#65292;&#35731;&#33258;&#21205;&#21270;&#30495;&#27491;&#33853;&#22320;&#12290;"],
+        [".cards .card:nth-child(4) h3","RAG Pipeline","RAG &#36039;&#26009;&#31649;&#36947;"],
+        [".cards .card:nth-child(4) p","Connect business knowledge, documents, sheets, and product data into retrieval pipelines for customer service and internal teams.","&#25226;&#26989;&#21209;&#30693;&#35672;&#12289;&#25991;&#20214;&#12289;&#35430;&#31639;&#34920;&#21450;&#29986;&#21697;&#36039;&#26009;&#25509;&#20837;&#21487;&#25847;&#21462;&#30340; RAG &#31649;&#36947;&#65292;&#25903;&#25588;&#23458;&#26381;&#21450;&#20839;&#37096;&#22296;&#38538;&#12290;"],
+        [".labs-head h2","Admin work pulls <em>focus</em><span class=\"dot\">.</span>","&#34892;&#25919;&#24037;&#20316;&#20998;&#25955;<em>&#28966;&#40670;</em><span class=\"dot\">.</span>"],
+        [".pain-map-note","Automation helps route repeat work into clear systems, so owners can keep attention on customers, products, and decisions.","&#33258;&#21205;&#21270;&#25226;&#37325;&#35079;&#24037;&#20316;&#20998;&#27969;&#21040;&#28165;&#26970;&#31995;&#32113;&#65292;&#35731;&#24215;&#20027;&#21487;&#20197;&#23560;&#27880;&#23458;&#25142;&#12289;&#29986;&#21697;&#21644;&#27770;&#31574;&#12290;"],
+        [".pain-node:nth-of-type(1) b","Admin work","&#34892;&#25919;&#24037;&#20316;"],
+        [".pain-node:nth-of-type(1) small","Forms, messages, approvals, and daily records move into one owned operating lane.","&#34920;&#26684;&#12289;&#35338;&#24687;&#12289;&#25209;&#26680;&#21450;&#27599;&#26085;&#35352;&#37636;&#37117;&#21487;&#20197;&#25972;&#21512;&#21040;&#19968;&#26781;&#28165;&#26970;&#30340;&#29151;&#36939;&#32218;&#12290;"],
+        [".pain-node:nth-of-type(2) b","Order tracking","&#35330;&#21934;&#36319;&#36394;"],
+        [".pain-node:nth-of-type(2) small","Invoices, stock notes, courier updates, and payment records move as one sequence.","&#30332;&#31080;&#12289;&#24235;&#23384;&#35352;&#37636;&#12289;&#29289;&#27969;&#26356;&#26032;&#21450;&#20184;&#27454;&#35352;&#37636;&#21487;&#20197;&#36899;&#25104;&#19968;&#20491;&#24207;&#21015;&#12290;"],
+        [".pain-node:nth-of-type(3) b","Reporting","&#22577;&#34920;"],
+        [".pain-node:nth-of-type(3) small","Daily records become owner-ready views for priorities, sales, service, and team handover.","&#27599;&#26085;&#35352;&#37636;&#35722;&#25104;&#24215;&#20027;&#21487;&#30475;&#30340;&#20778;&#20808;&#27425;&#24207;&#12289;&#37559;&#21806;&#12289;&#23458;&#26381;&#21644;&#22296;&#38538;&#20132;&#25509;&#35222;&#22294;&#12290;"],
+        [".pain-node:nth-of-type(4) b","Client follow-up","&#23458;&#25142;&#36319;&#36914;"],
+        [".pain-node:nth-of-type(4) small","Leads, enquiries, replies, and reminders stay visible across WhatsApp and email.","&#23458;&#28304;&#12289;&#26597;&#35426;&#12289;&#22238;&#35206;&#21450;&#25552;&#37266;&#21487;&#20197;&#22312; WhatsApp &#21644;&#38651;&#37109;&#20013;&#20445;&#25345;&#21487;&#35211;&#12290;"],
+        [".method h2","Map one workflow <em>first</em><span class=\"dot\">.</span>","&#20808;&#25972;&#29702;&#19968;&#20491;<em>&#27969;&#31243;</em><span class=\"dot\">.</span>"],
+        [".method .lead","Bring one repeatable workflow. Zoomicc maps the work, defines the trigger, builds the action, and agrees what success should look like.","&#24118;&#20358;&#19968;&#20491;&#37325;&#35079;&#30340;&#26989;&#21209;&#27969;&#31243;&#12290;Zoomicc &#26371;&#25972;&#29702;&#24037;&#20316;&#27493;&#39519;&#12289;&#23450;&#32681;&#35320;&#30332;&#40670;&#12289;&#24314;&#31435;&#21205;&#20316;&#65292;&#20877;&#19968;&#36215;&#30906;&#35469;&#25104;&#21151;&#27161;&#28310;&#12290;"],
+        [".method-step:nth-child(1) h3","Map","&#25972;&#29702;"],
+        [".method-step:nth-child(1) p","Document the owner, data source, decision rule, and desired customer response.","&#35352;&#37636;&#36000;&#36012;&#20154;&#12289;&#36039;&#26009;&#20358;&#28304;&#12289;&#21028;&#26039;&#35215;&#21063;&#21450;&#23458;&#25142;&#25033;&#24471;&#30340;&#22238;&#25033;&#12290;"],
+        [".method-step:nth-child(2) h3","Trigger","&#35320;&#30332;"],
+        [".method-step:nth-child(2) p","Define the signal that starts the workflow inside the tools your team already uses.","&#23450;&#32681;&#22312;&#22296;&#38538;&#24050;&#20351;&#29992;&#24037;&#20855;&#20013;&#21855;&#21205;&#27969;&#31243;&#30340;&#35338;&#34399;&#12290;"],
+        [".method-step:nth-child(3) h3","Action","&#21205;&#20316;"],
+        [".method-step:nth-child(3) p","Run the reply, update, alert, draft, routing, or approval that keeps the workflow moving.","&#22519;&#34892;&#22238;&#35206;&#12289;&#26356;&#26032;&#12289;&#25552;&#37266;&#12289;&#33609;&#31295;&#12289;&#20998;&#27969;&#25110;&#25209;&#26680;&#31561;&#21205;&#20316;&#12290;"],
+        [".method-step:nth-child(4) h3","Goal","&#30446;&#27161;"],
+        [".method-step:nth-child(4) p","Give the owner a clear daily view, team handover, and maintenance rhythm.","&#35731;&#24215;&#20027;&#24471;&#21040;&#28165;&#26970;&#30340;&#27599;&#26085;&#35222;&#22294;&#12289;&#22296;&#38538;&#20132;&#25509;&#21644;&#32173;&#35703;&#31680;&#22863;&#12290;"],
+        [".work h2","Case studies<span class=\"dot\">.</span>","&#26696;&#20363;<span class=\"dot\">.</span>"],
+        [".work .lead","A closer look at how one owner workflow can become a practical automation system.","&#30475;&#19968;&#20491;&#24215;&#20027;&#30340;&#26989;&#21209;&#27969;&#31243;&#22914;&#20309;&#35722;&#25104;&#23526;&#29992;&#33258;&#21205;&#21270;&#31995;&#32113;&#12290;"],
+        [".case-tab[data-case-tab='lume'] small","Case study 1","&#26696;&#20363; 1"],
+        [".case-tab[data-case-tab='lume'] b","Lume Lux handbag consignment","Lume Lux &#25163;&#34955;&#23492;&#21806;"],
+        [".case-tab[data-case-tab='mnc'] small","Case study 2","&#26696;&#20363; 2"],
+        [".case-tab[data-case-tab='mnc'] b","Internal communication system","&#20839;&#37096;&#28317;&#36890;&#31995;&#32113;"],
+        ["#case-panel-lume .small-label","Case study 1 / Handbag consignment","&#26696;&#20363; 1 / &#25163;&#34955;&#23492;&#21806;"],
+        ["#case-panel-lume h3","Lume Lux handbag consignment","Lume Lux &#25163;&#34955;&#23492;&#21806;"],
+        ["#case-panel-lume .case-summary","Lume Lux handles handbag consignment intake, client sign-off, receipts, inventory, Shopify records, and day-end spreadsheet work. The automation turns that intake flow into a cleaner operating system.","Lume Lux &#38656;&#35201;&#34389;&#29702;&#25163;&#34955;&#23492;&#21806;&#20837;&#24235;&#12289;&#23458;&#25142;&#31614;&#32626;&#12289;&#25910;&#25818;&#12289;&#24235;&#23384;&#12289;Shopify &#35352;&#37636;&#21644;&#27599;&#26085;&#34920;&#26684;&#24037;&#20316;&#12290;&#33258;&#21205;&#21270;&#25226;&#25972;&#20491;&#20837;&#24235;&#27969;&#31243;&#35722;&#25104;&#26356;&#28165;&#26970;&#30340;&#29151;&#36939;&#31995;&#32113;&#12290;"],
+        ["#case-panel-mnc .small-label","Case study 2 / Internal communication","&#26696;&#20363; 2 / &#20839;&#37096;&#28317;&#36890;"],
+        ["#case-panel-mnc h3","Internal communication synchronisation system","&#20839;&#37096;&#28317;&#36890;&#21516;&#27493;&#31995;&#32113;"],
+        ["#case-panel-mnc .case-summary","A Hong Kong-headquartered MNC manages a large portfolio of malls and shopping arcades. The team needed a central way to prepare internal updates for PR, marketing, media handling, public enquiry response, and frontline incident routing.","&#19968;&#23478;&#32317;&#37096;&#22312;&#39321;&#28207;&#30340; MNC &#31649;&#29702;&#22823;&#37327;&#21830;&#22580;&#21450;&#36092;&#29289;&#24291;&#22580;&#36039;&#29986;&#12290;&#22296;&#38538;&#38656;&#35201;&#19968;&#20491;&#20013;&#22830;&#21270;&#26041;&#24335;&#65292;&#28858; PR&#12289;&#24066;&#22580;&#25512;&#24291;&#12289;&#23186;&#39636;&#22238;&#25033;&#12289;&#20844;&#30526;&#26597;&#35426;&#21450;&#21069;&#32218;&#20107;&#20214;&#20998;&#27969;&#28310;&#20633;&#20839;&#37096;&#36039;&#35338;&#12290;"],
+        [".cta h2","Start on <em>WhatsApp</em><span class=\"dot\">.</span>","&#29992; <em>WhatsApp</em> &#38283;&#22987;<span class=\"dot\">.</span>"],
+        [".cta .lead","Tell us the workflow you want to improve.","&#21578;&#35380;&#25105;&#20497;&#20320;&#24819;&#25913;&#21892;&#30340;&#27969;&#31243;&#12290;"],
+        [".cta .btn-whatsapp","Start on WhatsApp","WhatsApp &#38283;&#22987;"],
+        [".wire-track span:nth-child(1)","Lead capture -> WhatsApp reply -> CRM update -> invoice draft -> approval queue -> customer follow-up -> stock alert -> owner report ->","&#23458;&#28304;&#25910;&#38598; -> WhatsApp &#22238;&#35206; -> CRM &#26356;&#26032; -> &#30332;&#31080;&#33609;&#31295; -> &#25209;&#26680;&#38538;&#21015; -> &#23458;&#25142;&#36319;&#36914; -> &#24235;&#23384;&#25552;&#31034; -> &#24215;&#20027;&#22577;&#34920; ->"],
+        [".wire-track span:nth-child(2)","Lead capture -> WhatsApp reply -> CRM update -> invoice draft -> approval queue -> customer follow-up -> stock alert -> owner report ->","&#23458;&#28304;&#25910;&#38598; -> WhatsApp &#22238;&#35206; -> CRM &#26356;&#26032; -> &#30332;&#31080;&#33609;&#31295; -> &#25209;&#26680;&#38538;&#21015; -> &#23458;&#25142;&#36319;&#36914; -> &#24235;&#23384;&#25552;&#31034; -> &#24215;&#20027;&#22577;&#34920; ->"],
+        [".scenario-btn[data-scenario='ecomm'] i","CS","&#23458;"],
+        [".scenario-btn[data-scenario='merchant'] i","ON","&#20837;"],
+        [".scenario-btn[data-scenario='salary'] i","PAY","&#34218;"],
+        [".founder-card:nth-child(1) .experience-row span:nth-child(1)","08 years","08 &#24180;"],
+        [".founder-card:nth-child(1) .experience-row span:nth-child(2)","Marketing systems","&#24066;&#22580;&#31995;&#32113;"],
+        [".founder-card:nth-child(2) .experience-row span:nth-child(1)","10 years","10 &#24180;"],
+        [".founder-card:nth-child(2) .experience-row span:nth-child(2)","Ecommerce ops","&#38651;&#21830;&#29151;&#36939;"],
+        [".art-caption span:nth-child(1)","Audit desk","&#23529;&#26680;&#26700;&#38754;"],
+        [".art-caption span:nth-child(2)","Paper system","&#32025;&#26412;&#31995;&#32113;"],
+        [".cards .card:nth-child(1) .tag","Build","&#24314;&#32622;"],
+        [".cards .card:nth-child(2) .tag","Tune","&#24494;&#35519;"],
+        [".cards .card:nth-child(3) .tag","Training","&#22521;&#35347;"],
+        [".labs-head .label","Owner focus <span class=\"ix\">/ Admin load</span>","&#24215;&#20027;&#23560;&#27880; <span class=\"ix\">/ &#34892;&#25919;&#36000;&#33655;</span>"],
+        [".owner-plate figcaption span:nth-child(1)","Owner view","&#24215;&#20027;&#35222;&#35282;"],
+        [".owner-plate figcaption span:nth-child(2)","Scroll-linked nodes","&#28414;&#21205;&#31680;&#40670;"],
+        [".method .label","Automation start point <span class=\"ix\">/ Working method</span>","&#33258;&#21205;&#21270;&#36215;&#40670; <span class=\"ix\">/ &#21512;&#20316;&#26041;&#27861;</span>"],
+        [".work .label","Case studies <span class=\"ix\">/ Applied workflows</span>","&#26696;&#20363; <span class=\"ix\">/ &#23526;&#38555;&#27969;&#31243;</span>"],
+        ["#case-panel-lume .case-points li:nth-child(1)","Clients complete most intake fields and sign off before the record moves forward.","&#23458;&#25142;&#20808;&#23436;&#25104;&#22823;&#37096;&#20998;&#20837;&#24235;&#27396;&#20301;&#20006;&#31805;&#32626;&#65292;&#32000;&#37636;&#25165;&#36914;&#20837;&#19979;&#19968;&#27493;&#12290;"],
+        ["#case-panel-lume .case-points li:nth-child(2)","Receipts, WhatsApp copies, inventory records, and sales data stay connected.","&#25910;&#25818;&#12289;WhatsApp &#21103;&#26412;&#12289;&#24235;&#23384;&#32000;&#37636;&#21644;&#37559;&#21806;&#36039;&#26009;&#26371;&#20445;&#25345;&#36899;&#25509;&#12290;"],
+        ["#case-panel-lume .case-points li:nth-child(3)","Shopify and CMS data feed Google Sheets for staff payout calculation.","Shopify &#21644; CMS &#36039;&#26009;&#26371;&#36914;&#20837; Google Sheets&#65292;&#29992;&#26044;&#21729;&#24037;&#34218;&#37228;&#35336;&#31639;&#12290;"],
+        ["#case-panel-lume .case-map-note","Hover or focus a node to see how the Lume Lux automation works.","&#40670;&#36984;&#31680;&#40670;&#65292;&#26597;&#30475; Lume Lux &#33258;&#21205;&#21270;&#22914;&#20309;&#36939;&#20316;&#12290;"],
+        ["#case-panel-lume .case-map-node:nth-of-type(1) small","Trigger","&#35320;&#30332;"],
+        ["#case-panel-lume .case-map-node:nth-of-type(1) b","Signed intake","&#31805;&#32626;&#20837;&#24235;"],
+        ["#case-panel-lume .case-map-node:nth-of-type(2) small","Collect","&#25910;&#38598;"],
+        ["#case-panel-lume .case-map-node:nth-of-type(2) b","Form data","&#34920;&#26684;&#36039;&#26009;"],
+        ["#case-panel-lume .case-map-node:nth-of-type(3) small","Action","&#21205;&#20316;"],
+        ["#case-panel-lume .case-map-node:nth-of-type(3) b","Receipt + WhatsApp","&#25910;&#25818;&#33287; WhatsApp"],
+        ["#case-panel-lume .case-map-node:nth-of-type(4) small","Sync","&#21516;&#27493;"],
+        ["#case-panel-lume .case-map-node:nth-of-type(4) b","Inventory records","&#24235;&#23384;&#32000;&#37636;"],
+        ["#case-panel-lume .case-map-node:nth-of-type(5) small","Sales","&#37559;&#21806;"],
+        ["#case-panel-lume .case-map-node:nth-of-type(6) small","Goal","&#30446;&#27161;"],
+        ["#case-panel-lume .case-map-node:nth-of-type(6) b","Payout sheet","&#34218;&#37228;&#34920;"],
+        ["#case-panel-mnc .case-points li:nth-child(1)","Promotion and event data from mall apps is consolidated into distribution-ready material.","&#21830;&#22580;&#25033;&#29992;&#31243;&#24335;&#20839;&#30340;&#25512;&#24291;&#21644;&#27963;&#21205;&#36039;&#26009;&#26371;&#25972;&#21512;&#25104;&#21487;&#20998;&#30332;&#32032;&#26448;&#12290;"],
+        ["#case-panel-mnc .case-points li:nth-child(2)","Frontline incident reports move to headquarters with department routing rules.","&#21069;&#32218;&#20107;&#25925;&#22577;&#21578;&#26371;&#25353;&#37096;&#38272;&#35215;&#21063;&#36865;&#21040;&#32317;&#37096;&#12290;"],
+        ["#case-panel-mnc .case-points li:nth-child(3)","Microsoft Power Automate keeps the data stream and notification flow coordinated.","Microsoft Power Automate &#21332;&#35519;&#36039;&#26009;&#27969;&#21644;&#36890;&#30693;&#27969;&#31243;&#12290;"],
+        ["#case-panel-mnc .case-map-note","Hover or focus a node to see how the internal communication system works.","&#40670;&#36984;&#31680;&#40670;&#65292;&#26597;&#30475;&#20839;&#37096;&#28317;&#36890;&#31995;&#32113;&#22914;&#20309;&#36939;&#20316;&#12290;"],
+        [".cta .label","Contact <span class=\"ix\">/ Workflow briefing</span>","&#32879;&#32097; <span class=\"ix\">/ &#27969;&#31243;&#31777;&#22577;</span>"],
+        ["footer .foot-grid > div:nth-child(1) p","Automation systems for Hong Kong SMEs. Built around operational reality, not platform hype.","&#28858;&#39321;&#28207;&#20013;&#23567;&#20225;&#24314;&#31435;&#23526;&#38555;&#21487;&#29992;&#30340;&#33258;&#21205;&#21270;&#31995;&#32113;&#12290;"],
+        ["footer .foot-grid > div:nth-child(2) h4","Pages","&#38913;&#38754;"],
+        ["footer .foot-grid > div:nth-child(2) a:nth-of-type(1)","About","&#38364;&#26044;"],
+        ["footer .foot-grid > div:nth-child(2) a:nth-of-type(2)","Services","&#26381;&#21209;"],
+        ["footer .foot-grid > div:nth-child(2) a:nth-of-type(3)","Signals","&#35338;&#34399;"],
+        ["footer .foot-grid > div:nth-child(3) h4","Stacks","&#24037;&#20855;"],
+        ["footer .foot-grid > div:nth-child(4) h4","Focus","&#37325;&#40670;"],
+        ["footer .foot-grid > div:nth-child(4) a:nth-of-type(1)","Lead flow","&#23458;&#28304;&#27969;&#31243;"],
+        ["footer .foot-grid > div:nth-child(4) a:nth-of-type(2)","Ecommerce ops","&#38651;&#21830;&#29151;&#36939;"],
+        ["footer .foot-grid > div:nth-child(4) a:nth-of-type(3)","AI routing","AI &#20998;&#27969;"],
+        ["footer .foot-grid > div:nth-child(5) h4","Contact","&#32879;&#32097;"],
+        ["footer .foot-grid > div:nth-child(5) a:nth-of-type(2)","Audit request","&#35413;&#20272;&#30003;&#35531;"],
+        [".about .roman","II.","&#20108;"],
+        [".capabilities .roman","III.","&#19977;"],
+        [".labs .roman","IV.","&#22235;"],
+        [".method .roman","V.","&#20116;"],
+        [".work .roman","VI.","&#20845;"],
+        [".cta .roman","VII.","&#19971;"],
+        ["footer .word","Automated <em>workflows</em>.","&#33258;&#21205;&#21270;<em>&#24037;&#20316;&#27969;&#31243;</em>."],
+      ];
+
+      var languageAttributes = [
+        [
+                "#case-panel-lume .case-solution-map",
+                "aria-label",
+                "Lume Lux automation workflow",
+                "Lume Lux &#33258;&#21205;&#21270;&#27969;&#31243;&#22294;"
+        ],
+        [
+                "#case-panel-mnc .case-solution-map",
+                "aria-label",
+                "Internal communication automation workflow",
+                "&#20839;&#37096;&#28317;&#36890;&#33258;&#21205;&#21270;&#27969;&#31243;&#22294;"
+        ],
+        [
+                "#case-panel-lume .case-map-note",
+                "data-default-note",
+                "Hover or focus a node to see how the Lume Lux automation works.",
+                "&#40670;&#36984;&#31680;&#40670;&#65292;&#26597;&#30475; Lume Lux &#33258;&#21205;&#21270;&#22914;&#20309;&#36939;&#20316;&#12290;"
+        ],
+        [
+                "#case-panel-mnc .case-map-note",
+                "data-default-note",
+                "Hover or focus a node to see how the internal communication system works.",
+                "&#40670;&#36984;&#31680;&#40670;&#65292;&#26597;&#30475;&#20839;&#37096;&#28317;&#36890;&#31995;&#32113;&#22914;&#20309;&#36939;&#20316;&#12290;"
+        ],
+        [
+                "#case-panel-lume .case-map-node:nth-of-type(1)",
+                "data-note",
+                "Client completes intake fields and signs the consignment form before the record moves forward.",
+                "&#23458;&#25142;&#20808;&#22635;&#23531;&#23492;&#21806;&#36039;&#26009;&#20006;&#31805;&#32626;&#34920;&#26684;&#65292;&#32000;&#37636;&#25165;&#36914;&#20837;&#19979;&#19968;&#27493;&#12290;"
+        ],
+        [
+                "#case-panel-lume .case-map-node:nth-of-type(2)",
+                "data-note",
+                "A scheduled system collects completed form data and keeps the intake record ready for the next action.",
+                "&#31995;&#32113;&#23450;&#26178;&#25910;&#38598;&#24050;&#23436;&#25104;&#30340;&#34920;&#26684;&#36039;&#26009;&#65292;&#35731;&#20837;&#24235;&#32000;&#37636;&#21487;&#30452;&#25509;&#36914;&#20837;&#19979;&#19968;&#20491;&#21205;&#20316;&#12290;"
+        ],
+        [
+                "#case-panel-lume .case-map-node:nth-of-type(3)",
+                "data-note",
+                "Receipt generation and WhatsApp copy happen automatically, so the client receives confirmation without a manual handoff.",
+                "&#25910;&#25818;&#21644; WhatsApp &#21103;&#26412;&#26371;&#33258;&#21205;&#29986;&#29983;&#65292;&#23458;&#25142;&#28961;&#38656;&#31561;&#24453;&#20154;&#25163;&#20132;&#25509;&#20063;&#33021;&#25910;&#21040;&#30906;&#35469;&#12290;"
+        ],
+        [
+                "#case-panel-lume .case-map-node:nth-of-type(4)",
+                "data-note",
+                "Inventory, Shopify sales, and CMS records remain aligned as consignment items move through the business.",
+                "&#23492;&#21806;&#21830;&#21697;&#27969;&#36681;&#26178;&#65292;&#24235;&#23384;&#12289;Shopify &#37559;&#21806;&#21644; CMS &#32000;&#37636;&#26371;&#20445;&#25345;&#21516;&#27493;&#12290;"
+        ],
+        [
+                "#case-panel-lume .case-map-node:nth-of-type(5)",
+                "data-note",
+                "Shopify and CMS data stream into Google Sheets for payout calculation from sales data.",
+                "Shopify &#21644; CMS &#36039;&#26009;&#26371;&#27969;&#20837; Google Sheets&#65292;&#29992;&#37559;&#21806;&#36039;&#26009;&#35336;&#31639;&#20998;&#24115;&#12290;"
+        ],
+        [
+                "#case-panel-lume .case-map-node:nth-of-type(6)",
+                "data-note",
+                "The final sheet gives the team a clear inventory and payout view without day-end re-entry.",
+                "&#26368;&#32066;&#34920;&#26684;&#35731;&#22296;&#38538;&#28165;&#26970;&#30475;&#21040;&#24235;&#23384;&#21644;&#20998;&#24115;&#29376;&#24907;&#65292;&#19981;&#38656;&#35201;&#27599;&#26085;&#37325;&#35079;&#36664;&#20837;&#12290;"
+        ],
+        [
+                "#case-panel-mnc .case-map-node:nth-of-type(1)",
+                "data-note",
+                "The mall app provides active promotions and upcoming event information from across the property portfolio.",
+                "&#21830;&#22580; app &#25552;&#20379;&#21508;&#29289;&#26989;&#30340;&#29694;&#34892;&#25512;&#24291;&#21644;&#21363;&#23559;&#33289;&#34892;&#30340;&#27963;&#21205;&#36039;&#26009;&#12290;"
+        ],
+        [
+                "#case-panel-mnc .case-map-node:nth-of-type(2)",
+                "data-note",
+                "Frontline teams submit incident reports through a structured intake path for headquarters visibility.",
+                "&#21069;&#32218;&#22296;&#38538;&#36879;&#36942;&#32080;&#27083;&#21270;&#20837;&#21475;&#25552;&#20132;&#20107;&#25925;&#22577;&#21578;&#65292;&#32317;&#37096;&#21487;&#21363;&#26178;&#25484;&#25569;&#12290;"
+        ],
+        [
+                "#case-panel-mnc .case-map-node:nth-of-type(3)",
+                "data-note",
+                "Microsoft Power Automate consolidates source data, applies routing logic, and prepares the next action.",
+                "Microsoft Power Automate &#25972;&#21512;&#20358;&#28304;&#36039;&#26009;&#12289;&#22871;&#29992;&#20998;&#27969;&#35215;&#21063;&#65292;&#20006;&#28310;&#20633;&#19979;&#19968;&#27493;&#21205;&#20316;&#12290;"
+        ],
+        [
+                "#case-panel-mnc .case-map-node:nth-of-type(4)",
+                "data-note",
+                "Promotion and event records become ready-to-use internal material for marketing, PR, and frontline distribution.",
+                "&#25512;&#24291;&#21644;&#27963;&#21205;&#32000;&#37636;&#26371;&#25972;&#29702;&#25104;&#21487;&#20379;&#24066;&#22580;&#12289;&#20844;&#38364;&#21644;&#21069;&#32218;&#20998;&#30332;&#30340;&#20839;&#37096;&#32032;&#26448;&#12290;"
+        ],
+        [
+                "#case-panel-mnc .case-map-node:nth-of-type(5)",
+                "data-note",
+                "PR, marketing, media response, and public enquiry teams work from the same prepared source.",
+                "&#20844;&#38364;&#12289;&#24066;&#22580;&#12289;&#23186;&#39636;&#22238;&#25033;&#21644;&#20844;&#30526;&#26597;&#35426;&#22296;&#38538;&#37117;&#20351;&#29992;&#21516;&#19968;&#20221;&#24050;&#25972;&#29702;&#36039;&#26009;&#12290;"
+        ],
+        [
+                "#case-panel-mnc .case-map-node:nth-of-type(6)",
+                "data-note",
+                "Incident reports reach headquarters quickly with clear context from the frontline.",
+                "&#20107;&#25925;&#22577;&#21578;&#36899;&#21516;&#21069;&#32218;&#32972;&#26223;&#36039;&#26009;&#24555;&#36895;&#36865;&#36948;&#32317;&#37096;&#12290;"
+        ],
+        [
+                "#case-panel-mnc .case-map-node:nth-of-type(7)",
+                "data-note",
+                "The system sends the report to the relevant department automatically for emergency handling and follow-through.",
+                "&#31995;&#32113;&#33258;&#21205;&#25226;&#22577;&#21578;&#20998;&#30332;&#33267;&#30456;&#38364;&#37096;&#38272;&#65292;&#25903;&#25588;&#32202;&#24613;&#34389;&#29702;&#21644;&#24460;&#32396;&#36319;&#36914;&#12290;"
+        ],
+        [
+                "footer .foot-grid > div:nth-child(5) a:nth-of-type(1)",
+                "text",
+                "WhatsApp",
+                "WhatsApp &#32879;&#32097;"
+        ],
+        [
+                "footer .foot-grid > div:nth-child(3) a:nth-of-type(1)",
+                "text",
+                "Make",
+                "Make"
+        ],
+        [
+                "footer .foot-grid > div:nth-child(3) a:nth-of-type(2)",
+                "text",
+                "n8n",
+                "n8n"
+        ],
+        [
+                "footer .foot-grid > div:nth-child(3) a:nth-of-type(3)",
+                "text",
+                "Power Automate",
+                "Power Automate"
+        ]
+];
+      function applyLanguageAttributes(lang) {
+        languageAttributes.forEach(function (entry) {
+          var nodes = Array.prototype.slice.call(document.querySelectorAll(entry[0]));
+          nodes.forEach(function (node) {
+            var value = lang === "zh" ? entry[3] : entry[2];
+            if (entry[1] === "text") { node.innerHTML = value; }
+            else {
+              var decoder = document.createElement("textarea");
+              decoder.innerHTML = value;
+              node.setAttribute(entry[1], decoder.value);
+            }
+          });
+        });
+      }
+
+      function applyLanguageCopies(lang) {
+        languageCopies.forEach(function (entry) {
+          var node = document.querySelector(entry[0]);
+          if (!node) return;
+          node.innerHTML = lang === "zh" ? entry[2] : entry[1];
+        });
+      }
+      function setLanguage(lang, persist) {
+        if (!langButtons.length) return;
+        var activeLang = lang === "zh" ? "zh" : "en";
+        currentLang = activeLang;
+        langButtons.forEach(function (button) {
+          var active = button.dataset.lang === activeLang;
+          button.classList.toggle("is-active", active);
+          button.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+        document.documentElement.lang = activeLang === "zh" ? "zh-Hant" : "en";
+        document.body.setAttribute("data-lang", activeLang);
+        applyLanguageCopies(activeLang);
+        applyLanguageAttributes(activeLang);
+        if (typeof paintScenario === "function" && typeof scenarios !== "undefined" && appFlow) {
+          paintScenario(activeScenario || "ecomm");
+        }
+        if (typeof updateWorkflowHeader === "function" && typeof scenarios !== "undefined") {
+          updateWorkflowHeader(workflowStage && workflowStage.classList.contains("is-after"));
+        }
+        if (persist) {
+          try { window.localStorage.setItem("zoomicc-lang", activeLang); } catch (error) {}
+        }
+      }
+      langButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          setLanguage(button.dataset.lang, true);
+          setNavMenu(false);
+        });
+      });
+      var savedLanguage = "en";
+      try { savedLanguage = window.localStorage.getItem("zoomicc-lang") || "en"; } catch (error) {}
+      setLanguage(savedLanguage, false);
+
+      var proofSlides = Array.prototype.slice.call(document.querySelectorAll(".proof-slide"));
+      var proofDots = Array.prototype.slice.call(document.querySelectorAll("[data-proof-dot]"));
+      var activeProof = 0;
+      function showProof(index) {
+        if (!proofSlides.length) return;
+        activeProof = (index + proofSlides.length) % proofSlides.length;
+        proofSlides.forEach(function (slide, slideIndex) {
+          slide.classList.toggle("is-active", slideIndex === activeProof);
+        });
+        proofDots.forEach(function (dot, dotIndex) {
+          dot.classList.toggle("is-active", dotIndex === activeProof);
+        });
+      }
+      var proofTimer = null;
+      function startProofSlider() {
+        if (proofTimer || proofSlides.length < 2 || reduceMotion) return;
+        proofTimer = window.setInterval(function () { showProof(activeProof + 1); }, 3000);
+      }
+      function restartProofSlider() {
+        if (proofTimer) window.clearInterval(proofTimer);
+        proofTimer = null;
+        startProofSlider();
+      }
+      proofDots.forEach(function (dot) {
+        dot.addEventListener("click", function () {
+          showProof(Number(dot.dataset.proofDot || 0));
+          restartProofSlider();
+        });
+      });
+      if (proofSlides.length && !reduceMotion) {
+        startProofSlider();
+      }
+
       var pills = Array.prototype.slice.call(document.querySelectorAll(".pill"));
       var labs = Array.prototype.slice.call(document.querySelectorAll(".lab"));
       pills.forEach(function (pill) {
@@ -3168,6 +3942,19 @@
           kicker: "WhatsApp service flow",
           title: "Auto Ecomm CS",
           description: "WhatsApp messages route into sales, enquiry, or human review paths.",
+          manual: {
+            kicker: "Manual",
+            title: "Manual ecomm CS",
+            titleZh: "人手電商客服流程",
+            nodes: [
+              { id: "wa", icon: "whatsapp", label: "WhatsApp inbox", detail: "Owner reads each message and decides what it means.", x: 12, y: 50, mx: 50, my: 10, r: -4 },
+              { id: "intent", icon: "docs", label: "Intent sorting", detail: "Sales, enquiry, and special cases are sorted by hand.", x: 30, y: 28, mx: 50, my: 26, r: 3 },
+              { id: "invoice", icon: "invoice", label: "Invoice draft", detail: "Sales requests need manual invoice preparation.", x: 48, y: 68, mx: 50, my: 43, r: -3 },
+              { id: "sheet", icon: "sheet", label: "Sheet lookup", detail: "Product answers are checked from a spreadsheet.", x: 66, y: 34, mx: 50, my: 61, r: 4 },
+              { id: "follow", icon: "gmail", label: "Follow-up", detail: "Owner sends the next reply and keeps track of status.", x: 86, y: 58, mx: 50, my: 79, r: -3 }
+            ],
+            edges: [["wa", "intent"], ["intent", "invoice"], ["intent", "sheet"], ["invoice", "follow"], ["sheet", "follow"]]
+          },
           nodes: [
             { id: "wa", icon: "whatsapp", stage: "Trigger", label: "WhatsApp", detail: "Customer message starts the service flow.", x: 10, y: 50, mx: 50, my: 7 },
             { id: "classify", icon: "docs", stage: "Route", label: "Classify", detail: "AI reads intent and selects the right path.", x: 28, y: 50, mx: 50, my: 19 },
@@ -3194,6 +3981,19 @@
           kicker: "Signed onboarding flow",
           title: "Consignment merchant onboarding",
           description: "Signed onboarding turns into inventory, client records, invoice, and confirmations.",
+          manual: {
+            kicker: "Manual",
+            title: "Manual onboarding",
+            titleZh: "人手寄售商戶入場",
+            nodes: [
+              { id: "form", icon: "docs", label: "Onboard form", detail: "Team collects customer details and signature manually.", x: 12, y: 48, mx: 50, my: 9, r: -4 },
+              { id: "inventory", icon: "sheet", label: "Inventory entry", detail: "Handbag and item fields are copied into inventory records.", x: 31, y: 30, mx: 50, my: 25, r: 3 },
+              { id: "client", icon: "sheet", label: "Client record", detail: "Client profile and terms are entered into a second database.", x: 49, y: 66, mx: 50, my: 43, r: -2 },
+              { id: "invoice", icon: "invoice", label: "Invoice", detail: "Invoice details are prepared from submitted terms.", x: 68, y: 34, mx: 50, my: 61, r: 4 },
+              { id: "notify", icon: "whatsapp", label: "Confirmations", detail: "Email and WhatsApp are sent separately to both parties.", x: 86, y: 58, mx: 50, my: 79, r: -3 }
+            ],
+            edges: [["form", "inventory"], ["form", "client"], ["inventory", "invoice"], ["client", "invoice"], ["invoice", "notify"]]
+          },
           nodes: [
             { id: "form", icon: "docs", stage: "Trigger", label: "Onboard form", detail: "Client details and signature start the workflow.", x: 10, y: 50, mx: 50, my: 8 },
             { id: "drive", icon: "drive", stage: "Store", label: "Signed file", detail: "The signed form is stored for reference.", x: 26, y: 50, mx: 50, my: 22 },
@@ -3217,6 +4017,19 @@
           kicker: "Payroll operations flow",
           title: "Month-end auto salary calculation",
           description: "Sales data consolidates daily, then salary, commission, bookkeeping, payslip, and email steps run from one record set.",
+          manual: {
+            kicker: "Manual",
+            title: "Manual payroll run",
+            titleZh: "人手薪酬計算",
+            nodes: [
+              { id: "sales", icon: "shopify", label: "Sales exports", detail: "Shopify and in-store sales are exported from separate places.", x: 12, y: 36, mx: 50, my: 9, r: -4 },
+              { id: "merge", icon: "sheet", label: "Sheet merge", detail: "Daily sales rows are copied into one workbook.", x: 31, y: 64, mx: 50, my: 26, r: 3 },
+              { id: "calc", icon: "sheet", label: "Commission", detail: "Base pay and commission are calculated from sales records.", x: 50, y: 36, mx: 50, my: 43, r: -2 },
+              { id: "book", icon: "docs", label: "Bookkeeping", detail: "Payroll entries are prepared for review.", x: 69, y: 64, mx: 50, my: 61, r: 4 },
+              { id: "email", icon: "gmail", label: "Payslip email", detail: "Payslips are generated and emailed to employees.", x: 88, y: 42, mx: 50, my: 79, r: -3 }
+            ],
+            edges: [["sales", "merge"], ["merge", "calc"], ["calc", "book"], ["calc", "email"], ["book", "email"]]
+          },
           nodes: [
             { id: "shopify", icon: "shopify", stage: "Daily feed", label: "Shopify sales", detail: "Online sales append to the payroll workbook.", x: 10, y: 34, mx: 30, my: 9 },
             { id: "store", icon: "sheet", stage: "Daily feed", label: "In-store sales", detail: "In-store sales join the same Google Sheet.", x: 10, y: 66, mx: 70, my: 9 },
@@ -3239,8 +4052,11 @@
       };
       var scenarioButtons = Array.prototype.slice.call(document.querySelectorAll(".scenario-btn"));
       var appFlow = document.getElementById("app-flow");
+      var manualFlow = document.getElementById("manual-flow");
       var flowTitle = document.getElementById("flow-title");
       var flowKicker = document.getElementById("flow-kicker");
+      var workflowStage = document.getElementById("workflow-stage");
+      var workflowModeButtons = Array.prototype.slice.call(document.querySelectorAll("[data-workflow-mode]"));
       var activeScenario = "ecomm";
       var mobileFlowQuery = window.matchMedia("(max-width: 760px)");
       var appIconMap = {
@@ -3254,19 +4070,166 @@
         invoice: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v18l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4z"></path><path d="M9.5 8h5"></path><path d="M9.5 12h5"></path><path d="M9.5 16h3"></path></svg>',
         human: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.5"></circle><path d="M5 21a7 7 0 0 1 14 0"></path></svg>'
       };
+      var flowTextZh = {
+              "Manual": "\u624b\u52d5",
+              "Automated": "\u81ea\u52d5\u5316",
+              "WhatsApp service flow": "WhatsApp \u5ba2\u670d\u6d41\u7a0b",
+              "Signed onboarding flow": "\u7c3d\u7f72\u5165\u5ba2\u6d41\u7a0b",
+              "Payroll operations flow": "\u85aa\u916c\u71df\u904b\u6d41\u7a0b",
+              "Auto Ecomm CS": "\u81ea\u52d5\u96fb\u5546\u5ba2\u670d",
+              "Consignment merchant onboarding": "\u5bc4\u552e\u5546\u6236\u5165\u5834",
+              "Month-end auto salary calculation": "\u6708\u7d50\u85aa\u916c\u81ea\u52d5\u8a08\u7b97",
+              "Month-end salary calculation": "\u6708\u7d50\u85aa\u916c\u8a08\u7b97",
+              "Manual ecomm CS": "\u624b\u52d5\u96fb\u5546\u5ba2\u670d",
+              "Manual onboarding": "\u624b\u52d5\u5165\u5ba2\u6d41\u7a0b",
+              "Manual payroll run": "\u624b\u52d5\u85aa\u916c\u6d41\u7a0b",
+              "WhatsApp inbox": "WhatsApp \u6536\u4ef6\u7bb1",
+              "Owner reads each message and decides what it means.": "\u5e97\u4e3b\u9010\u500b\u8a0a\u606f\u67e5\u770b\uff0c\u518d\u5224\u65b7\u9700\u8981\u600e\u6a23\u8655\u7406\u3002",
+              "Intent sorting": "\u610f\u5716\u5206\u985e",
+              "Sales, enquiry, and special cases are sorted by hand.": "\u92b7\u552e\u3001\u67e5\u8a62\u548c\u7279\u6b8a\u500b\u6848\u90fd\u7531\u4eba\u624b\u5206\u985e\u3002",
+              "Invoice draft": "\u767c\u7968\u8349\u7a3f",
+              "Sales requests need manual invoice preparation.": "\u92b7\u552e\u8acb\u6c42\u9700\u8981\u4eba\u624b\u6e96\u5099\u767c\u7968\u3002",
+              "Sheet lookup": "\u8a66\u7b97\u8868\u67e5\u627e",
+              "Product answers are checked from a spreadsheet.": "\u7522\u54c1\u7b54\u6848\u9700\u8981\u5f9e\u8a66\u7b97\u8868\u4e2d\u67e5\u627e\u3002",
+              "Follow-up": "\u8ddf\u9032",
+              "Owner sends the next reply and keeps track of status.": "\u5e97\u4e3b\u56de\u8986\u4e0b\u4e00\u500b\u8a0a\u606f\uff0c\u540c\u6642\u8ddf\u9032\u72c0\u614b\u3002",
+              "Onboard form": "\u5165\u5ba2\u8868\u683c",
+              "Team collects customer details and signature manually.": "\u5718\u968a\u4eba\u624b\u6536\u96c6\u5ba2\u6236\u8cc7\u6599\u548c\u7c3d\u540d\u3002",
+              "Inventory entry": "\u5eab\u5b58\u8f38\u5165",
+              "Handbag and item fields are copied into inventory records.": "\u624b\u888b\u8207\u5546\u54c1\u6b04\u4f4d\u9700\u8981\u8907\u88fd\u5230\u5eab\u5b58\u8a18\u9304\u3002",
+              "Client record": "\u5ba2\u6236\u7d00\u9304",
+              "Client profile and terms are entered into a second database.": "\u5ba2\u6236\u6a94\u6848\u548c\u689d\u6b3e\u9700\u518d\u8f38\u5165\u53e6\u4e00\u500b\u8cc7\u6599\u5eab\u3002",
+              "Invoice": "\u767c\u7968",
+              "Invoice details are prepared from submitted terms.": "\u767c\u7968\u5167\u5bb9\u5f9e\u5df2\u63d0\u4ea4\u689d\u6b3e\u6e96\u5099\u3002",
+              "Confirmations": "\u78ba\u8a8d\u901a\u77e5",
+              "Email and WhatsApp are sent separately to both parties.": "Email \u548c WhatsApp \u5206\u5225\u767c\u9001\u7d66\u96d9\u65b9\u3002",
+              "Sales exports": "\u92b7\u552e\u532f\u51fa",
+              "Shopify and in-store sales are exported from separate places.": "Shopify \u548c\u5e97\u5167\u92b7\u552e\u5f9e\u4e0d\u540c\u4f86\u6e90\u532f\u51fa\u3002",
+              "Sheet merge": "\u8a66\u7b97\u8868\u5408\u4f75",
+              "Daily sales rows are copied into one workbook.": "\u6bcf\u65e5\u92b7\u552e\u8cc7\u6599\u8907\u88fd\u5230\u540c\u4e00\u500b\u5de5\u4f5c\u7c3f\u3002",
+              "Commission": "\u4f63\u91d1\u8a08\u7b97",
+              "Base pay and commission are calculated from sales records.": "\u5e95\u85aa\u8207\u4f63\u91d1\u6839\u64da\u92b7\u552e\u7d00\u9304\u8a08\u7b97\u3002",
+              "Bookkeeping": "\u5165\u5e33",
+              "Payroll entries are prepared for review.": "\u85aa\u916c\u689d\u76ee\u6e96\u5099\u7d66\u5718\u968a\u5be9\u95b1\u3002",
+              "Payslip email": "\u85aa\u916c\u55ae Email",
+              "Payslips are generated and emailed to employees.": "\u85aa\u916c\u55ae\u7522\u751f\u5f8c\u4ee5 Email \u767c\u9001\u7d66\u54e1\u5de5\u3002",
+              "Trigger": "\u89f8\u767c",
+              "Route": "\u5206\u6d41",
+              "If sales": "\u5982\u679c\u662f\u92b7\u552e",
+              "Action": "\u52d5\u4f5c",
+              "Gateway": "\u4ed8\u6b3e\u78ba\u8a8d",
+              "Notify": "\u901a\u77e5",
+              "If enquiry": "\u5982\u679c\u662f\u67e5\u8a62",
+              "If other": "\u5176\u4ed6\u985e\u5225",
+              "Store": "\u5132\u5b58",
+              "Database": "\u8cc7\u6599\u5eab",
+              "Daily feed": "\u6bcf\u65e5\u8cc7\u6599\u6d41",
+              "Sheet": "\u8a66\u7b97\u8868",
+              "Rules": "\u898f\u5247",
+              "Bookkeep": "\u5165\u5e33",
+              "Document": "\u6587\u4ef6",
+              "Classify": "\u5206\u985e",
+              "Sales": "\u92b7\u552e",
+              "Send invoice": "\u767c\u9001\u767c\u7968",
+              "Confirm": "\u78ba\u8a8d",
+              "Both sides": "\u96d9\u65b9",
+              "Knowledge base": "\u77e5\u8b58\u5eab",
+              "Answer": "\u56de\u7b54",
+              "Human review": "\u4eba\u624b\u5be9\u95b1",
+              "Signed file": "\u5df2\u7c3d\u7f72\u6587\u4ef6",
+              "Inventory": "\u5eab\u5b58",
+              "Email": "Email",
+              "Shopify sales": "Shopify \u92b7\u552e",
+              "In-store sales": "\u5e97\u5167\u92b7\u552e",
+              "Consolidate": "\u6574\u5408",
+              "Calculate": "\u8a08\u7b97",
+              "Google Sheet": "Google Sheet",
+              "Payslip": "\u85aa\u916c\u55ae",
+              "Employees": "\u54e1\u5de5",
+              "Customer message starts the service flow.": "\u5ba2\u6236\u8a0a\u606f\u555f\u52d5\u5ba2\u670d\u6d41\u7a0b\u3002",
+              "AI reads intent and selects the right path.": "AI \u5224\u65b7\u610f\u5716\u4e26\u9078\u64c7\u5408\u9069\u8def\u5f91\u3002",
+              "Sales requests move to invoice preparation.": "\u92b7\u552e\u67e5\u8a62\u6703\u9032\u5165\u767c\u7968\u6e96\u5099\u6d41\u7a0b\u3002",
+              "Invoice is generated and sent for payment.": "\u7cfb\u7d71\u7522\u751f\u767c\u7968\u4e26\u767c\u9001\u4ed8\u6b3e\u8cc7\u6599\u3002",
+              "Payment gateway confirmation controls the next update.": "\u4ed8\u6b3e\u9598\u9053\u78ba\u8a8d\u5f8c\u624d\u63a8\u9001\u4e0b\u4e00\u6b65\u66f4\u65b0\u3002",
+              "Customer and owner receive the right status update.": "\u5ba2\u6236\u548c\u5e97\u4e3b\u90fd\u6703\u6536\u5230\u5c0d\u61c9\u72c0\u614b\u901a\u77e5\u3002",
+              "AI retrieves product answers from a Google Sheet base.": "AI \u5f9e Google Sheet \u77e5\u8b58\u5eab\u64f7\u53d6\u7522\u54c1\u7b54\u6848\u3002",
+              "The answer is drafted back into WhatsApp.": "\u7b54\u6848\u6703\u8349\u64ec\u56de WhatsApp \u5c0d\u8a71\u3002",
+              "Cases outside the rules are assigned for human intervention.": "\u8d85\u51fa\u898f\u5247\u7684\u500b\u6848\u6703\u4ea4\u7531\u771f\u4eba\u8655\u7406\u3002",
+              "Client details and signature start the workflow.": "\u5ba2\u6236\u8cc7\u6599\u8207\u7c3d\u7f72\u555f\u52d5\u6d41\u7a0b\u3002",
+              "Completed form fields are collected on schedule.": "\u5df2\u5b8c\u6210\u7684\u8868\u683c\u6b04\u4f4d\u6703\u5b9a\u6642\u6536\u96c6\u3002",
+              "Merchant contact, terms, and profile are saved.": "\u5546\u6236\u806f\u7d61\u3001\u689d\u6b3e\u548c\u6a94\u6848\u6703\u88ab\u5132\u5b58\u3002",
+              "Inventory rows are created for each handbag.": "\u6bcf\u500b\u624b\u888b\u90fd\u6703\u5efa\u7acb\u5eab\u5b58\u7d00\u9304\u3002",
+              "Invoice and receipt details are prepared automatically.": "\u767c\u7968\u548c\u6536\u64da\u8cc7\u6599\u6703\u81ea\u52d5\u6e96\u5099\u3002",
+              "Both merchant and owner receive the right copies.": "\u5546\u6236\u548c\u5e97\u4e3b\u90fd\u6703\u6536\u5230\u76f8\u61c9\u526f\u672c\u3002",
+              "Daily Shopify sales are imported.": "\u6bcf\u65e5 Shopify \u92b7\u552e\u6703\u81ea\u52d5\u532f\u5165\u3002",
+              "In-store sales are imported into the same view.": "\u5e97\u5167\u92b7\u552e\u6703\u532f\u5165\u540c\u4e00\u500b\u8996\u5716\u3002",
+              "Sales sources are merged into one sheet.": "\u4e0d\u540c\u92b7\u552e\u4f86\u6e90\u6703\u6574\u5408\u5230\u540c\u4e00\u5f35\u8868\u3002",
+              "Base pay and commission rules are applied.": "\u7cfb\u7d71\u5957\u7528\u5e95\u85aa\u548c\u4f63\u91d1\u898f\u5247\u3002",
+              "Payroll rows are ready for bookkeeping.": "\u85aa\u916c\u8cc7\u6599\u6703\u6e96\u5099\u597d\u4f5c\u5165\u5e33\u3002",
+              "Payslips are generated for staff.": "\u7cfb\u7d71\u6703\u7522\u751f\u54e1\u5de5\u85aa\u916c\u55ae\u3002",
+              "Employees receive payslips by email.": "\u54e1\u5de5\u6703\u900f\u904e Email \u6536\u5230\u85aa\u916c\u55ae\u3002",
+              "Source": "\u4f86\u6e90",
+              "Engine": "\u5f15\u64ce",
+              "Prepare": "\u6e96\u5099",
+              "Distribute": "\u5206\u767c",
+              "Mall app": "\u5546\u5834\u61c9\u7528\u7a0b\u5f0f",
+              "Incident report": "\u4e8b\u6545\u5831\u544a",
+              "Power Automate": "Power Automate",
+              "Info pack": "\u8cc7\u8a0a\u5305",
+              "PR + media": "\u516c\u95dc\u8207\u5a92\u9ad4",
+              "HQ view": "\u7e3d\u90e8\u8996\u5716",
+              "Departments": "\u76f8\u95dc\u90e8\u9580",
+              "Collect": "\u6536\u96c6",
+              "Sync": "\u540c\u6b65",
+              "Signed intake": "\u7c3d\u7f72\u5165\u5eab",
+              "Form data": "\u8868\u683c\u8cc7\u6599",
+              "Receipt + WhatsApp": "\u6536\u64da\u8207 WhatsApp",
+              "Inventory records": "\u5eab\u5b58\u7d00\u9304",
+              "Shopify + CMS": "Shopify + CMS",
+              "Payout sheet": "\u85aa\u916c\u8868"
+      };
+      function flowText(value) {
+        if (currentLang === "zh" && flowTextZh[value]) return flowTextZh[value];
+        return value;
+      }
       function escapeHtml(value) {
         return String(value).replace(/[&<>"']/g, function (char) {
           return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char];
         });
       }
+      function renderManualFlow(data, useMobileFlow) {
+        if (!manualFlow || !data.manual) return;
+        var manual = data.manual;
+        var nodesById = {};
+        manual.nodes.forEach(function (node) { nodesById[node.id] = node; });
+        function point(node, axis) {
+          var mobileValue = node["m" + axis];
+          return useMobileFlow && typeof mobileValue === "number" ? mobileValue : node[axis];
+        }
+        var lines = manual.edges.map(function (edge) {
+          var from = nodesById[edge[0]];
+          var to = nodesById[edge[1]];
+          if (!from || !to) return "";
+          return '<line x1="' + point(from, "x") + '" y1="' + point(from, "y") + '" x2="' + point(to, "x") + '" y2="' + point(to, "y") + '"></line>';
+        }).join("");
+        var nodes = manual.nodes.map(function (node) {
+          var icon = escapeHtml(node.icon);
+          return '<div class="manual-node" style="--x:' + point(node, "x") + '%; --y:' + point(node, "y") + '%; --r:' + (node.r || 0) + 'deg;">' +
+            '<span class="manual-icon">' + (appIconMap[node.icon] || appIconMap.docs) + '</span>' +
+            '<b>' + escapeHtml(flowText(node.label)) + '</b>' +
+            '<small>' + escapeHtml(flowText(node.detail)) + '</small>' +
+          '</div>';
+        }).join("");
+        manualFlow.setAttribute("aria-label", flowText(manual.title));
+        manualFlow.innerHTML = '<svg class="manual-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' + lines + '</svg>' + nodes;
+      }
       function paintScenario(key) {
         activeScenario = key;
         var data = scenarios[key] || scenarios.ecomm;
         var useMobileFlow = mobileFlowQuery.matches;
+        renderManualFlow(data, useMobileFlow);
         var nodesById = {};
         data.nodes.forEach(function (node) { nodesById[node.id] = node; });
-        flowKicker.textContent = data.kicker;
-        flowTitle.textContent = data.title;
         appFlow.classList.toggle("is-mobile", useMobileFlow);
         function point(node, axis) {
           var mobileValue = node["m" + axis];
@@ -3284,19 +4247,50 @@
           var icon = escapeHtml(node.icon);
           return '<button class="app-node" type="button" style="--x:' + point(node, "x") + '%; --y:' + point(node, "y") + '%; --i:' + index + '">' +
             '<span class="app-icon ' + icon + '">' + (appIconMap[node.icon] || appIconMap.docs) + '</span>' +
-            '<div><small>' + escapeHtml(node.stage) + '</small><b>' + escapeHtml(node.label) + '</b></div>' +
-            '<p>' + escapeHtml(node.detail) + '</p>' +
+            '<div><small>' + escapeHtml(flowText(node.stage)) + '</small><b>' + escapeHtml(flowText(node.label)) + '</b></div>' +
+            '<p>' + escapeHtml(flowText(node.detail)) + '</p>' +
           '</button>';
         }).join("");
         appFlow.innerHTML = '<svg class="flow-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' + lines + '</svg>' + nodes;
+        updateWorkflowHeader(workflowStage && workflowStage.classList.contains("is-after"));
+      }
+      function updateWorkflowHeader(after) {
+        if (!flowKicker || !flowTitle) return;
+        var data = scenarios[activeScenario] || scenarios.ecomm;
+        if (after) {
+          flowKicker.textContent = flowText(data.kicker);
+          flowTitle.textContent = flowText(data.title);
+        } else {
+          var manual = data.manual || scenarios.ecomm.manual;
+          flowKicker.textContent = flowText(manual.kicker || "Manual");
+          flowTitle.textContent = flowText(manual.title || "Manual ecomm CS");
+        }
+      }
+      function setWorkflowAfter(after) {
+        if (!workflowStage) return;
+        var automated = !!after;
+        workflowStage.classList.toggle("is-after", automated);
+        workflowModeButtons.forEach(function (button) {
+          var active = (automated && button.dataset.workflowMode === "automated") || (!automated && button.dataset.workflowMode === "manual");
+          button.classList.toggle("is-active", active);
+          button.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+        updateWorkflowHeader(automated);
       }
       scenarioButtons.forEach(function (button) {
         button.addEventListener("click", function () {
           scenarioButtons.forEach(function (item) { item.classList.toggle("is-active", item === button); });
           paintScenario(button.dataset.scenario);
+          setWorkflowAfter(workflowStage && workflowStage.classList.contains("is-after"));
+        });
+      });
+      workflowModeButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          setWorkflowAfter(button.dataset.workflowMode === "automated");
         });
       });
       paintScenario("ecomm");
+      setWorkflowAfter(false);
       mobileFlowQuery.addEventListener("change", function () { paintScenario(activeScenario); });
 
       var caseShowcases = Array.prototype.slice.call(document.querySelectorAll("[data-case-showcase]"));
@@ -3314,6 +4308,7 @@
             var active = panel.dataset.casePanel === id;
             panel.classList.toggle("is-active", active);
             panel.toggleAttribute("hidden", !active);
+            if (active) panel.setAttribute("data-revealed", "true");
           });
         }
         tabs.forEach(function (tab) {
@@ -3328,16 +4323,18 @@
         var note = map.querySelector(".case-map-note");
         var nodes = Array.prototype.slice.call(map.querySelectorAll(".case-map-node"));
         if (!note || !nodes.length) return;
-        var defaultNote = note.dataset.defaultNote || note.textContent;
+        function getDefaultNote() {
+          return note.dataset.defaultNote || note.textContent;
+        }
         function setCaseNote(text) {
-          note.textContent = text || defaultNote;
+          note.textContent = text || getDefaultNote();
         }
         nodes.forEach(function (node) {
           node.addEventListener("mouseenter", function () { setCaseNote(node.dataset.note); });
           node.addEventListener("focus", function () { setCaseNote(node.dataset.note); });
           node.addEventListener("click", function () { setCaseNote(node.dataset.note); });
-          node.addEventListener("mouseleave", function () { setCaseNote(defaultNote); });
-          node.addEventListener("blur", function () { setCaseNote(defaultNote); });
+          node.addEventListener("mouseleave", function () { setCaseNote(getDefaultNote()); });
+          node.addEventListener("blur", function () { setCaseNote(getDefaultNote()); });
         });
       });
 
