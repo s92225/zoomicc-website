@@ -1,0 +1,2130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Automation Blueprints for SMEs - Flow2</title>
+  <meta name="description" content="Download simple Make.com workflow blueprints for SMEs, then book a Flow Audit if you want Flow2 to customize the automation for your business.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23efe7d2'/%3E%3Ccircle cx='32' cy='32' r='22' fill='%2315140f'/%3E%3Cpath d='M23 41 41 23M27 23h14v14' fill='none' stroke='%23f7f1de' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --paper: #efe7d2;
+      --paper-warm: #ece4cf;
+      --paper-dark: #ddd2b6;
+      --ink: #15140f;
+      --ink-soft: #2a2620;
+      --ink-mute: #5a5448;
+      --ink-faint: #8b8676;
+      --coral: #ed6f5c;
+      --coral-soft: #f08e7c;
+      --mustard: #e9b94a;
+      --olive: #6e7448;
+      --whatsapp: #1f7a4c;
+      --bone: #f7f1de;
+      --blue-note: #5f6f8f;
+      --line: rgba(21, 20, 15, 0.16);
+      --line-soft: rgba(21, 20, 15, 0.08);
+      --line-strong: rgba(21, 20, 15, 0.34);
+      --shadow: 0 30px 60px -34px rgba(21, 20, 15, 0.34);
+      --page-width: 1360px;
+      --serif: "Playfair Display", "Iowan Old Style", Georgia, serif;
+      --sans: "Inter Tight", "Avenir Next", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      min-width: 320px;
+      overflow-x: clip;
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: clip;
+      color: var(--ink);
+      background: var(--paper);
+      font: 16px/1.55 var(--body);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.9;
+      mix-blend-mode: multiply;
+      background-image:
+        radial-gradient(circle at 10% 16%, rgba(106, 92, 56, 0.07), transparent 28%),
+        radial-gradient(circle at 92% 70%, rgba(106, 92, 56, 0.06), transparent 34%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.18 0 0 0 0 0.16 0 0 0 0 0.12 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: auto, auto, 240px 240px;
+    }
+
+    a { color: inherit; }
+    button, input, select, textarea { font: inherit; }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(100% - 48px, var(--page-width));
+      margin: 0 auto;
+      min-width: 0;
+    }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 0;
+      background: rgba(239, 231, 210, 0.94);
+    }
+
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      color: var(--ink-faint);
+      font: 10px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .topbar b { color: var(--ink); font-weight: 700; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(239, 231, 210, 0.92);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--sans);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      text-transform: uppercase;
+    }
+
+    .brand-symbol {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--bone);
+      background: var(--ink);
+      box-shadow: inset 0 0 0 1px rgba(247, 241, 222, 0.18);
+    }
+
+    .brand-symbol svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2.4;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--ink-mute);
+      font: 11px/1 var(--mono);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current="page"] { color: var(--ink); }
+
+    .nav-cta {
+      min-width: 132px;
+      justify-content: center;
+      padding: 11px 17px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: var(--bone);
+      color: var(--ink) !important;
+    }
+
+    .menu-button {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(21, 20, 15, 0.28);
+      border-radius: 50%;
+      background: rgba(247, 241, 222, 0.76);
+      color: var(--ink);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      flex-direction: column;
+    }
+
+    .menu-button span {
+      width: 18px;
+      height: 2px;
+      border-radius: 99px;
+      background: currentColor;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .nav.is-open .menu-button span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav.is-open .menu-button span:nth-child(2) { opacity: 0; }
+    .nav.is-open .menu-button span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .section {
+      padding: 86px 0;
+    }
+
+    .hero {
+      padding: clamp(76px, 9vw, 124px) 0 72px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.72fr);
+      gap: clamp(34px, 6vw, 92px);
+      align-items: end;
+      min-width: 0;
+    }
+
+    .label,
+    .small-label {
+      display: inline-block;
+      color: var(--ink-mute);
+      font: 11px/1.2 var(--mono);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .display {
+      max-width: 960px;
+      margin-top: 26px;
+      font-family: var(--sans);
+      font-size: clamp(56px, 7.8vw, 124px);
+      font-weight: 560;
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .display em,
+    .section-head h2 em,
+    .lead-panel h2 em,
+    .custom-panel h2 em,
+    .final-panel h2 em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      color: var(--coral);
+    }
+
+    .dot {
+      color: var(--coral);
+      font-style: italic;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin-top: 28px;
+      color: var(--ink-soft);
+      font-size: clamp(19px, 2vw, 25px);
+      line-height: 1.34;
+      text-wrap: pretty;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-actions,
+    .card-actions,
+    .final-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--bone);
+      font: 800 13px/1 var(--sans);
+      letter-spacing: 0.01em;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--bone);
+    }
+
+    .btn-soft {
+      border-color: var(--line);
+      background: rgba(247, 241, 222, 0.62);
+    }
+
+    .icon-badge,
+    .blueprint-icon,
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--bone);
+      color: var(--coral);
+    }
+
+    .icon-badge svg,
+    .blueprint-icon svg,
+    .service-icon svg,
+    .flow-step svg,
+    .step-num svg,
+    .pack-item i svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .blueprint-icon {
+      background: rgba(237, 111, 92, 0.1);
+      color: var(--ink);
+    }
+
+    .hero-panel,
+    .notice-panel,
+    .lead-panel,
+    .custom-panel,
+    .final-panel {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(247, 241, 222, 0.76);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel {
+      position: relative;
+      overflow: hidden;
+      min-height: 382px;
+      display: grid;
+      align-content: space-between;
+      gap: 32px;
+      padding: 26px;
+      background:
+        linear-gradient(135deg, rgba(237, 111, 92, 0.13), transparent 38%),
+        rgba(247, 241, 222, 0.76);
+      min-width: 0;
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      right: -92px;
+      bottom: -98px;
+      width: 260px;
+      height: 260px;
+      border: 1px dotted var(--line-strong);
+      border-radius: 50%;
+    }
+
+    .automation-stage {
+      position: relative;
+      z-index: 1;
+      min-height: 274px;
+      margin-top: 22px;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      border-radius: 22px;
+      background:
+        linear-gradient(90deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        rgba(239, 231, 210, 0.54);
+      background-size: 36px 36px;
+      overflow: hidden;
+    }
+
+    .automation-stage::before {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border: 1px dotted rgba(21, 20, 15, 0.2);
+      border-radius: 18px;
+      pointer-events: none;
+    }
+
+    .automation-path {
+      position: absolute;
+      left: 17%;
+      right: 17%;
+      top: 47%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(21, 20, 15, 0.34), transparent);
+    }
+
+    .automation-path::before,
+    .automation-path::after {
+      content: "";
+      position: absolute;
+      top: -38px;
+      width: 34%;
+      height: 76px;
+      border: 1px solid rgba(21, 20, 15, 0.2);
+      border-left: 0;
+      border-bottom: 0;
+      border-radius: 0 36px 0 0;
+    }
+
+    .automation-path::before { left: 10%; transform: skewX(-12deg); }
+    .automation-path::after { right: 7%; transform: scaleX(-1) skewX(-12deg); }
+
+    .automation-packet {
+      position: absolute;
+      top: calc(47% - 7px);
+      left: 14%;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 8px rgba(237, 111, 92, 0.14);
+      animation: packet-run 4.8s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+    }
+
+    .automation-node {
+      position: absolute;
+      width: 84px;
+      min-height: 76px;
+      display: grid;
+      place-items: center;
+      gap: 6px;
+      padding: 10px 8px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(247, 241, 222, 0.92);
+      color: var(--ink);
+      text-align: center;
+      box-shadow: 0 18px 34px -28px rgba(21, 20, 15, 0.48);
+      transition: transform 260ms ease, border-color 260ms ease, background 260ms ease;
+    }
+
+    .automation-node svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .automation-node span {
+      font: 800 10px/1.1 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .automation-node.is-active {
+      transform: translateY(-6px);
+      border-color: rgba(237, 111, 92, 0.72);
+      background: var(--bone);
+      color: var(--coral);
+    }
+
+    .automation-node.node-form { left: 8%; top: 34%; }
+    .automation-node.node-sheet { left: 33%; top: 16%; }
+    .automation-node.node-alert { right: 31%; top: 48%; }
+    .automation-node.node-report { right: 8%; top: 25%; }
+
+    .automation-status {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 14px;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      border-radius: 16px;
+      background: rgba(247, 241, 222, 0.88);
+    }
+
+    .automation-status strong {
+      display: block;
+      font: 560 15px/1.1 var(--sans);
+      letter-spacing: -0.01em;
+    }
+
+    .automation-status span {
+      display: block;
+      margin-top: 3px;
+      color: var(--ink-mute);
+      font-size: 13px;
+    }
+
+    .automation-pips {
+      display: inline-flex;
+      gap: 6px;
+      flex: 0 0 auto;
+    }
+
+    .automation-pips i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(21, 20, 15, 0.18);
+      transition: background 220ms ease, transform 220ms ease;
+    }
+
+    .automation-pips i.is-active {
+      background: var(--coral);
+      transform: scale(1.25);
+    }
+
+    @keyframes packet-run {
+      0% { left: 13%; opacity: 0; transform: scale(0.75); }
+      10% { opacity: 1; transform: scale(1); }
+      30% { left: 37%; }
+      55% { left: 58%; }
+      80% { left: 83%; opacity: 1; transform: scale(1); }
+      100% { left: 83%; opacity: 0; transform: scale(0.75); }
+    }
+
+    .pack-item i,
+    .step-num {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--bone);
+      color: var(--coral);
+      font: normal 700 12px/1 var(--mono);
+    }
+
+    .sec-rule {
+      display: grid;
+      grid-template-columns: 80px minmax(0, 1fr);
+      gap: 36px;
+      border-top: 1px dotted var(--line-strong);
+      padding-top: 18px;
+    }
+
+    .roman {
+      color: var(--coral);
+      font: italic 20px/1 var(--serif);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.45fr);
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2 {
+      margin-top: 18px;
+      font-family: var(--sans);
+      font-size: clamp(44px, 5.4vw, 86px);
+      font-weight: 560;
+      line-height: 0.96;
+      letter-spacing: 0;
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .section-head p {
+      color: var(--ink-mute);
+      font-size: 17px;
+      text-wrap: pretty;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .why-card {
+      min-height: 270px;
+      display: grid;
+      align-content: space-between;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      background: rgba(247, 241, 222, 0.7);
+      min-width: 0;
+    }
+
+    .why-card h3,
+    .blueprint-card h3,
+    .preview-copy h3 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 3vw, 44px);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .why-card p,
+    .blueprint-card p,
+    .preview-copy p,
+    .notice-panel p,
+    .custom-panel p,
+    .final-panel p {
+      color: var(--ink-mute);
+      text-wrap: pretty;
+    }
+
+    .flow-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .flow-strip span,
+    .app-pill,
+    .service-pill {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: rgba(239, 231, 210, 0.62);
+      color: var(--ink-mute);
+      font: 10px/1 var(--mono);
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .app-pill::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      margin-right: 7px;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 3px rgba(237, 111, 92, 0.1);
+    }
+
+    .mini-flow {
+      display: grid;
+      gap: 8px;
+    }
+
+    .flow-rail {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 7px;
+      align-items: stretch;
+    }
+
+    .flow-step {
+      min-width: 0;
+      min-height: 74px;
+      display: grid;
+      align-content: space-between;
+      justify-items: start;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 11px;
+      background: rgba(239, 231, 210, 0.58);
+      color: var(--ink-soft);
+      font: 560 12px/1.1 var(--sans);
+      overflow-wrap: anywhere;
+    }
+
+    .flow-step svg {
+      width: 18px;
+      height: 18px;
+      color: var(--coral);
+    }
+
+    .flow-rail.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .blueprint-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .blueprint-card {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      background: rgba(247, 241, 222, 0.74);
+      box-shadow: 0 24px 44px -36px rgba(21, 20, 15, 0.4);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .blueprint-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(237, 111, 92, 0.58);
+      background: rgba(247, 241, 222, 0.92);
+    }
+
+    .blueprint-card.featured {
+      border-color: rgba(237, 111, 92, 0.58);
+      background:
+        linear-gradient(180deg, rgba(237, 111, 92, 0.13), transparent 34%),
+        rgba(247, 241, 222, 0.92);
+    }
+
+    .blueprint-meta {
+      display: grid;
+      gap: 14px;
+    }
+
+    .meta-block {
+      display: grid;
+      gap: 7px;
+    }
+
+    .meta-block b {
+      color: var(--ink);
+      font: 560 11px/1.1 var(--sans);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .meta-block span {
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    .app-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .card-actions {
+      margin-top: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-self: end;
+    }
+
+    .card-actions .btn {
+      width: 100%;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .step-card {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      background: rgba(247, 241, 222, 0.66);
+      min-width: 0;
+    }
+
+    .step-card strong {
+      display: block;
+      font: 560 17px/1.1 var(--sans);
+      letter-spacing: -0.01em;
+    }
+
+    .step-card p {
+      margin-top: 6px;
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .notice-panel {
+      margin-top: 18px;
+      padding: 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.36fr) minmax(0, 1fr);
+      gap: 22px;
+      background:
+        linear-gradient(135deg, rgba(233, 185, 74, 0.22), transparent 36%),
+        rgba(247, 241, 222, 0.78);
+    }
+
+    .notice-panel h3 {
+      font: 560 22px/1.05 var(--sans);
+      letter-spacing: -0.01em;
+    }
+
+    .lead-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(300px, 0.78fr);
+      gap: clamp(24px, 4vw, 52px);
+      padding: clamp(24px, 4vw, 44px);
+      min-width: 0;
+    }
+
+    .lead-panel h2,
+    .custom-panel h2,
+    .final-panel h2 {
+      margin-top: 18px;
+      font-family: var(--sans);
+      font-size: clamp(42px, 5vw, 78px);
+      font-weight: 560;
+      line-height: 0.98;
+      letter-spacing: 0;
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      color: var(--ink);
+      font: 560 12px/1 var(--sans);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid rgba(21, 20, 15, 0.24);
+      border-radius: 14px;
+      padding: 12px 13px;
+      background: rgba(239, 231, 210, 0.64);
+      color: var(--ink);
+      outline: none;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: rgba(237, 111, 92, 0.82);
+      box-shadow: 0 0 0 4px rgba(237, 111, 92, 0.13);
+    }
+
+    .form-note,
+    .form-message {
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .form-message {
+      display: none;
+      border: 1px solid rgba(31, 122, 76, 0.24);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(31, 122, 76, 0.08);
+      color: var(--ink-soft);
+    }
+
+    .form-message.is-visible {
+      display: block;
+    }
+
+    .preview-layout {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.36fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .preview-tabs {
+      display: grid;
+      gap: 8px;
+      position: sticky;
+      top: 96px;
+    }
+
+    .preview-tab {
+      min-height: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 12px 14px;
+      background: rgba(247, 241, 222, 0.62);
+      color: var(--ink-mute);
+      cursor: pointer;
+      text-align: left;
+      font: 560 13px/1.1 var(--sans);
+    }
+
+    .preview-tab::after {
+      content: "View";
+      color: var(--ink-faint);
+      font: 10px/1 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .preview-tab.is-active {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: var(--bone);
+    }
+
+    .preview-tab.is-active::after { color: rgba(247, 241, 222, 0.64); }
+
+    .preview-panel {
+      display: none;
+      min-height: 430px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(22px, 4vw, 36px);
+      background: rgba(247, 241, 222, 0.76);
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .preview-panel.is-active {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.48fr);
+      gap: 30px;
+      align-items: stretch;
+    }
+
+    .preview-copy {
+      display: grid;
+      align-content: space-between;
+      gap: 24px;
+    }
+
+    .flow-map {
+      min-height: 340px;
+      display: grid;
+      align-content: center;
+      gap: 12px;
+      border: 1px dotted var(--line-strong);
+      border-radius: 20px;
+      padding: 18px;
+      background:
+        linear-gradient(90deg, rgba(21, 20, 15, 0.04) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(21, 20, 15, 0.04) 1px, transparent 1px),
+        rgba(239, 231, 210, 0.48);
+      background-size: 34px 34px;
+    }
+
+    .flow-node {
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 11px 14px;
+      background: var(--bone);
+      color: var(--ink-soft);
+      font: 560 13px/1.2 var(--sans);
+    }
+
+    .flow-node span {
+      color: var(--ink-faint);
+      font: 10px/1 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .good-for {
+      display: grid;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .good-for li {
+      position: relative;
+      padding-left: 17px;
+      color: var(--ink-mute);
+    }
+
+    .good-for li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.68em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .custom-panel,
+    .final-panel {
+      padding: clamp(24px, 4vw, 44px);
+      min-width: 0;
+    }
+
+    .custom-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(300px, 0.78fr);
+      gap: clamp(24px, 4vw, 52px);
+      align-items: start;
+    }
+
+    .service-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .service-card {
+      min-width: 0;
+      min-height: 118px;
+      display: grid;
+      align-content: space-between;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(239, 231, 210, 0.48);
+      color: var(--ink);
+    }
+
+    .service-card b {
+      font: 560 14px/1.12 var(--sans);
+      letter-spacing: 0;
+    }
+
+    .service-card .service-icon {
+      width: 38px;
+      height: 38px;
+      color: var(--coral);
+      background: rgba(247, 241, 222, 0.74);
+    }
+
+    .service-card .service-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .faq-item {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(247, 241, 222, 0.7);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      min-height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      padding: 18px 20px;
+      cursor: pointer;
+      text-align: left;
+      font: 560 18px/1.18 var(--sans);
+      letter-spacing: -0.01em;
+    }
+
+    .faq-question span {
+      flex: 1;
+      overflow-wrap: anywhere;
+    }
+
+    .faq-question i {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--coral);
+      font-style: normal;
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 20px 20px;
+      color: var(--ink-mute);
+      max-width: 850px;
+    }
+
+    .faq-item.is-open .faq-answer { display: block; }
+    .faq-item.is-open .faq-question i { background: var(--ink); color: var(--bone); }
+
+    .final-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: end;
+      background:
+        linear-gradient(135deg, rgba(237, 111, 92, 0.14), transparent 36%),
+        rgba(247, 241, 222, 0.8);
+    }
+
+    footer {
+      padding: 56px 0 42px;
+      border-top: 1px solid var(--line);
+      color: var(--ink-mute);
+    }
+
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    footer h4 {
+      margin-bottom: 12px;
+      color: var(--ink);
+      font: 800 13px/1 var(--sans);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    footer a,
+    footer p {
+      display: block;
+      max-width: 300px;
+      color: var(--ink-mute);
+      text-decoration: none;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    footer a:hover { color: var(--ink); }
+
+    [data-reveal],
+    [data-reveal][data-revealed="true"] {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+
+      [data-reveal] {
+        opacity: 1 !important;
+        translate: 0 0 !important;
+      }
+    }
+
+    @media (max-width: 1180px) {
+      .blueprint-grid,
+      .steps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .section-head,
+      .why-grid,
+      .lead-panel,
+      .preview-panel.is-active,
+      .custom-grid,
+      .final-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-tabs {
+        position: static;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .service-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .notice-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .foot-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(100% - 32px, 100%);
+      }
+
+      .topbar-inner {
+        font-size: 9px;
+        gap: 12px;
+      }
+
+      .topbar-inner span:nth-child(2) {
+        display: none;
+      }
+
+      .topbar-inner span:nth-child(3) {
+        display: none;
+      }
+
+      .nav-inner {
+        min-height: 64px;
+        position: relative;
+      }
+
+      .menu-button {
+        display: inline-flex;
+        margin-left: auto;
+      }
+
+      .nav-links {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(100% + 10px);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 10px;
+        border: 1px solid rgba(21, 20, 15, 0.18);
+        border-radius: 18px;
+        background: rgba(247, 241, 222, 0.98);
+        box-shadow: 0 24px 42px -28px rgba(21, 20, 15, 0.44);
+        opacity: 0;
+        transform: translateY(-8px);
+        pointer-events: none;
+        visibility: hidden;
+        transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+      }
+
+      .nav.is-open .nav-links {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        visibility: visible;
+      }
+
+      .nav-links a {
+        min-height: 46px;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(21, 20, 15, 0.08);
+      }
+
+      .nav-links a:last-child {
+        border-bottom: 0;
+      }
+
+      .nav-cta {
+        width: 100%;
+        margin-top: 8px;
+      }
+
+      .hero {
+        padding-top: 58px;
+      }
+
+      .hero-panel::after {
+        display: none;
+      }
+
+      .automation-stage {
+        min-height: 420px;
+      }
+
+      .automation-path,
+      .automation-path::before,
+      .automation-path::after,
+      .automation-packet {
+        display: none;
+      }
+
+      .automation-node {
+        position: relative;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        width: 100%;
+        min-height: 64px;
+        grid-template-columns: 42px minmax(0, 1fr);
+        justify-items: start;
+        text-align: left;
+      }
+
+      .automation-node.node-form,
+      .automation-node.node-sheet,
+      .automation-node.node-alert,
+      .automation-node.node-report {
+        left: auto;
+        right: auto;
+        top: auto;
+      }
+
+      .automation-stage {
+        display: grid;
+        gap: 10px;
+        padding: 16px;
+      }
+
+      .automation-status {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin-top: 2px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .display {
+        font-family: var(--sans);
+        font-size: clamp(40px, 11.4vw, 52px);
+        font-weight: 560;
+        line-height: 0.98;
+        max-width: 100%;
+      }
+
+      .lead {
+        font-size: 18px;
+      }
+
+      .sec-rule {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .section {
+        padding: 70px 0;
+      }
+
+      .section-head h2,
+      .lead-panel h2,
+      .custom-panel h2,
+      .final-panel h2 {
+        font-family: var(--sans);
+        font-size: clamp(34px, 9.2vw, 44px);
+        font-weight: 560;
+        line-height: 1.02;
+      }
+
+      .blueprint-grid,
+      .steps-grid,
+      .preview-tabs,
+      .service-grid,
+      .flow-rail,
+      .flow-rail.three {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+        white-space: normal;
+        text-align: center;
+      }
+
+      .hero-actions,
+      .final-actions {
+        width: 100%;
+      }
+
+      .foot-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/site.css?v=20260614-4">
+</head>
+<body>
+  <div class="shell">
+    <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+      <symbol id="icon-form" viewBox="0 0 24 24"><path d="M8 4h8l3 3v13H5V4h3Z"></path><path d="M15 4v4h4"></path><path d="M8 12h8M8 16h6"></path></symbol>
+      <symbol id="icon-sheet" viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M5 10h14M10 5v14"></path></symbol>
+      <symbol id="icon-mail" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"></path><path d="m4 7 8 6 8-6"></path></symbol>
+      <symbol id="icon-reply" viewBox="0 0 24 24"><path d="M9 8 5 12l4 4"></path><path d="M5 12h9a5 5 0 0 1 5 5v1"></path></symbol>
+      <symbol id="icon-calendar" viewBox="0 0 24 24"><path d="M5 6h14v14H5z"></path><path d="M8 4v4M16 4v4M5 10h14"></path></symbol>
+      <symbol id="icon-drive" viewBox="0 0 24 24"><path d="m9 4-6 11 3 5h12l3-5-6-11H9Z"></path><path d="m9 4 6 11M15 4 9 15M3 15h18"></path></symbol>
+      <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"></path><path d="M10 21h4"></path></symbol>
+      <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v5l3 2"></path></symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 4v10"></path><path d="m8 10 4 4 4-4"></path><path d="M5 19h14"></path></symbol>
+      <symbol id="icon-import" viewBox="0 0 24 24"><path d="M4 4h10v6h6v10H4z"></path><path d="M14 4v6h6"></path><path d="M8 14h6M11 11l3 3-3 3"></path></symbol>
+      <symbol id="icon-plug" viewBox="0 0 24 24"><path d="M9 7V3M15 7V3M7 7h10v5a5 5 0 0 1-10 0V7Z"></path><path d="M12 17v4"></path></symbol>
+      <symbol id="icon-test" viewBox="0 0 24 24"><path d="M8 3h8"></path><path d="M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"></path><path d="M8 15h8"></path></symbol>
+      <symbol id="icon-tools" viewBox="0 0 24 24"><path d="m14 7 3-3 3 3-3 3"></path><path d="m3 21 7-7"></path><path d="M6 3a5 5 0 0 0 6 6l8 8-3 3-8-8a5 5 0 0 0-6-6Z"></path></symbol>
+      <symbol id="icon-route" viewBox="0 0 24 24"><path d="M6 5h4a4 4 0 0 1 0 8H8a4 4 0 0 0 0 8h10"></path><circle cx="6" cy="5" r="2"></circle><circle cx="18" cy="21" r="2"></circle></symbol>
+      <symbol id="icon-message" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4V5Z"></path><path d="M8 9h8M8 13h5"></path></symbol>
+      <symbol id="icon-ai" viewBox="0 0 24 24"><path d="M12 3l1.6 5.4L19 10l-5.4 1.6L12 17l-1.6-5.4L5 10l5.4-1.6L12 3Z"></path><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8L18 15Z"></path></symbol>
+      <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 19h16"></path><path d="M7 16V9M12 16V5M17 16v-4"></path></symbol>
+      <symbol id="icon-file" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"></path><path d="M14 3v5h4"></path><path d="M9 13h6M9 17h4"></path></symbol>
+    </svg>
+<!-- @partial nav -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span><b>Flow2</b> free resources</span>
+    <span>Make.com blueprints for SMEs</span>
+    <span>Download first / customize later</span>
+  </div>
+</div>
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html#top" aria-label="Flow2 home">
+      <span class="brand-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 17 17 7"></path>
+          <path d="M9 7h8v8"></path>
+        </svg>
+      </span>
+      <span class="brand-word">Flow2</span>
+    </a>
+    <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Services</a>
+      <a href="automation-blueprints.html" aria-current="page">Resources</a>
+      <a href="index.html#work">Case study</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#method">Method</a>
+      <a href="index.html#contact" class="nav-cta">Start audit</a>
+    </div>
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+      <button type="button" data-lang="zh" aria-pressed="false">繁中</button>
+    </div>
+    <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="primary-nav" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+<!-- /@partial nav -->
+
+    <main>
+      <section class="hero" id="top">
+        <div class="container hero-grid">
+          <div data-reveal>
+            <span class="label">Free Automation Blueprints for SMEs</span>
+            <h1 class="display">Free <em>Make.com</em> Automation Blueprints for SMEs<span class="dot">.</span></h1>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#lead-form">Download the Starter Blueprints</a>
+              <a class="btn btn-soft" href="#customize">Not sure what to automate? Book a Flow Audit</a>
+            </div>
+          </div>
+
+          <aside class="hero-panel" data-reveal>
+            <div>
+              <span class="small-label">Live automation preview</span>
+              <p class="lead" style="font-size: 21px; margin-top: 18px;">A simple blueprint turns one form submission into logged data, alerts, follow-up messages, and a daily owner report.</p>
+            </div>
+            <div class="automation-stage" aria-label="Looping automation workflow preview">
+              <div class="automation-path" aria-hidden="true"></div>
+              <div class="automation-packet" aria-hidden="true"></div>
+              <div class="automation-node node-form is-active" data-automation-node>
+                <svg><use href="#icon-form"></use></svg>
+                <span>Form</span>
+              </div>
+              <div class="automation-node node-sheet" data-automation-node>
+                <svg><use href="#icon-sheet"></use></svg>
+                <span>Sheet</span>
+              </div>
+              <div class="automation-node node-alert" data-automation-node>
+                <svg><use href="#icon-bell"></use></svg>
+                <span>Alert</span>
+              </div>
+              <div class="automation-node node-report" data-automation-node>
+                <svg><use href="#icon-chart"></use></svg>
+                <span>Report</span>
+              </div>
+              <div class="automation-status">
+                <div>
+                  <strong id="automation-title">New enquiry received</strong>
+                  <span id="automation-copy">Make watches the form and starts the scenario automatically.</span>
+                </div>
+                <div class="automation-pips" aria-hidden="true">
+                  <i class="is-active"></i><i></i><i></i><i></i>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="why">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">I.</span>
+            <div>
+              <div class="section-head" data-reveal>
+                <div>
+                  <span class="label">Why this page exists</span>
+                  <h2>Automation Should Not Be <em>Complicated</em><span class="dot">.</span></h2>
+                </div>
+                <p>Free resource first. Lead capture second. Consultation CTA throughout. Technical instructions after download.</p>
+              </div>
+
+              <div class="why-grid">
+                <article class="why-card" data-reveal>
+                  <span class="icon-badge"><svg><use href="#icon-clock"></use></svg></span>
+                  <h3>Manual admin is still where time disappears.</h3>
+                  <p>Many SMEs still rely on manual data entry, repeated WhatsApp messages, spreadsheet updates, and copy-paste admin work. These starter blueprints show how simple automation can connect your forms, spreadsheets, emails, calendars, documents, and notifications.</p>
+                </article>
+                <article class="why-card" data-reveal>
+                  <span class="icon-badge"><svg><use href="#icon-route"></use></svg></span>
+                  <h3>Start small before building a full system.</h3>
+                  <p>They are not full business systems, but they are a practical starting point for understanding what automation can do for your company.</p>
+                  <div class="flow-strip" aria-label="Common connected apps">
+                    <span>Forms</span>
+                    <span>Sheets</span>
+                    <span>Gmail</span>
+                    <span>Calendar</span>
+                    <span>Drive</span>
+                    <span>Make</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="blueprints">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">II.</span>
+            <div>
+              <div class="section-head" data-reveal>
+                <div>
+                  <span class="label">Blueprint cards</span>
+                  <h2>Choose a Starter <em>Blueprint</em><span class="dot">.</span></h2>
+                </div>
+                <p>Pick the workflow closest to your daily process. Each download starts from the form below so Flow2 can send the files and setup notes by email.</p>
+              </div>
+
+              <div class="blueprint-grid" aria-label="Starter automation blueprints">
+                <article class="blueprint-card featured" data-reveal>
+                  <div class="card-top">
+                    <span class="small-label">Lead generation</span>
+                    <span class="blueprint-icon"><svg><use href="#icon-form"></use></svg></span>
+                  </div>
+                  <h3>New Lead Capture Flow</h3>
+                  <div class="blueprint-meta">
+                    <div class="meta-block"><b>Best for</b><span>Agencies, consultants, service businesses</span></div>
+                    <div class="meta-block"><b>Simple flow</b><div class="mini-flow"><div class="flow-rail"><span class="flow-step"><svg><use href="#icon-form"></use></svg>Form</span><span class="flow-step"><svg><use href="#icon-sheet"></use></svg>Sheet</span><span class="flow-step"><svg><use href="#icon-bell"></use></svg>Alert</span><span class="flow-step"><svg><use href="#icon-reply"></use></svg>Reply</span></div></div></div>
+                    <div class="meta-block"><b>Apps needed</b><div class="app-list"><span class="app-pill">Google Forms</span><span class="app-pill">Sheets</span><span class="app-pill">Gmail</span><span class="app-pill">Make</span></div></div>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn btn-primary" type="button" data-select-blueprint="New Lead Capture Flow">Download Blueprint</button>
+                    <a class="btn btn-soft" href="#customize">Customize This Flow</a>
+                  </div>
+                </article>
+
+                <article class="blueprint-card" data-reveal>
+                  <div class="card-top">
+                    <span class="small-label">Sales follow-up</span>
+                    <span class="blueprint-icon"><svg><use href="#icon-bell"></use></svg></span>
+                  </div>
+                  <h3>Quote Request Tracker</h3>
+                  <div class="blueprint-meta">
+                    <div class="meta-block"><b>Best for</b><span>B2B sales, trading companies, service providers</span></div>
+                    <div class="meta-block"><b>Simple flow</b><div class="mini-flow"><div class="flow-rail"><span class="flow-step"><svg><use href="#icon-form"></use></svg>Quote</span><span class="flow-step"><svg><use href="#icon-sheet"></use></svg>Sheet</span><span class="flow-step"><svg><use href="#icon-bell"></use></svg>Alert</span><span class="flow-step"><svg><use href="#icon-clock"></use></svg>Reminder</span></div></div></div>
+                    <div class="meta-block"><b>Apps needed</b><div class="app-list"><span class="app-pill">Google Forms</span><span class="app-pill">Sheets</span><span class="app-pill">Gmail</span><span class="app-pill">Make</span></div></div>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn btn-primary" type="button" data-select-blueprint="Quote Request Tracker">Download Blueprint</button>
+                    <a class="btn btn-soft" href="#customize">Customize This Flow</a>
+                  </div>
+                </article>
+
+                <article class="blueprint-card" data-reveal>
+                  <div class="card-top">
+                    <span class="small-label">Bookings</span>
+                    <span class="blueprint-icon"><svg><use href="#icon-calendar"></use></svg></span>
+                  </div>
+                  <h3>Appointment Confirmation Flow</h3>
+                  <div class="blueprint-meta">
+                    <div class="meta-block"><b>Best for</b><span>Clinics, tutors, salons, consultants</span></div>
+                    <div class="meta-block"><b>Simple flow</b><div class="mini-flow"><div class="flow-rail three"><span class="flow-step"><svg><use href="#icon-form"></use></svg>Booking</span><span class="flow-step"><svg><use href="#icon-calendar"></use></svg>Calendar</span><span class="flow-step"><svg><use href="#icon-mail"></use></svg>Confirm</span></div></div></div>
+                    <div class="meta-block"><b>Apps needed</b><div class="app-list"><span class="app-pill">Google Forms</span><span class="app-pill">Calendar</span><span class="app-pill">Gmail</span><span class="app-pill">Make</span></div></div>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn btn-primary" type="button" data-select-blueprint="Appointment Confirmation Flow">Download Blueprint</button>
+                    <a class="btn btn-soft" href="#customize">Customize This Flow</a>
+                  </div>
+                </article>
+
+                <article class="blueprint-card" data-reveal>
+                  <div class="card-top">
+                    <span class="small-label">Admin filing</span>
+                    <span class="blueprint-icon"><svg><use href="#icon-drive"></use></svg></span>
+                  </div>
+                  <h3>Receipt &amp; Document Filing Flow</h3>
+                  <div class="blueprint-meta">
+                    <div class="meta-block"><b>Best for</b><span>Admin teams, consignment businesses, accounting, retail</span></div>
+                    <div class="meta-block"><b>Simple flow</b><div class="mini-flow"><div class="flow-rail"><span class="flow-step"><svg><use href="#icon-form"></use></svg>Form</span><span class="flow-step"><svg><use href="#icon-drive"></use></svg>Drive</span><span class="flow-step"><svg><use href="#icon-sheet"></use></svg>Log</span><span class="flow-step"><svg><use href="#icon-mail"></use></svg>Email</span></div></div></div>
+                    <div class="meta-block"><b>Apps needed</b><div class="app-list"><span class="app-pill">Google Forms</span><span class="app-pill">Drive</span><span class="app-pill">Sheets</span><span class="app-pill">Gmail</span><span class="app-pill">Make</span></div></div>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn btn-primary" type="button" data-select-blueprint="Receipt & Document Filing Flow">Download Blueprint</button>
+                    <a class="btn btn-soft" href="#customize">Customize This Flow</a>
+                  </div>
+                </article>
+
+                <article class="blueprint-card" data-reveal>
+                  <div class="card-top">
+                    <span class="small-label">Reputation</span>
+                    <span class="blueprint-icon"><svg><use href="#icon-message"></use></svg></span>
+                  </div>
+                  <h3>Customer Review Request Flow</h3>
+                  <div class="blueprint-meta">
+                    <div class="meta-block"><b>Best for</b><span>Restaurants, clinics, e-commerce, local services</span></div>
+                    <div class="meta-block"><b>Simple flow</b><div class="mini-flow"><div class="flow-rail three"><span class="flow-step"><svg><use href="#icon-sheet"></use></svg>Order</span><span class="flow-step"><svg><use href="#icon-clock"></use></svg>Delay</span><span class="flow-step"><svg><use href="#icon-mail"></use></svg>Review</span></div></div></div>
+                    <div class="meta-block"><b>Apps needed</b><div class="app-list"><span class="app-pill">Google Sheets</span><span class="app-pill">Gmail</span><span class="app-pill">Make</span></div></div>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn btn-primary" type="button" data-select-blueprint="Customer Review Request Flow">Download Blueprint</button>
+                    <a class="btn btn-soft" href="#customize">Customize This Flow</a>
+                  </div>
+                </article>
+
+                <article class="blueprint-card" data-reveal>
+                  <div class="card-top">
+                    <span class="small-label">Owner reporting</span>
+                    <span class="blueprint-icon"><svg><use href="#icon-chart"></use></svg></span>
+                  </div>
+                  <h3>Daily Business Digest</h3>
+                  <div class="blueprint-meta">
+                    <div class="meta-block"><b>Best for</b><span>Owners, managers, small teams</span></div>
+                    <div class="meta-block"><b>Simple flow</b><div class="mini-flow"><div class="flow-rail three"><span class="flow-step"><svg><use href="#icon-sheet"></use></svg>Sheet</span><span class="flow-step"><svg><use href="#icon-chart"></use></svg>Summary</span><span class="flow-step"><svg><use href="#icon-mail"></use></svg>Report</span></div></div></div>
+                    <div class="meta-block"><b>Apps needed</b><div class="app-list"><span class="app-pill">Google Sheets</span><span class="app-pill">Gmail</span><span class="app-pill">Make</span></div></div>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn btn-primary" type="button" data-select-blueprint="Daily Business Digest">Download Blueprint</button>
+                    <a class="btn btn-soft" href="#customize">Customize This Flow</a>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">III.</span>
+            <div>
+              <div class="section-head" data-reveal>
+                <div>
+                  <span class="label">How it works</span>
+                  <h2>How to Use These <em>Blueprints</em><span class="dot">.</span></h2>
+                </div>
+                <p>Each template is a starter workflow. You still connect your own accounts, test the path, and customize anything that depends on your real business rules.</p>
+              </div>
+
+              <div class="steps-grid" aria-label="How to use the blueprints">
+                <article class="step-card" data-reveal><span class="step-num" aria-label="Step 1"><svg><use href="#icon-route"></use></svg></span><div><strong>Choose a blueprint</strong><p>Pick the one that matches your business process.</p></div></article>
+                <article class="step-card" data-reveal><span class="step-num" aria-label="Step 2"><svg><use href="#icon-download"></use></svg></span><div><strong>Download the file</strong><p>Receive the Make.com blueprint and setup notes by email.</p></div></article>
+                <article class="step-card" data-reveal><span class="step-num" aria-label="Step 3"><svg><use href="#icon-import"></use></svg></span><div><strong>Import into Make</strong><p>Add the blueprint to your own Make account.</p></div></article>
+                <article class="step-card" data-reveal><span class="step-num" aria-label="Step 4"><svg><use href="#icon-plug"></use></svg></span><div><strong>Reconnect apps</strong><p>Use your own Google Sheets, Gmail, Drive, Calendar, or forms.</p></div></article>
+                <article class="step-card" data-reveal><span class="step-num" aria-label="Step 5"><svg><use href="#icon-test"></use></svg></span><div><strong>Test sample data</strong><p>Run a small test before using it in daily operations.</p></div></article>
+                <article class="step-card" data-reveal><span class="step-num" aria-label="Step 6"><svg><use href="#icon-tools"></use></svg></span><div><strong>Customize the flow</strong><p>Adjust it yourself or contact Flow2 for setup support.</p></div></article>
+              </div>
+
+              <aside class="notice-panel" data-reveal>
+                <h3>Before You Use the Blueprints</h3>
+                <div>
+                  <p>These templates are starter workflows. You will still need to connect your own Make.com account, Google account, forms, sheets, folders, and email settings.</p>
+                  <p style="margin-top: 10px;">Every business process is different. Some workflows may require custom logic, error handling, approval steps, permissions, WhatsApp integration, CRM setup, or AI processing.</p>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="lead-form">
+        <div class="container">
+          <div class="lead-panel" data-reveal>
+            <div>
+              <span class="label">Lead capture</span>
+              <h2>Get the Free <em>Blueprint Pack</em><span class="dot">.</span></h2>
+              <p class="lead">After submitting, you will receive the blueprint files and setup instructions by email.</p>
+              <div class="flow-strip" aria-label="Included blueprint categories">
+                <span>Lead capture</span>
+                <span>Quote tracking</span>
+                <span>Bookings</span>
+                <span>Documents</span>
+                <span>Reviews</span>
+                <span>Daily digest</span>
+              </div>
+            </div>
+
+            <form class="form-grid" id="blueprint-form">
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="field">
+                <label for="company">Company Name</label>
+                <input id="company" name="company" autocomplete="organization" required>
+              </div>
+              <div class="field">
+                <label for="business-type">Business Type</label>
+                <input id="business-type" name="business-type" placeholder="e.g. clinic, trading company, agency, retail">
+              </div>
+              <div class="field">
+                <label for="workflow">Which workflow are you interested in?</label>
+                <select id="workflow" name="workflow">
+                  <option>New Lead Capture Flow</option>
+                  <option>Quote Request Tracker</option>
+                  <option>Appointment Confirmation Flow</option>
+                  <option>Receipt & Document Filing Flow</option>
+                  <option>Customer Review Request Flow</option>
+                  <option>Daily Business Digest</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" type="submit">Send Me the Blueprints</button>
+              <p class="form-note">This static page can collect the lead visually now. Connect the form to your CRM, email tool, or Make scenario before publishing.</p>
+              <p class="form-message" id="form-message" role="status">Thanks. The selected blueprint pack and setup instructions would be sent by email after the form is connected.</p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="preview">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">IV.</span>
+            <div>
+              <div class="section-head" data-reveal>
+                <div>
+                  <span class="label">Preview details</span>
+                  <h2>See what each <em>blueprint solves</em><span class="dot">.</span></h2>
+                </div>
+                <p>The main page only shows previews. Full technical setup instructions should stay inside the email download pack.</p>
+              </div>
+
+              <div class="preview-layout" data-reveal>
+                <div class="preview-tabs" role="tablist" aria-label="Blueprint previews">
+                  <button class="preview-tab is-active" type="button" data-preview-tab="lead">Lead Capture</button>
+                  <button class="preview-tab" type="button" data-preview-tab="quote">Quote Tracker</button>
+                  <button class="preview-tab" type="button" data-preview-tab="appointment">Appointments</button>
+                  <button class="preview-tab" type="button" data-preview-tab="filing">Document Filing</button>
+                  <button class="preview-tab" type="button" data-preview-tab="review">Review Request</button>
+                  <button class="preview-tab" type="button" data-preview-tab="digest">Daily Digest</button>
+                </div>
+
+                <div>
+                  <article class="preview-panel is-active" data-preview-panel="lead">
+                    <div class="preview-copy">
+                      <div>
+                        <span class="small-label">New Lead Capture Flow</span>
+                        <h3>Capture enquiries and reply faster.</h3>
+                        <p>This workflow captures new enquiries from a form, saves them into Google Sheets, notifies your team, and sends an automatic reply to the customer.</p>
+                      </div>
+                      <div>
+                        <span class="small-label">Good for</span>
+                        <ul class="good-for"><li>Agencies</li><li>Consultants</li><li>Clinics</li><li>Local service businesses</li><li>B2B sales teams</li></ul>
+                      </div>
+                      <button class="btn btn-primary" type="button" data-select-blueprint="New Lead Capture Flow">Download This Blueprint</button>
+                    </div>
+                    <div class="flow-map" aria-label="New Lead Capture Flow preview">
+                      <div class="flow-node"><b>Form</b><span>Trigger</span></div>
+                      <div class="flow-node"><b>Google Sheet</b><span>Store</span></div>
+                      <div class="flow-node"><b>Internal Email</b><span>Notify</span></div>
+                      <div class="flow-node"><b>Customer Auto Reply</b><span>Send</span></div>
+                    </div>
+                  </article>
+
+                  <article class="preview-panel" data-preview-panel="quote">
+                    <div class="preview-copy">
+                      <div>
+                        <span class="small-label">Quote Request Tracker</span>
+                        <h3>Stop losing quote requests in inboxes.</h3>
+                        <p>This workflow logs each quote request, alerts the right person, and creates a follow-up reminder so sales work does not depend on memory.</p>
+                      </div>
+                      <div><span class="small-label">Good for</span><ul class="good-for"><li>B2B sales teams</li><li>Trading companies</li><li>Service providers</li><li>Owners handling enquiries</li></ul></div>
+                      <button class="btn btn-primary" type="button" data-select-blueprint="Quote Request Tracker">Download This Blueprint</button>
+                    </div>
+                    <div class="flow-map" aria-label="Quote Request Tracker preview">
+                      <div class="flow-node"><b>Quote Form</b><span>Trigger</span></div>
+                      <div class="flow-node"><b>Google Sheet</b><span>Log</span></div>
+                      <div class="flow-node"><b>Internal Alert</b><span>Notify</span></div>
+                      <div class="flow-node"><b>Follow-up Reminder</b><span>Track</span></div>
+                    </div>
+                  </article>
+
+                  <article class="preview-panel" data-preview-panel="appointment">
+                    <div class="preview-copy">
+                      <div>
+                        <span class="small-label">Appointment Confirmation Flow</span>
+                        <h3>Confirm bookings without manual replies.</h3>
+                        <p>This workflow takes a booking form submission, creates a calendar event, and sends a confirmation email with the next step.</p>
+                      </div>
+                      <div><span class="small-label">Good for</span><ul class="good-for"><li>Clinics</li><li>Tutors</li><li>Salons</li><li>Consultants</li></ul></div>
+                      <button class="btn btn-primary" type="button" data-select-blueprint="Appointment Confirmation Flow">Download This Blueprint</button>
+                    </div>
+                    <div class="flow-map" aria-label="Appointment Confirmation Flow preview">
+                      <div class="flow-node"><b>Booking Form</b><span>Trigger</span></div>
+                      <div class="flow-node"><b>Google Calendar</b><span>Create</span></div>
+                      <div class="flow-node"><b>Confirmation Email</b><span>Send</span></div>
+                    </div>
+                  </article>
+
+                  <article class="preview-panel" data-preview-panel="filing">
+                    <div class="preview-copy">
+                      <div>
+                        <span class="small-label">Receipt & Document Filing Flow</span>
+                        <h3>File documents the same way every time.</h3>
+                        <p>This workflow creates a consistent document trail by saving uploads into Drive, logging the record in Sheets, and confirming the submission by email.</p>
+                      </div>
+                      <div><span class="small-label">Good for</span><ul class="good-for"><li>Admin teams</li><li>Accounting support</li><li>Retail operations</li><li>Consignment businesses</li></ul></div>
+                      <button class="btn btn-primary" type="button" data-select-blueprint="Receipt & Document Filing Flow">Download This Blueprint</button>
+                    </div>
+                    <div class="flow-map" aria-label="Receipt and Document Filing Flow preview">
+                      <div class="flow-node"><b>Form</b><span>Trigger</span></div>
+                      <div class="flow-node"><b>Drive Folder</b><span>File</span></div>
+                      <div class="flow-node"><b>Sheet Log</b><span>Track</span></div>
+                      <div class="flow-node"><b>Confirmation Email</b><span>Send</span></div>
+                    </div>
+                  </article>
+
+                  <article class="preview-panel" data-preview-panel="review">
+                    <div class="preview-copy">
+                      <div>
+                        <span class="small-label">Customer Review Request Flow</span>
+                        <h3>Ask for reviews at the right moment.</h3>
+                        <p>This workflow waits after a completed order or visit, then sends a review request email without staff needing to remember the follow-up.</p>
+                      </div>
+                      <div><span class="small-label">Good for</span><ul class="good-for"><li>Restaurants</li><li>Clinics</li><li>E-commerce stores</li><li>Local service businesses</li></ul></div>
+                      <button class="btn btn-primary" type="button" data-select-blueprint="Customer Review Request Flow">Download This Blueprint</button>
+                    </div>
+                    <div class="flow-map" aria-label="Customer Review Request Flow preview">
+                      <div class="flow-node"><b>Completed Order</b><span>Trigger</span></div>
+                      <div class="flow-node"><b>Delay</b><span>Wait</span></div>
+                      <div class="flow-node"><b>Review Request Email</b><span>Send</span></div>
+                    </div>
+                  </article>
+
+                  <article class="preview-panel" data-preview-panel="digest">
+                    <div class="preview-copy">
+                      <div>
+                        <span class="small-label">Daily Business Digest</span>
+                        <h3>Give owners one daily operations snapshot.</h3>
+                        <p>This workflow reads a Google Sheet, turns rows into a short daily summary, and emails the report to owners or managers.</p>
+                      </div>
+                      <div><span class="small-label">Good for</span><ul class="good-for"><li>Owners</li><li>Managers</li><li>Small teams</li><li>Operations leads</li></ul></div>
+                      <button class="btn btn-primary" type="button" data-select-blueprint="Daily Business Digest">Download This Blueprint</button>
+                    </div>
+                    <div class="flow-map" aria-label="Daily Business Digest preview">
+                      <div class="flow-node"><b>Google Sheet</b><span>Source</span></div>
+                      <div class="flow-node"><b>Daily Summary</b><span>Prepare</span></div>
+                      <div class="flow-node"><b>Email Report</b><span>Send</span></div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="customize">
+        <div class="container">
+          <div class="custom-panel" data-reveal>
+            <div class="custom-grid">
+              <div>
+                <span class="label">Consultation hook</span>
+                <h2>Want This Built <em>Properly</em> for Your Business<span class="dot">?</span></h2>
+                <p class="lead">Free blueprints are useful for simple workflows, but real business automation usually needs customization. Flow2 helps SMEs design, build, and maintain automation systems that match their actual daily operations.</p>
+                <div class="hero-actions">
+                  <a class="btn btn-primary" href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20a%20free%20automation%20consultation%20after%20checking%20the%20blueprints." target="_blank" rel="noreferrer">Book a Free Automation Consultation</a>
+                  <a class="btn btn-soft" href="pricing.html">View Our Pricing</a>
+                </div>
+              </div>
+              <div>
+                <span class="small-label">We can help you with</span>
+                <div class="service-grid" aria-label="Flow2 customization services">
+                  <div class="service-card"><span class="service-icon"><svg><use href="#icon-route"></use></svg></span><b>Workflow planning</b></div>
+                  <div class="service-card"><span class="service-icon"><svg><use href="#icon-tools"></use></svg></span><b>Make.com setup</b></div>
+                  <div class="service-card"><span class="service-icon"><svg><use href="#icon-plug"></use></svg></span><b>Google Workspace automation</b></div>
+                  <div class="service-card"><span class="service-icon"><svg><use href="#icon-message"></use></svg></span><b>WhatsApp notification flows</b></div>
+                  <div class="service-card"><span class="service-icon"><svg><use href="#icon-sheet"></use></svg></span><b>CRM integration</b></div>
+                  <div class="service-card"><span class="service-icon"><svg><use href="#icon-ai"></use></svg></span><b>AI document processing</b></div>
+                  <div class="service-card"><span class="service-icon"><svg><use href="#icon-file"></use></svg></span><b>PDF and invoice generation</b></div>
+                  <div class="service-card"><span class="service-icon"><svg><use href="#icon-chart"></use></svg></span><b>Dashboard and reporting</b></div>
+                  <div class="service-card"><span class="service-icon"><svg><use href="#icon-bell"></use></svg></span><b>Error handling and maintenance</b></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">V.</span>
+            <div>
+              <div class="section-head" data-reveal>
+                <div>
+                  <span class="label">FAQ</span>
+                  <h2>Questions before you <em>download</em><span class="dot">.</span></h2>
+                </div>
+                <p>Short answers for SME owners who want to know whether the blueprints are easy to use and whether Flow2 can handle the setup.</p>
+              </div>
+
+              <div class="faq-list" data-reveal>
+                <article class="faq-item is-open"><button class="faq-question" type="button"><span>Do I need a Make.com account?</span><i>+</i></button><p class="faq-answer">Yes. You need a Make.com account to import and run the blueprints.</p></article>
+                <article class="faq-item"><button class="faq-question" type="button"><span>Are these blueprints fully ready to use?</span><i>+</i></button><p class="faq-answer">They are starter templates. You still need to connect your own apps and adjust the settings.</p></article>
+                <article class="faq-item"><button class="faq-question" type="button"><span>Can Flow2 set this up for me?</span><i>+</i></button><p class="faq-answer">Yes. We can customize, test, and deploy the workflow for your business.</p></article>
+                <article class="faq-item"><button class="faq-question" type="button"><span>Can these workflows connect with WhatsApp?</span><i>+</i></button><p class="faq-answer">Yes, but WhatsApp usually requires additional setup through supported providers or API tools.</p></article>
+                <article class="faq-item"><button class="faq-question" type="button"><span>Can I use these with my CRM?</span><i>+</i></button><p class="faq-answer">Yes, depending on your CRM. Flow2 can help integrate tools like HubSpot, Airtable, Notion, Google Sheets, or custom systems.</p></article>
+                <article class="faq-item"><button class="faq-question" type="button"><span>Are the blueprints free?</span><i>+</i></button><p class="faq-answer">Yes, the starter blueprints are free. Custom setup and advanced automation are paid services.</p></article>
+                <article class="faq-item"><button class="faq-question" type="button"><span>What if my process is more complex?</span><i>+</i></button><p class="faq-answer">Book a Flow Audit and we will map your workflow before building.</p></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="final">
+        <div class="container">
+          <div class="final-panel" data-reveal>
+            <div>
+              <span class="label">Final CTA</span>
+              <h2>Ready to <em>Automate</em> Your Business Workflow<span class="dot">?</span></h2>
+              <p class="lead">Download the free starter blueprints or book a consultation with Flow2 to design a workflow that fits your actual business process.</p>
+            </div>
+            <div class="final-actions">
+              <a class="btn btn-primary" href="#lead-form">Download Free Blueprints</a>
+              <a class="btn btn-soft" href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20book%20a%20free%20automation%20consultation." target="_blank" rel="noreferrer">Book a Free Consultation</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+<!-- @partial footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Flow2</h4>
+        <p>Flow2 builds practical automation systems for Hong Kong SMEs: sales follow-up, operations, reporting, and customer service working in one flow.</p>
+      </div>
+      <div><h4>Pages</h4><a href="index.html#about">About</a><a href="index.html#capabilities">Services</a><a href="automation-blueprints.html">Resources</a><a href="pricing.html">Pricing</a><a href="index.html#lab">Signals</a></div>
+      <div><h4>Stacks</h4><a href="index.html#capabilities">Make</a><a href="index.html#capabilities">n8n</a><a href="index.html#capabilities">Power Automate</a></div>
+      <div><h4>Focus</h4><a href="index.html#lab">Lead flow</a><a href="index.html#lab">Ecommerce ops</a><a href="index.html#lab">AI routing</a></div>
+      <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="index.html#contact">Audit request</a></div>
+    </div>
+    <div class="word" data-reveal="rise-lg">Business flows, <em>automated</em>.</div>
+  </div>
+</footer>
+<!-- /@partial footer -->
+  </div>
+
+  <script src="assets/site.js?v=20260614-6"></script>
+  <script>
+    (function () {
+      var form = document.getElementById("blueprint-form");
+      var workflowSelect = document.getElementById("workflow");
+      var formMessage = document.getElementById("form-message");
+      var blueprintButtons = Array.prototype.slice.call(document.querySelectorAll("[data-select-blueprint]"));
+      var previewTabs = Array.prototype.slice.call(document.querySelectorAll("[data-preview-tab]"));
+      var previewPanels = Array.prototype.slice.call(document.querySelectorAll("[data-preview-panel]"));
+      var faqButtons = Array.prototype.slice.call(document.querySelectorAll(".faq-question"));
+      var automationNodes = Array.prototype.slice.call(document.querySelectorAll("[data-automation-node]"));
+      var automationPips = Array.prototype.slice.call(document.querySelectorAll(".automation-pips i"));
+      var automationTitle = document.getElementById("automation-title");
+      var automationCopy = document.getElementById("automation-copy");
+      var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var automationSteps = [
+        {
+          title: "New enquiry received",
+          copy: "Make watches the form and starts the scenario automatically."
+        },
+        {
+          title: "Record saved to Sheets",
+          copy: "The lead, quote, or booking details are logged in one clean row."
+        },
+        {
+          title: "Team notified instantly",
+          copy: "The right person gets an email alert before the request is missed."
+        },
+        {
+          title: "Owner digest prepared",
+          copy: "Daily summaries turn routine updates into one readable report."
+        }
+      ];
+
+      blueprintButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          if (workflowSelect && button.dataset.selectBlueprint) {
+            workflowSelect.value = button.dataset.selectBlueprint;
+          }
+          var target = document.getElementById("lead-form");
+          if (target) window.scrollTo({ top: target.offsetTop - 24, behavior: "smooth" });
+        });
+      });
+
+      previewTabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          var id = tab.dataset.previewTab;
+          previewTabs.forEach(function (item) {
+            item.classList.toggle("is-active", item === tab);
+          });
+          previewPanels.forEach(function (panel) {
+            panel.classList.toggle("is-active", panel.dataset.previewPanel === id);
+          });
+        });
+      });
+
+      faqButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          var item = button.closest(".faq-item");
+          if (!item) return;
+          item.classList.toggle("is-open");
+        });
+      });
+
+      if (form) {
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+          }
+          if (formMessage) formMessage.classList.add("is-visible");
+        });
+      }
+
+      function setAutomationStep(index) {
+        automationNodes.forEach(function (node, nodeIndex) {
+          node.classList.toggle("is-active", nodeIndex === index);
+        });
+        automationPips.forEach(function (pip, pipIndex) {
+          pip.classList.toggle("is-active", pipIndex === index);
+        });
+        if (automationTitle && automationSteps[index]) automationTitle.textContent = automationSteps[index].title;
+        if (automationCopy && automationSteps[index]) automationCopy.textContent = automationSteps[index].copy;
+      }
+
+      if (automationNodes.length && !prefersReduced) {
+        var automationIndex = 0;
+        window.setInterval(function () {
+          automationIndex = (automationIndex + 1) % automationSteps.length;
+          setAutomationStep(automationIndex);
+        }, 1200);
+      }
+
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "build": "node scripts/build-partials.js",
+    "build:partials": "node scripts/build-partials.js"
+  },
+  "devDependencies": {}
+}

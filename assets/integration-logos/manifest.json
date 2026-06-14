@@ -1,0 +1,86 @@
+﻿[
+    {
+        "label":  "Google Sheets",
+        "url":  "https://upload.wikimedia.org/wikipedia/commons/a/ae/Google_Sheets_2020_Logo.svg",
+        "source":  "Wikimedia Commons",
+        "file":  "google-sheets.svg",
+        "slug":  "google-sheets"
+    },
+    {
+        "label":  "WhatsApp",
+        "url":  "https://cdn.simpleicons.org/whatsapp",
+        "source":  "Simple Icons CDN",
+        "file":  "whatsapp.svg",
+        "slug":  "whatsapp"
+    },
+    {
+        "label":  "Shopify",
+        "url":  "https://cdn.simpleicons.org/shopify",
+        "source":  "Simple Icons CDN",
+        "file":  "shopify.svg",
+        "slug":  "shopify"
+    },
+    {
+        "label":  "HubSpot",
+        "url":  "https://cdn.simpleicons.org/hubspot",
+        "source":  "Simple Icons CDN",
+        "file":  "hubspot.svg",
+        "slug":  "hubspot"
+    },
+    {
+        "label":  "Slack",
+        "url":  "https://commons.wikimedia.org/wiki/Special:Redirect/file/Slack_icon_2019.svg",
+        "source":  "Wikimedia Commons",
+        "file":  "slack.svg",
+        "slug":  "slack"
+    },
+    {
+        "label":  "Notion",
+        "url":  "https://cdn.simpleicons.org/notion",
+        "source":  "Simple Icons CDN",
+        "file":  "notion.svg",
+        "slug":  "notion"
+    },
+    {
+        "label":  "Airtable",
+        "url":  "https://cdn.simpleicons.org/airtable",
+        "source":  "Simple Icons CDN",
+        "file":  "airtable.svg",
+        "slug":  "airtable"
+    },
+    {
+        "label":  "Xero",
+        "url":  "https://cdn.simpleicons.org/xero",
+        "source":  "Simple Icons CDN",
+        "file":  "xero.svg",
+        "slug":  "xero"
+    },
+    {
+        "label":  "Stripe",
+        "url":  "https://cdn.simpleicons.org/stripe",
+        "source":  "Simple Icons CDN",
+        "file":  "stripe.svg",
+        "slug":  "stripe"
+    },
+    {
+        "label":  "Gmail",
+        "url":  "https://cdn.simpleicons.org/gmail",
+        "source":  "Simple Icons CDN",
+        "file":  "gmail.svg",
+        "slug":  "gmail"
+    },
+    {
+        "label":  "Trello",
+        "url":  "https://cdn.simpleicons.org/trello",
+        "source":  "Simple Icons CDN",
+        "file":  "trello.svg",
+        "slug":  "trello"
+    },
+    {
+        "label":  "Zapier",
+        "url":  "https://cdn.simpleicons.org/zapier",
+        "source":  "Simple Icons CDN",
+        "file":  "zapier.svg",
+        "slug":  "zapier"
+    }
+]

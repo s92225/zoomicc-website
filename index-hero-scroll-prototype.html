@@ -2,8 +2,8 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zoomicc — Automation for Hong Kong SMEs</title>
-  <meta name="description" content="Zoomicc helps Hong Kong SMEs turn daily operations into reliable automated workflows using Make, n8n, Agentic AI, and Microsoft Power Automate.">
+  <title>Flow2 — Automation for Hong Kong SMEs</title>
+  <meta name="description" content="Flow2 helps Hong Kong SMEs turn daily operations into reliable automated workflows using Make, n8n, Agentic AI, and Microsoft Power Automate.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23efe7d2'/%3E%3Ccircle cx='32' cy='32' r='22' fill='%2315140f'/%3E%3Cpath d='M23 41 41 23M27 23h14v14' fill='none' stroke='%23f7f1de' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <style>
     :root {
@@ -31,7 +31,11 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; background: var(--paper); }
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+      overflow-x: clip;
+    }
     body {
       min-height: 100vh;
       background: var(--paper);
@@ -39,7 +43,7 @@
       font-family: var(--body);
       font-size: 16px;
       line-height: 1.55;
-      overflow-x: hidden;
+      overflow-x: clip;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -862,22 +866,83 @@
     }
 
     .wire {
-      padding: 0;
+      padding: 14px 0 16px;
       border-block: 1px solid var(--line);
       overflow: hidden;
-      background: rgba(247, 241, 222, 0.26);
+      background: var(--paper);
+    }
+    .wire-label {
+      margin: 0 0 10px;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .wire-accessible {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .wire-viewport {
+      position: relative;
+      overflow: hidden;
+    }
+    .wire-viewport::before,
+    .wire-viewport::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: clamp(42px, 10vw, 160px);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .wire-viewport::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--paper), rgba(255, 252, 244, 0));
+    }
+    .wire-viewport::after {
+      right: 0;
+      background: linear-gradient(270deg, var(--paper), rgba(255, 252, 244, 0));
     }
     .wire-track {
       display: flex;
-      gap: 34px;
-      padding: 16px 0;
       width: max-content;
-      animation: ticker 36s linear infinite;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
+      animation: ticker 44s linear infinite;
+    }
+    .wire-track:hover { animation-play-state: paused; }
+    .wire-group {
+      display: flex;
+      gap: 32px;
+      padding-right: 32px;
+    }
+    .integration-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0;
+      color: var(--ink);
+      white-space: nowrap;
+      opacity: 0.82;
+    }
+    .integration-chip img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      flex: 0 0 24px;
+    }
+    .integration-chip span {
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: 0.02em;
     }
     @keyframes ticker { to { transform: translateX(-50%); } }
 
@@ -2164,6 +2229,119 @@
       line-height: 1.35;
       color: rgba(21, 20, 15, 0.72);
     }
+    .clientele-section {
+      background: var(--paper);
+      color: var(--ink);
+      padding: clamp(76px, 9vw, 132px) 0;
+      border-top: 1px solid rgba(21, 20, 15, 0.08);
+      border-bottom: 1px solid rgba(21, 20, 15, 0.08);
+      overflow: hidden;
+    }
+    .clientele-section .roman,
+    .clientele-section .dot,
+    .clientele-section em { color: var(--coral); }
+    .clientele-section .label { color: rgba(21, 20, 15, 0.5); }
+    .clientele-block {
+      grid-column: 2;
+      display: grid;
+      gap: clamp(28px, 4vw, 54px);
+      color: var(--ink);
+    }
+    .clientele-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.78fr) minmax(260px, 0.42fr);
+      gap: clamp(20px, 3vw, 40px);
+      align-items: end;
+    }
+    .clientele-head h3 {
+      font-family: var(--sans);
+      font-size: clamp(30px, 3.4vw, 48px);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      color: var(--ink);
+      max-width: 780px;
+    }
+    .clientele-note {
+      color: rgba(21, 20, 15, 0.62);
+      font-size: 14px;
+      line-height: 1.45;
+      max-width: 460px;
+    }
+    .clientele-pill:hover,
+    .clientele-pill:focus-visible {
+      opacity: 1;
+      outline: 0;
+    }
+    .clientele-slider {
+      position: relative;
+      overflow: hidden;
+      padding: 8px 0 10px;
+    }
+    .clientele-slider::before,
+    .clientele-slider::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: min(10vw, 112px);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .clientele-slider::before {
+      left: -1px;
+      background: linear-gradient(90deg, var(--paper), rgba(255, 252, 244, 0));
+    }
+    .clientele-slider::after {
+      right: -1px;
+      background: linear-gradient(270deg, var(--paper), rgba(255, 252, 244, 0));
+    }
+    .clientele-track {
+      display: flex;
+      width: max-content;
+      animation: clientele-marquee var(--clientele-duration, 38s) linear infinite;
+      will-change: transform;
+    }
+    .clientele-slider:hover .clientele-track,
+    .clientele-slider:focus-within .clientele-track {
+      animation-play-state: paused;
+    }
+    .clientele-set {
+      display: flex;
+      gap: 42px;
+      flex: 0 0 auto;
+      padding-right: 42px;
+    }
+    .clientele-pill {
+      min-width: 190px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px;
+      opacity: 0.82;
+      transition: opacity 180ms ease;
+    }
+    .clientele-pill img {
+      display: block;
+      width: auto;
+      max-width: 82px;
+      max-height: 34px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+    .clientele-pill span {
+      min-width: 0;
+      color: rgba(21, 20, 15, 0.72);
+      font: 700 12px/1.15 var(--sans);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    @keyframes clientele-marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
     .case-points li::before {
       content: "";
       width: 7px;
@@ -2350,6 +2528,8 @@
       .flow-map { grid-template-columns: repeat(2, 1fr); }
       .method-grid { grid-template-columns: repeat(2, 1fr); }
       .foot-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+      .clientele-head { grid-template-columns: 1fr; }
+      .clientele-pill { min-width: 184px; }
       .work-card, .work-card.alt { transform: none; }
     }
     @media (max-width: 760px) {
@@ -2435,6 +2615,7 @@
         justify-content: center !important;
       }
       .sec-rule { grid-template-columns: 1fr; gap: 18px; }
+      .clientele-block { grid-column: 1; }
       section { padding: 78px 0; }
       .hero { padding-top: 54px; }
       .scroll-hero { min-height: 205svh; padding: 0; }
@@ -2497,7 +2678,7 @@
         right: 0;
         bottom: 0;
         inset: 0;
-        width: 100vw;
+        width: 100%;
         height: 100svh;
         aspect-ratio: auto;
         min-height: 100svh;
@@ -2539,6 +2720,9 @@
       .case-tabs { grid-template-columns: 1fr; }
       .case-feature { padding: 16px; }
       .case-feature h3 { font-size: clamp(34px, 12vw, 48px); }
+      .clientele-pill { min-width: 168px; }
+      .clientele-pill img { max-width: 64px; max-height: 30px; }
+      .clientele-pill span { font-size: 11px; }
       .case-solution-map {
         min-height: min(118vw, 520px);
         overflow: hidden;
@@ -2687,35 +2871,43 @@
       .word { font-size: clamp(64px, 22vw, 116px); }
     }
   </style>
+  <link rel="stylesheet" href="assets/site.css?v=20260614-4">
 </head>
 <body>
   <div class="shell">
-    <nav class="nav is-hidden" id="nav">
-      <div class="container nav-inner">
-        <a class="brand" href="#top" aria-label="Zoomicc home">
-          <span class="brand-symbol" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M7 17 17 7"></path>
-              <path d="M9 7h8v8"></path>
-            </svg>
-          </span>
-          <span class="brand-word">Zoomicc</span>
-        </a>
-        <button class="nav-menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="primary-nav" aria-expanded="false">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </button>
-        <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
-          <a href="#about">About</a>
-          <a href="#capabilities">Services</a>
-          <a href="#lab">Signals</a>
-          <a href="#work">Case study</a>
-          <a href="#method">Method</a>
-          <a href="#contact" class="nav-cta">Start audit</a>
-        </div>
-      </div>
-    </nav>
+<!-- @partial nav -->
+<nav class="nav is-hidden" id="nav" data-nav-mode="landing">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html#top" aria-label="Flow2 home">
+      <span class="brand-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 17 17 7"></path>
+          <path d="M9 7h8v8"></path>
+        </svg>
+      </span>
+      <span class="brand-word">Flow2</span>
+    </a>
+    <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Services</a>
+      <a href="automation-blueprints.html">Resources</a>
+      <a href="index.html#work">Case study</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#method">Method</a>
+      <a href="index.html#contact" class="nav-cta">Start audit</a>
+    </div>
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+      <button type="button" data-lang="zh" aria-pressed="false">繁中</button>
+    </div>
+    <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="primary-nav" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+<!-- /@partial nav -->
 
     <main>
       <section class="hero scroll-hero" id="top" data-od-id="hero-scroll-prototype" data-hero-scroll-section="">
@@ -2724,9 +2916,9 @@
             <div class="scroll-hero-copy">
               <span class="label">HK automation agency</span>
               <h1 class="display"><span class="mobile-title-line">Automation</span> <span class="mobile-title-line">that helps</span> <span class="mobile-title-line">small teams</span> <span class="mobile-title-line"><em>grow</em><span class="dot">.</span></span></h1>
-              <p class="lead">Zoomicc helps Hong Kong SME owners increase business efficiency by setting up automated business flows across sales, operations, ecommerce, reporting, and customer follow-up.</p>
+              <p class="lead">Flow2 helps Hong Kong SME owners increase business efficiency by setting up automated business flows across sales, operations, ecommerce, reporting, and customer follow-up.</p>
               <div class="hero-actions">
-                <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Zoomicc%2C%20I%20want%20to%20audit%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp Zoomicc</a>
+                <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20audit%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp Flow2</a>
                 <a class="btn btn-secondary" href="#growth">See automation growth</a>
               </div>
               <div class="hero-foot">
@@ -2735,7 +2927,7 @@
               </div>
             </div>
 
-            <div class="scroll-system" aria-label="Scroll animation showing business inputs becoming a Zoomicc workflow">
+            <div class="scroll-system" aria-label="Scroll animation showing business inputs becoming a Flow2 workflow">
               <svg class="route-field" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                 <path pathLength="1" d="M 18 28 C 30 38, 40 46, 50 50"></path>
                 <path pathLength="1" d="M 50 18 C 50 32, 50 42, 50 50"></path>
@@ -2776,7 +2968,7 @@
                 <span class="hub-mark">Z</span>
               </div>
 
-              <div class="workflow-strip" aria-label="Zoomicc workflow: Map, Trigger, Action, Goal">
+              <div class="workflow-strip" aria-label="Flow2 workflow: Map, Trigger, Action, Goal">
                 <div class="workflow-node" data-workflow-node="" data-at="0.66">
                   <span class="workflow-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 6 5-2 6 2 5-2v14l-5 2-6-2-5 2z"></path><path d="M9 4v14"></path><path d="M15 6v14"></path></svg></span>
                   <span>Map</span>
@@ -2807,17 +2999,47 @@
             <div class="hero-cta-copy" data-reveal="">
               <h2>Show us the workflow. We map the first automation path<span class="dot">.</span></h2>
               <div class="hero-actions">
-                <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Zoomicc%2C%20I%20want%20to%20map%20one%20workflow." target="_blank" rel="noreferrer">Start on WhatsApp</a>
+                <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20map%20one%20workflow." target="_blank" rel="noreferrer">Start on WhatsApp</a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="wire" aria-label="Workflow ticker">
-        <div class="wire-track">
-          <span>Lead capture -&gt; WhatsApp reply -&gt; CRM update -&gt; invoice draft -&gt; approval queue -&gt; customer follow-up -&gt; stock alert -&gt; owner report -&gt;</span>
-          <span>Lead capture -&gt; WhatsApp reply -&gt; CRM update -&gt; invoice draft -&gt; approval queue -&gt; customer follow-up -&gt; stock alert -&gt; owner report -&gt;</span>
+      <section class="wire integrations-strip" aria-label="Platforms Flow2 can integrate with">
+        <p class="wire-label">Integrates with the tools your team already uses</p>
+        <p class="wire-accessible">Flow2 can integrate with Google Sheets, WhatsApp, Shopify, HubSpot, Slack, Notion, Airtable, Xero, Stripe, Gmail, Trello, and Zapier.</p>
+        <div class="wire-viewport" aria-hidden="true">
+          <div class="wire-track">
+            <div class="wire-group">
+              <span class="integration-chip"><img src="assets/integration-logos/google-sheets.svg" alt=""><span>Google Sheets</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/whatsapp.svg" alt=""><span>WhatsApp</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/shopify.svg" alt=""><span>Shopify</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/hubspot.svg" alt=""><span>HubSpot</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/slack.svg" alt=""><span>Slack</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/notion.svg" alt=""><span>Notion</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/airtable.svg" alt=""><span>Airtable</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/xero.svg" alt=""><span>Xero</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/stripe.svg" alt=""><span>Stripe</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/gmail.svg" alt=""><span>Gmail</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/trello.svg" alt=""><span>Trello</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/zapier.svg" alt=""><span>Zapier</span></span>
+            </div>
+            <div class="wire-group">
+              <span class="integration-chip"><img src="assets/integration-logos/google-sheets.svg" alt=""><span>Google Sheets</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/whatsapp.svg" alt=""><span>WhatsApp</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/shopify.svg" alt=""><span>Shopify</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/hubspot.svg" alt=""><span>HubSpot</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/slack.svg" alt=""><span>Slack</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/notion.svg" alt=""><span>Notion</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/airtable.svg" alt=""><span>Airtable</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/xero.svg" alt=""><span>Xero</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/stripe.svg" alt=""><span>Stripe</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/gmail.svg" alt=""><span>Gmail</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/trello.svg" alt=""><span>Trello</span></span>
+              <span class="integration-chip"><img src="assets/integration-logos/zapier.svg" alt=""><span>Zapier</span></span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -2856,9 +3078,9 @@
             <span class="roman">II.</span>
             <div class="split">
               <div class="about-copy" data-reveal="">
-                <span class="label">About Zoomicc <span class="ix">/ Operator team</span></span>
+                <span class="label">About Flow2 <span class="ix">/ Operator team</span></span>
                 <h2>Built by operators who know how SME work <em>moves</em><span class="dot">.</span></h2>
-                <p class="lead">Zoomicc is led by Agent T and Agent M: a marketing operator and an automation/ecommerce operator. The work is deliberately practical: map the active business flow, automate the repeatable parts, keep humans in control of judgment.</p>
+                <p class="lead">Flow2 is led by Agent T and Agent M: a marketing operator and an automation/ecommerce operator. The work is deliberately practical: map the active business flow, automate the repeatable parts, keep humans in control of judgment.</p>
                 <div class="founder-grid">
                   <article class="founder-card">
                     <div>
@@ -2896,7 +3118,7 @@
                 <div class="cap-copy" data-reveal="">
                   <span class="label">Services <span class="ix">/ Automation scope</span></span>
                   <h2>Practical services for <em>business automation</em><span class="dot">.</span></h2>
-                  <p class="lead">Zoomicc designs and builds practical workflows for sales, operations, customer service, reporting, and AI-assisted routing using the tools your team already works with.</p>
+                  <p class="lead">Flow2 designs and builds practical workflows for sales, operations, customer service, reporting, and AI-assisted routing using the tools your team already works with.</p>
                 </div>
               </div>
               <div class="cards">
@@ -2966,7 +3188,7 @@
                 <div data-reveal="">
                   <span class="label">Automation start point <span class="ix">/ Working method</span></span>
                   <h2 style="margin-top: 28px;">Start with one workflow, then build the <em>automation path</em><span class="dot">.</span></h2>
-                  <p class="lead">Bring one repeatable workflow. Zoomicc maps the work, defines the trigger, builds the action, and agrees what success should look like.</p>
+                  <p class="lead">Bring one repeatable workflow. Flow2 maps the work, defines the trigger, builds the action, and agrees what success should look like.</p>
                 </div>
                 <div class="method-aside" data-reveal="right">
                   <div class="progress-shell" aria-hidden="true"><div class="progress-bar" id="method-progress"></div></div>
@@ -3124,14 +3346,47 @@
         </div>
       </section>
 
-      <section class="testimonial" data-od-id="testimonial">
+      <section class="clientele-section" id="clientele" data-od-id="clientele">
         <div class="container">
           <div class="sec-rule">
             <span class="roman">VII.</span>
+            <div class="clientele-block" data-reveal="">
+              <div class="clientele-head">
+                <div>
+                  <span class="small-label">Hong Kong operations network</span>
+                  <h3>cliente<span class="dot">.</span></h3>
+                </div>
+                <p class="clientele-note">Flow2 builds workflow systems for teams that need dependable handoffs, measurable service quality, and cleaner daily operations across finance, retail, transport, property, utilities, and customer-facing work.</p>
+              </div>
+              <div class="clientele-slider" aria-label="Clientele logo slider" data-clientele-slider>
+                <div class="clientele-track">
+                  <div class="clientele-set">
+                    <div class="clientele-pill" aria-label="Swiss Re"><img src="assets/client-logos/swiss-re.png" alt="Swiss Re logo" loading="lazy"><span>Swiss Re</span></div>
+                    <div class="clientele-pill" aria-label="Bank of China Hong Kong"><img src="assets/client-logos/bank-of-china-hk.png" alt="Bank of China Hong Kong logo" loading="lazy"><span>Bank of China</span></div>
+                    <div class="clientele-pill" aria-label="HSBC Hong Kong"><img src="assets/client-logos/hsbc-hong-kong.png" alt="HSBC Hong Kong logo" loading="lazy"><span>HSBC Hong Kong</span></div>
+                    <div class="clientele-pill" aria-label="Cathay Pacific"><img src="assets/client-logos/cathay-pacific.png" alt="Cathay Pacific logo" loading="lazy"><span>Cathay Pacific</span></div>
+                    <div class="clientele-pill" aria-label="MTR Corporation"><img src="assets/client-logos/mtr-corporation.svg" alt="MTR Corporation logo" loading="lazy"><span>MTR Corporation</span></div>
+                    <div class="clientele-pill" aria-label="Hong Kong Jockey Club"><img src="assets/client-logos/hong-kong-jockey-club.svg" alt="Hong Kong Jockey Club logo" loading="lazy"><span>Hong Kong Jockey Club</span></div>
+                    <div class="clientele-pill" aria-label="AIA Hong Kong"><img src="assets/client-logos/aia-hong-kong.png" alt="AIA Hong Kong logo" loading="lazy"><span>AIA Hong Kong</span></div>
+                    <div class="clientele-pill" aria-label="Swire Properties"><img src="assets/client-logos/swire-properties.png" alt="Swire Properties logo" loading="lazy"><span>Swire Properties</span></div>
+                    <div class="clientele-pill" aria-label="Jardine Matheson"><img src="assets/client-logos/jardine-matheson.png" alt="Jardine Matheson logo" loading="lazy"><span>Jardine Matheson</span></div>
+                    <div class="clientele-pill" aria-label="CLP Power Hong Kong"><img src="assets/client-logos/clp-power-hong-kong.png" alt="CLP Power Hong Kong logo" loading="lazy"><span>CLP Power Hong Kong</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="testimonial" data-od-id="testimonial">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">VIII.</span>
             <div class="split">
               <div class="testimonial-copy" data-reveal="">
                 <span class="label">Testimonial <span class="ix">/ Client note</span></span>
-                <p class="quote">Before Zoomicc, I kept checking WhatsApp, invoices, and stock notes myself. Now the team knows the next step, and I can focus on buying and selling better handbags.</p>
+                <p class="quote">Before Flow2, I kept checking WhatsApp, invoices, and stock notes myself. Now the team knows the next step, and I can focus on buying and selling better handbags.</p>
                 <div class="author">Handbag consignment owner, Hong Kong</div>
               </div>
               <div class="art-card" data-reveal="right">
@@ -3145,55 +3400,41 @@
       <section class="cta" id="contact" data-od-id="cta">
         <div class="container">
           <div class="sec-rule">
-            <span class="roman">VIII.</span>
+            <span class="roman">IX.</span>
             <div class="cta-panel">
               <div class="cta-copy" data-reveal="">
                 <span class="label">Contact <span class="ix">/ Workflow briefing</span></span>
                 <h2>Send one active workflow on <em>WhatsApp</em><span class="dot">.</span></h2>
                 <p class="lead">Share one workflow. We will map the first automation path.</p>
-                <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Zoomicc%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">Start on WhatsApp</a>
+                <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">Start on WhatsApp</a>
               </div>
             </div>
           </div>
         </div>
       </section>
     </main>
-
-    <footer>
-      <div class="container">
-        <div class="foot-grid">
-          <div>
-            <h4>Zoomicc</h4>
-            <p>Automation systems for Hong Kong SMEs. Built around operational reality, not platform hype.</p>
-          </div>
-          <div><h4>Pages</h4><a href="#about">About</a><a href="#capabilities">Services</a><a href="#lab">Signals</a></div>
-          <div><h4>Stacks</h4><a href="#capabilities">Make</a><a href="#capabilities">n8n</a><a href="#capabilities">Power Automate</a></div>
-          <div><h4>Focus</h4><a href="#lab">Lead flow</a><a href="#lab">Ecommerce ops</a><a href="#lab">AI routing</a></div>
-          <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Zoomicc%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="#contact">Audit request</a></div>
-        </div>
-        <div class="word" data-reveal="rise-lg">Automated <em>workflows</em>.</div>
+<!-- @partial footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Flow2</h4>
+        <p>Flow2 builds practical automation systems for Hong Kong SMEs: sales follow-up, operations, reporting, and customer service working in one flow.</p>
       </div>
-    </footer>
+      <div><h4>Pages</h4><a href="index.html#about">About</a><a href="index.html#capabilities">Services</a><a href="automation-blueprints.html">Resources</a><a href="pricing.html">Pricing</a><a href="index.html#lab">Signals</a></div>
+      <div><h4>Stacks</h4><a href="index.html#capabilities">Make</a><a href="index.html#capabilities">n8n</a><a href="index.html#capabilities">Power Automate</a></div>
+      <div><h4>Focus</h4><a href="index.html#lab">Lead flow</a><a href="index.html#lab">Ecommerce ops</a><a href="index.html#lab">AI routing</a></div>
+      <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="index.html#contact">Audit request</a></div>
+    </div>
+    <div class="word" data-reveal="rise-lg">Business flows, <em>automated</em>.</div>
+  </div>
+</footer>
+<!-- /@partial footer -->
   </div>
 
+  <script src="assets/site.js?v=20260614-6"></script>
   <script>
     (function () {
-      var revealItems = document.querySelectorAll("[data-reveal]:not([data-revealed])");
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        revealItems.forEach(function (el) { el.dataset.revealed = "true"; });
-      } else if ("IntersectionObserver" in window) {
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (!entry.isIntersecting) return;
-            entry.target.dataset.revealed = "true";
-            observer.unobserve(entry.target);
-          });
-        }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-        revealItems.forEach(function (el) { observer.observe(el); });
-      } else {
-        revealItems.forEach(function (el) { el.dataset.revealed = "true"; });
-      }
-
       var heroSection = document.querySelector("[data-hero-scroll-section]");
       var heroCanvas = document.querySelector("[data-hero-scroll]");
       var deskItems = Array.prototype.slice.call(document.querySelectorAll("[data-desk-item]"));
@@ -3306,35 +3547,6 @@
       updatePainMap();
       window.addEventListener("scroll", updatePainMap, { passive: true });
       window.addEventListener("resize", updatePainMap);
-
-      var nav = document.getElementById("nav");
-      var navToggle = document.querySelector(".nav-menu-toggle");
-      var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-links a"));
-      function setNavMenu(open) {
-        if (!nav || !navToggle) return;
-        nav.classList.toggle("is-menu-open", open);
-        navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-        navToggle.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
-      }
-      function updateNavState() {
-        var y = window.scrollY;
-        nav.classList.toggle("is-pinned", y > 96);
-        nav.classList.toggle("is-hidden", y <= 72);
-        if (y <= 72) setNavMenu(false);
-      }
-      updateNavState();
-      window.addEventListener("scroll", updateNavState, { passive: true });
-      if (navToggle) {
-        navToggle.addEventListener("click", function () {
-          setNavMenu(navToggle.getAttribute("aria-expanded") !== "true");
-        });
-      }
-      navLinks.forEach(function (link) {
-        link.addEventListener("click", function () { setNavMenu(false); });
-      });
-      window.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") setNavMenu(false);
-      });
 
       var pills = Array.prototype.slice.call(document.querySelectorAll(".pill"));
       var labs = Array.prototype.slice.call(document.querySelectorAll(".lab"));
@@ -3494,6 +3706,19 @@
       paintScenario("ecomm");
       mobileFlowQuery.addEventListener("change", function () { paintScenario(activeScenario); });
 
+      var clienteleSliders = Array.prototype.slice.call(document.querySelectorAll("[data-clientele-slider]"));
+      clienteleSliders.forEach(function (slider) {
+        var track = slider.querySelector(".clientele-track");
+        var set = slider.querySelector(".clientele-set");
+        if (!track || !set || track.dataset.cloned === "true") return;
+        var clone = set.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        track.appendChild(clone);
+        track.dataset.cloned = "true";
+        var itemCount = set.querySelectorAll(".clientele-pill").length;
+        track.style.setProperty("--clientele-duration", Math.max(34, itemCount * 3.2) + "s");
+      });
+
       var caseShowcases = Array.prototype.slice.call(document.querySelectorAll("[data-case-showcase]"));
       caseShowcases.forEach(function (showcase) {
         var tabs = Array.prototype.slice.call(showcase.querySelectorAll("[data-case-tab]"));
@@ -3538,8 +3763,4 @@
 
     })();
   </script>
-
-
-
-
 </body></html>

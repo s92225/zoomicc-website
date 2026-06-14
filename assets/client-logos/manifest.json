@@ -1,0 +1,72 @@
+﻿[
+    {
+        "name":  "Swiss Re",
+        "domain":  "swissre.com",
+        "source":  "https://www.google.com/s2/favicons?domain=swissre.com\u0026sz=256",
+        "file":  "assets/client-logos/swiss-re.png",
+        "bytes":  3991
+    },
+    {
+        "name":  "Bank of China (Hong Kong)",
+        "domain":  "bochk.com",
+        "source":  "https://www.google.com/s2/favicons?domain=bochk.com\u0026sz=256",
+        "file":  "assets/client-logos/bank-of-china-hk.png",
+        "bytes":  1167
+    },
+    {
+        "name":  "HSBC Hong Kong",
+        "domain":  "hsbc.com.hk",
+        "source":  "https://www.google.com/s2/favicons?domain=hsbc.com.hk\u0026sz=256",
+        "file":  "assets/client-logos/hsbc-hong-kong.png",
+        "bytes":  947
+    },
+    {
+        "name":  "Cathay Pacific",
+        "domain":  "cathaypacific.com",
+        "source":  "https://www.google.com/s2/favicons?domain=cathaypacific.com\u0026sz=256",
+        "file":  "assets/client-logos/cathay-pacific.png",
+        "bytes":  1934
+    },
+    {
+        "name":  "MTR Corporation",
+        "domain":  "mtr.com.hk",
+        "source":  "https://en.wikipedia.org/wiki/File:HK_MTR_logo.svg",
+        "file":  "assets/client-logos/mtr-corporation.svg",
+        "bytes":  340
+    },
+    {
+        "name":  "Hong Kong Jockey Club",
+        "domain":  "hkjc.com",
+        "source":  "https://cdnlogo.com/logo/the-hong-kong-jockey-club_62255.html",
+        "file":  "assets/client-logos/hong-kong-jockey-club.svg",
+        "bytes":  26156
+    },
+    {
+        "name":  "AIA Hong Kong",
+        "domain":  "aia.com.hk",
+        "source":  "https://companieslogo.com/aia/logo/",
+        "file":  "assets/client-logos/aia-hong-kong.png",
+        "bytes":  33055
+    },
+    {
+        "name":  "Swire Properties",
+        "domain":  "swireproperties.com",
+        "source":  "https://www.google.com/s2/favicons?domain=swireproperties.com\u0026sz=256",
+        "file":  "assets/client-logos/swire-properties.png",
+        "bytes":  4552
+    },
+    {
+        "name":  "Jardine Matheson",
+        "domain":  "jardines.com",
+        "source":  "https://www.google.com/s2/favicons?domain=jardines.com\u0026sz=256",
+        "file":  "assets/client-logos/jardine-matheson.png",
+        "bytes":  18422
+    },
+    {
+        "name":  "CLP Power Hong Kong",
+        "domain":  "clp.com.hk",
+        "source":  "https://www.google.com/s2/favicons?domain=clp.com.hk\u0026sz=256",
+        "file":  "assets/client-logos/clp-power-hong-kong.png",
+        "bytes":  16943
+    }
+]

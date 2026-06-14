@@ -1,0 +1,1210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pricing Plans - Flow2 Automation for Hong Kong SMEs</title>
+  <meta name="description" content="Flow2 pricing for Hong Kong SMEs: choose an audit, a workflow build, or an AI / Business OS project based on how clear your automation need is today.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23efe7d2'/%3E%3Ccircle cx='32' cy='32' r='22' fill='%2315140f'/%3E%3Cpath d='M23 41 41 23M27 23h14v14' fill='none' stroke='%23f7f1de' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --paper: #efe7d2;
+      --paper-warm: #ece4cf;
+      --paper-dark: #ddd2b6;
+      --ink: #15140f;
+      --ink-soft: #2a2620;
+      --ink-mute: #5a5448;
+      --ink-faint: #8b8676;
+      --coral: #ed6f5c;
+      --coral-soft: #f08e7c;
+      --mustard: #e9b94a;
+      --olive: #6e7448;
+      --whatsapp: #1f7a4c;
+      --bone: #f7f1de;
+      --blue-note: #5f6f8f;
+      --line: rgba(21, 20, 15, 0.16);
+      --line-soft: rgba(21, 20, 15, 0.08);
+      --line-strong: rgba(21, 20, 15, 0.34);
+      --shadow: 0 30px 60px -34px rgba(21, 20, 15, 0.34);
+      --page-width: 1360px;
+      --serif: "Playfair Display", "Iowan Old Style", Georgia, serif;
+      --sans: "Inter Tight", "Avenir Next", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      min-width: 320px;
+      overflow-x: clip;
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: clip;
+      color: var(--ink);
+      background: var(--paper);
+      font: 16px/1.55 var(--body);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.9;
+      mix-blend-mode: multiply;
+      background-image:
+        radial-gradient(circle at 10% 16%, rgba(106, 92, 56, 0.07), transparent 28%),
+        radial-gradient(circle at 92% 70%, rgba(106, 92, 56, 0.06), transparent 34%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.18 0 0 0 0 0.16 0 0 0 0 0.12 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: auto, auto, 240px 240px;
+    }
+
+    a { color: inherit; }
+    button { font: inherit; }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(100% - 48px, var(--page-width));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 0;
+      background: rgba(239, 231, 210, 0.94);
+    }
+
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      color: var(--ink-faint);
+      font: 10px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .topbar b { color: var(--ink); font-weight: 700; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(239, 231, 210, 0.92);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--sans);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      text-transform: uppercase;
+    }
+
+    .brand-symbol {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--bone);
+      background: var(--ink);
+      box-shadow: inset 0 0 0 1px rgba(247, 241, 222, 0.18);
+    }
+
+    .brand-symbol svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2.4;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--ink-mute);
+      font: 11px/1 var(--mono);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current="page"] { color: var(--ink); }
+
+    .nav-cta {
+      min-width: 132px;
+      justify-content: center;
+      padding: 11px 17px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: var(--bone);
+      color: var(--ink) !important;
+    }
+
+    .menu-button {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(21, 20, 15, 0.28);
+      border-radius: 50%;
+      background: rgba(247, 241, 222, 0.76);
+      color: var(--ink);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      flex-direction: column;
+    }
+
+    .menu-button span {
+      width: 18px;
+      height: 2px;
+      border-radius: 99px;
+      background: currentColor;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .nav.is-open .menu-button span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav.is-open .menu-button span:nth-child(2) { opacity: 0; }
+    .nav.is-open .menu-button span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .hero {
+      padding: clamp(76px, 9vw, 124px) 0 72px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.72fr);
+      gap: clamp(34px, 6vw, 92px);
+      align-items: end;
+    }
+
+    .label,
+    .small-label {
+      display: inline-block;
+      color: var(--ink-mute);
+      font: 11px/1.2 var(--mono);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .display {
+      max-width: 900px;
+      margin-top: 26px;
+      font-family: var(--serif);
+      font-size: clamp(62px, 8vw, 128px);
+      font-weight: 500;
+      line-height: 0.88;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .display em,
+    .dot {
+      color: var(--coral);
+      font-style: italic;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin-top: 28px;
+      color: var(--ink-soft);
+      font-size: clamp(19px, 2vw, 25px);
+      line-height: 1.34;
+    }
+
+    .hero-actions,
+    .plan-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--bone);
+      font: 800 13px/1 var(--sans);
+      letter-spacing: 0.01em;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--bone);
+    }
+
+    .btn-whatsapp {
+      border-color: rgba(31, 122, 76, 0.28);
+      background: var(--whatsapp);
+      color: #fff;
+    }
+
+    .hero-note {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 26px;
+      background: rgba(247, 241, 222, 0.74);
+      box-shadow: var(--shadow);
+    }
+
+    .route-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 360px;
+      display: grid;
+      align-content: center;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 26px;
+      background:
+        linear-gradient(135deg, rgba(237, 111, 92, 0.12), transparent 38%),
+        rgba(247, 241, 222, 0.76);
+    }
+
+    .route-graphic {
+      position: relative;
+      z-index: 1;
+      min-height: 296px;
+      display: grid;
+      place-items: center;
+    }
+
+    .route-line {
+      position: absolute;
+      left: 14%;
+      right: 14%;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--coral), transparent);
+      opacity: 0.72;
+      transform-origin: left;
+      animation: routePulse 3.8s ease-in-out infinite;
+    }
+
+    .route-node {
+      position: absolute;
+      width: clamp(106px, 9.5vw, 132px);
+      min-height: 108px;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 8px;
+      padding: 16px 12px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(247, 241, 222, 0.92);
+      box-shadow: 0 20px 42px -32px rgba(21, 20, 15, 0.5);
+    }
+
+    .route-node:nth-child(2) { left: 0; top: 20px; }
+    .route-node:nth-child(3) { left: 50%; bottom: 0; transform: translateX(-50%); border-color: rgba(237, 111, 92, 0.42); }
+    .route-node:nth-child(4) { right: 0; top: 54px; }
+
+    .route-node i {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(21, 20, 15, 0.18);
+      border-radius: 50%;
+      color: var(--coral);
+      background: var(--bone);
+      font: normal 800 12px/1 var(--mono);
+    }
+
+    .route-node strong {
+      display: block;
+      color: var(--ink);
+      font: 800 16px/1.05 var(--sans);
+      letter-spacing: -0.01em;
+    }
+
+    .route-node span {
+      display: block;
+      color: var(--ink-mute);
+      font-size: 12px;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .route-core {
+      min-width: 158px;
+      min-height: 78px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border: 1px solid rgba(21, 20, 15, 0.9);
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--bone);
+      font: 900 20px/1 var(--sans);
+      letter-spacing: 0.04em;
+      box-shadow: 0 26px 54px -34px rgba(21, 20, 15, 0.8);
+      animation: hubBreathe 3.8s ease-in-out infinite;
+    }
+
+    .route-core-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--coral);
+      color: var(--bone);
+      box-shadow: inset 0 0 0 1px rgba(247, 241, 222, 0.22);
+    }
+
+    .route-core-mark svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2.7;
+    }
+
+    .route-core-word {
+      transform: translateY(1px);
+      letter-spacing: -0.035em;
+      text-transform: none;
+    }
+
+    @keyframes routePulse {
+      0%, 100% { transform: scaleX(0.74); opacity: 0.46; }
+      50% { transform: scaleX(1); opacity: 0.86; }
+    }
+
+    @keyframes hubBreathe {
+      0%, 100% { transform: scale(0.98); }
+      50% { transform: scale(1.02); }
+    }
+
+    .section {
+      padding: 86px 0;
+    }
+
+    .sec-rule {
+      display: grid;
+      grid-template-columns: 80px minmax(0, 1fr);
+      gap: 36px;
+      border-top: 1px dotted var(--line-strong);
+      padding-top: 18px;
+    }
+
+    .roman {
+      color: var(--coral);
+      font: italic 20px/1 var(--serif);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.45fr);
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2 {
+      margin-top: 18px;
+      font-family: var(--serif);
+      font-size: clamp(44px, 5.4vw, 86px);
+      font-weight: 500;
+      line-height: 0.96;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .section-head p {
+      color: var(--ink-mute);
+      font-size: 17px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .plan-card {
+      position: relative;
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      background: rgba(247, 241, 222, 0.74);
+      box-shadow: 0 24px 44px -36px rgba(21, 20, 15, 0.4);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .plan-card:hover,
+    .plan-card.is-selected {
+      transform: translateY(-4px);
+      border-color: rgba(237, 111, 92, 0.58);
+      background: rgba(247, 241, 222, 0.92);
+    }
+
+    .plan-card.featured {
+      border-color: rgba(237, 111, 92, 0.58);
+      background:
+        linear-gradient(180deg, rgba(237, 111, 92, 0.13), transparent 34%),
+        rgba(247, 241, 222, 0.92);
+    }
+
+    .plan-tag {
+      width: max-content;
+      max-width: 100%;
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink-mute);
+      background: rgba(239, 231, 210, 0.72);
+      font: 10px/1 var(--mono);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .plan-title {
+      display: grid;
+      gap: 12px;
+    }
+
+    .plan-title h3 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 2.4vw, 42px);
+      font-weight: 500;
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .price {
+      display: grid;
+      gap: 4px;
+      color: var(--ink);
+      font: 900 clamp(22px, 2.2vw, 32px)/1 var(--sans);
+      letter-spacing: -0.03em;
+    }
+
+    .price small {
+      color: var(--ink-faint);
+      font: 11px/1.2 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .plan-body {
+      display: grid;
+      gap: 18px;
+    }
+
+    .info-block {
+      display: grid;
+      gap: 8px;
+    }
+
+    .info-block b {
+      color: var(--ink);
+      font: 800 12px/1.1 var(--sans);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .info-block p,
+    .info-block li {
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.46;
+      overflow-wrap: anywhere;
+    }
+
+    .info-block ul {
+      display: grid;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .info-block li {
+      position: relative;
+      padding-left: 16px;
+    }
+
+    .info-block li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.67em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .plan-select {
+      min-height: 46px;
+      width: 100%;
+      border: 1px solid rgba(21, 20, 15, 0.28);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      font: 800 13px/1 var(--sans);
+    }
+
+    .plan-select:hover,
+    .plan-card.is-selected .plan-select {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: var(--bone);
+    }
+
+    .price-note {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 22px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      background: rgba(247, 241, 222, 0.72);
+    }
+
+    .word {
+      margin-top: 70px;
+      font-family: var(--sans);
+      font-size: clamp(66px, 13vw, 190px);
+      line-height: 0.82;
+      letter-spacing: -0.025em;
+      font-weight: 560;
+      color: var(--ink);
+    }
+    .word em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+    }
+
+    .price-note p {
+      color: var(--ink-mute);
+      font-size: 15px;
+      max-width: 940px;
+    }
+
+    .consult-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.48fr);
+      gap: 28px;
+      align-items: stretch;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(24px, 4vw, 42px);
+      background:
+        linear-gradient(135deg, rgba(233, 185, 74, 0.22), transparent 32%),
+        rgba(247, 241, 222, 0.78);
+      box-shadow: var(--shadow);
+    }
+
+    .consult-panel h2 {
+      margin-top: 18px;
+      font-family: var(--serif);
+      font-size: clamp(42px, 5vw, 78px);
+      font-weight: 500;
+      line-height: 0.98;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .selected-box {
+      display: grid;
+      align-content: space-between;
+      gap: 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      background: rgba(239, 231, 210, 0.68);
+    }
+
+    .selected-box strong {
+      display: block;
+      margin-top: 10px;
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .selected-box p {
+      margin-top: 10px;
+      color: var(--ink-mute);
+      font-size: 15px;
+    }
+
+    footer {
+      padding: 76px 0 34px;
+      border-top: 1px solid var(--line);
+    }
+
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(4, 1fr);
+      gap: 30px;
+      color: var(--ink-mute);
+      font-size: 14px;
+    }
+
+    footer h4 {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    footer a {
+      display: block;
+      text-decoration: none;
+      margin: 8px 0;
+      color: var(--ink-mute);
+    }
+
+    footer p {
+      max-width: 300px;
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    footer a:hover { color: var(--ink); }
+
+    [data-reveal] {
+      opacity: 0;
+      translate: 0 18px;
+      transition: opacity 520ms ease, translate 520ms ease;
+    }
+
+    [data-reveal][data-revealed="true"] {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+
+      [data-reveal] {
+        opacity: 1 !important;
+        translate: 0 0 !important;
+      }
+    }
+
+    @media (max-width: 1280px) {
+      .pricing-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .section-head,
+      .consult-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .foot-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(100% - 32px, 100%);
+      }
+
+      .topbar-inner {
+        font-size: 9px;
+        gap: 12px;
+      }
+
+      .topbar-inner span:nth-child(2) {
+        display: none;
+      }
+
+      .nav-inner {
+        min-height: 64px;
+        position: relative;
+      }
+
+      .menu-button {
+        display: inline-flex;
+        margin-left: auto;
+      }
+
+      .nav-links {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(100% + 10px);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 10px;
+        border: 1px solid rgba(21, 20, 15, 0.18);
+        border-radius: 18px;
+        background: rgba(247, 241, 222, 0.98);
+        box-shadow: 0 24px 42px -28px rgba(21, 20, 15, 0.44);
+        opacity: 0;
+        transform: translateY(-8px);
+        pointer-events: none;
+        visibility: hidden;
+        transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+      }
+
+      .nav.is-open .nav-links {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        visibility: visible;
+      }
+
+      .nav-links a {
+        min-height: 46px;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(21, 20, 15, 0.08);
+      }
+
+      .nav-links a:last-child {
+        border-bottom: 0;
+      }
+
+      .nav-cta {
+        width: 100%;
+        margin-top: 8px;
+      }
+
+      .hero {
+        padding-top: 58px;
+      }
+
+      .display {
+        font-family: var(--sans);
+        font-size: clamp(54px, 15vw, 68px);
+        font-weight: 500;
+        line-height: 0.92;
+        max-width: 390px;
+      }
+
+      .lead {
+        font-size: 18px;
+      }
+
+      .sec-rule {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .section {
+        padding: 70px 0;
+      }
+
+      .section-head h2,
+      .consult-panel h2 {
+        font-family: var(--sans);
+        font-size: clamp(38px, 11vw, 54px);
+        font-weight: 600;
+        line-height: 1;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-note {
+        grid-template-columns: 1fr;
+      }
+
+      .route-card {
+        min-height: 430px;
+        padding: 20px;
+      }
+
+      .route-graphic {
+        min-height: 382px;
+      }
+
+      .route-line {
+        left: 8%;
+        right: 8%;
+        top: 48%;
+      }
+
+      .route-node {
+        width: 118px;
+      }
+
+      .route-node:nth-child(2) {
+        left: 0;
+        top: 8px;
+      }
+
+      .route-node:nth-child(3) {
+        left: auto;
+        right: 0;
+        top: 8px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .route-node:nth-child(4) {
+        left: 50%;
+        right: auto;
+        top: auto;
+        bottom: 8px;
+        transform: translateX(-50%);
+      }
+
+      .route-core {
+        min-width: 142px;
+        min-height: 72px;
+        font-size: 18px;
+      }
+
+      .foot-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/site.css?v=20260614-4">
+</head>
+<body>
+  <div class="shell">
+<!-- @partial nav -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span><b>Flow2</b> pricing</span>
+    <span>Workflow automation for Hong Kong SMEs</span>
+    <span>Starting prices</span>
+  </div>
+</div>
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html#top" aria-label="Flow2 home">
+      <span class="brand-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 17 17 7"></path>
+          <path d="M9 7h8v8"></path>
+        </svg>
+      </span>
+      <span class="brand-word">Flow2</span>
+    </a>
+    <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Services</a>
+      <a href="automation-blueprints.html">Resources</a>
+      <a href="index.html#work">Case study</a>
+      <a href="pricing.html" aria-current="page">Pricing</a>
+      <a href="index.html#method">Method</a>
+      <a href="index.html#contact" class="nav-cta">Start audit</a>
+    </div>
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+      <button type="button" data-lang="zh" aria-pressed="false">繁中</button>
+    </div>
+    <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="primary-nav" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+<!-- /@partial nav -->
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div data-reveal>
+            <span class="label">Price plan / Automation scope</span>
+            <h1 class="display">Choose the right <em>workflow</em> entry point<span class="dot">.</span></h1>
+            <p class="lead">Clear starting points for Hong Kong SMEs: from mapping one manual process to building AI-assisted operating flows across teams.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#plans">View plans</a>
+              <a class="btn btn-whatsapp" href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20discuss%20pricing%20for%20a%20business%20workflow." target="_blank" rel="noreferrer">Ask on WhatsApp</a>
+            </div>
+          </div>
+
+          <aside class="route-card" data-reveal aria-label="Three Flow2 pricing entry points">
+            <div class="route-graphic" aria-hidden="true">
+              <span class="route-line"></span>
+              <div class="route-node"><i>01</i><strong>Audit</strong><span>Find the first process</span></div>
+              <div class="route-node"><i>02</i><strong>Build</strong><span>Ship the workflow</span></div>
+              <div class="route-node"><i>03</i><strong>AI / OS</strong><span>Connect the system</span></div>
+              <div class="route-core">
+                <span class="route-core-mark">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 17 17 7"></path>
+                    <path d="M9 7h8v8"></path>
+                  </svg>
+                </span>
+                <span class="route-core-word">Flow2</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="plans">
+        <div class="container">
+          <div class="sec-rule">
+            <span class="roman">I.</span>
+            <div>
+              <div class="section-head" data-reveal>
+                <div>
+                  <span class="label">Plans</span>
+                  <h2>Price plans<span class="dot">.</span></h2>
+                </div>
+              </div>
+
+              <div class="pricing-grid" aria-label="Flow2 pricing plans">
+                <article class="plan-card" data-reveal data-plan="Flow Audit" data-price="HKD 2,000" data-message="Hi Flow2, I want to start with the Flow Audit plan.">
+                  <span class="plan-tag">Not sure yet</span>
+                  <div class="plan-title">
+                    <h3>Flow Audit</h3>
+                    <div class="price"><small>Price</small>HKD 2,000</div>
+                  </div>
+                  <div class="plan-body">
+                    <div class="info-block">
+                      <b>Choose this if</b>
+                      <p>You know work is too manual, but you are not sure what should be automated first.</p>
+                    </div>
+                    <div class="info-block">
+                      <b>You get</b>
+                      <ul>
+                        <li>One consultation call</li>
+                        <li>Process review and opportunity map</li>
+                        <li>Recommended workflow plan</li>
+                      </ul>
+                    </div>
+                    <div class="info-block">
+                      <b>Typical outcome</b>
+                      <p>A clear first automation target before you commit to a build.</p>
+                    </div>
+                  </div>
+                  <button class="plan-select" type="button">Choose Audit</button>
+                </article>
+
+                <article class="plan-card featured is-selected" data-reveal data-plan="Workflow Build" data-price="From HKD 6,800" data-message="Hi Flow2, I want to discuss building an automation workflow.">
+                  <span class="plan-tag">Most SME teams</span>
+                  <div class="plan-title">
+                    <h3>Workflow Build</h3>
+                    <div class="price"><small>Price</small>From HKD 6,800</div>
+                  </div>
+                  <div class="plan-body">
+                    <div class="info-block">
+                      <b>Choose this if</b>
+                      <p>You already know the process and want Flow2 to build it into a working automation.</p>
+                    </div>
+                    <div class="info-block">
+                      <b>You get</b>
+                      <ul>
+                        <li>One to three connected workflows</li>
+                        <li>App integrations, testing, and handover</li>
+                        <li>Support period based on scope</li>
+                      </ul>
+                    </div>
+                    <div class="info-block">
+                      <b>Typical outcome</b>
+                      <p>Lead alerts, document generation, CRM updates, order tracking, or internal routing.</p>
+                    </div>
+                  </div>
+                  <button class="plan-select" type="button">Choose Workflow Build</button>
+                </article>
+
+                <article class="plan-card" data-reveal data-plan="AI / Business OS" data-price="From HKD 28,800" data-message="Hi Flow2, I want to discuss an advanced AI or operations system project.">
+                  <span class="plan-tag">AI or full system</span>
+                  <div class="plan-title">
+                    <h3>AI / Business OS</h3>
+                    <div class="price"><small>Price</small>From HKD 28,800</div>
+                  </div>
+                  <div class="plan-body">
+                    <div class="info-block">
+                      <b>Choose this if</b>
+                      <p>You need AI inside the workflow, or you are replacing several messy manual systems.</p>
+                    </div>
+                    <div class="info-block">
+                      <b>You get</b>
+                      <ul>
+                        <li>AI extraction, drafting, chatbot, or assistant setup</li>
+                        <li>Workflow integration and testing</li>
+                        <li>Custom OS builds from HKD 48,000</li>
+                      </ul>
+                    </div>
+                    <div class="info-block">
+                      <b>Typical outcome</b>
+                      <p>Customer reply assistant, enquiry classification, CRM, inventory flow, client portal, or finance automation.</p>
+                    </div>
+                  </div>
+                  <button class="plan-select" type="button">Choose AI / OS</button>
+                </article>
+              </div>
+
+              <div class="price-note" data-reveal>
+                <div>
+                  <span class="small-label">Pricing note</span>
+                  <p>Prices above are starting prices. Final pricing depends on workflow complexity, integrations, AI usage, data volume, and support level.</p>
+                  <p>Third-party software subscriptions, API usage, WhatsApp fees, hosting, and automation platform costs are not included unless stated.</p>
+                </div>
+                <a class="btn" href="#consult">Discuss scope</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="consult">
+        <div class="container">
+          <div class="consult-panel" data-reveal>
+            <div>
+              <span class="label">Next step</span>
+              <h2>Bring one messy workflow<span class="dot">.</span></h2>
+              <p class="lead">Flow2 will map the process, confirm the right plan, and define what needs to be automated first.</p>
+              <div class="hero-actions">
+                <a class="btn btn-whatsapp" id="whatsapp-link" href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20discuss%20the%20Business%20Flow%20plan." target="_blank" rel="noreferrer">Start on WhatsApp</a>
+                <a class="btn" href="index.html#method">See method</a>
+              </div>
+            </div>
+            <aside class="selected-box" aria-live="polite">
+              <div>
+                <span class="small-label">Selected plan</span>
+                <strong id="selected-plan">Workflow Build</strong>
+                <p id="selected-price">From HKD 6,800</p>
+              </div>
+              <p>Use this as the starting point for the first consultation. Scope can move up or down after the workflow is reviewed.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+<!-- @partial footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Flow2</h4>
+        <p>Flow2 builds practical automation systems for Hong Kong SMEs: sales follow-up, operations, reporting, and customer service working in one flow.</p>
+      </div>
+      <div><h4>Pages</h4><a href="index.html#about">About</a><a href="index.html#capabilities">Services</a><a href="automation-blueprints.html">Resources</a><a href="pricing.html">Pricing</a><a href="index.html#lab">Signals</a></div>
+      <div><h4>Stacks</h4><a href="index.html#capabilities">Make</a><a href="index.html#capabilities">n8n</a><a href="index.html#capabilities">Power Automate</a></div>
+      <div><h4>Focus</h4><a href="index.html#lab">Lead flow</a><a href="index.html#lab">Ecommerce ops</a><a href="index.html#lab">AI routing</a></div>
+      <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="index.html#contact">Audit request</a></div>
+    </div>
+    <div class="word" data-reveal="rise-lg">Business flows, <em>automated</em>.</div>
+  </div>
+</footer>
+<!-- /@partial footer -->
+  </div>
+
+  <script src="assets/site.js?v=20260614-6"></script>
+  <script>
+    (function () {
+      var cards = Array.prototype.slice.call(document.querySelectorAll(".plan-card"));
+      var selectedPlan = document.getElementById("selected-plan");
+      var selectedPrice = document.getElementById("selected-price");
+      var whatsappLink = document.getElementById("whatsapp-link");
+
+      function selectPlan(card) {
+        cards.forEach(function (item) {
+          item.classList.toggle("is-selected", item === card);
+        });
+        if (selectedPlan) selectedPlan.textContent = card.dataset.plan || "";
+        if (selectedPrice) selectedPrice.textContent = card.dataset.price || "";
+        if (whatsappLink && card.dataset.message) {
+          whatsappLink.href = "https://wa.me/85200000000?text=" + encodeURIComponent(card.dataset.message);
+        }
+      }
+
+      cards.forEach(function (card) {
+        var button = card.querySelector(".plan-select");
+        if (!button) return;
+        button.addEventListener("click", function () {
+          selectPlan(card);
+          var consult = document.getElementById("consult");
+          if (consult) window.scrollTo({ top: consult.offsetTop - 24, behavior: "smooth" });
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>

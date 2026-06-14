@@ -1,0 +1,26 @@
+{{topbar}}
+<nav class="nav{{navClass}}" id="nav"{{navAttrs}}>
+  <div class="container nav-inner">
+    <a class="brand" href="{{homeHref}}" aria-label="Flow2 home">
+      <span class="brand-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 17 17 7"></path>
+          <path d="M9 7h8v8"></path>
+        </svg>
+      </span>
+      <span class="brand-word">Flow2</span>
+    </a>
+    <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
+{{navLinks}}
+    </div>
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+      <button type="button" data-lang="zh" aria-pressed="false">繁中</button>
+    </div>
+    <button class="{{toggleClass}}" type="button" aria-label="Open navigation menu" aria-controls="primary-nav" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>

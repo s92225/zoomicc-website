@@ -1,0 +1,34 @@
+{
+  "kind": "critique-panel",
+  "score": 4,
+  "axes": {
+    "clarity": {
+      "score": 4,
+      "notes": "Language switch now applies full-page Traditional Chinese content across landing, pricing, and resources pages, not just nav labels."
+    },
+    "hierarchy": {
+      "score": 4,
+      "notes": "Translated headings preserve the existing section structure and short display-line rhythm."
+    },
+    "typography": {
+      "score": 4,
+      "notes": "Chinese copy uses existing font stack and avoids adding new layout-affecting styles."
+    },
+    "motion": {
+      "score": 4,
+      "notes": "MutationObserver translates dynamic ticker, pricing, and resource-page state text without interrupting existing motion or interactions."
+    },
+    "brand": {
+      "score": 4,
+      "notes": "Copy uses Flow2 brand context for Hong Kong SMEs while preserving platform and client brand names in English where appropriate."
+    }
+  },
+  "checks": {
+    "build": "npm run build passed",
+    "syntax": "node --check assets/site.js passed",
+    "desktopLanguage": "Chromium verified four pages switch to zh-Hant with translated nav/title/h1 and CJK body content.",
+    "englishRestore": "Chromium verified switching back to EN restores English nav and page language.",
+    "mobileNav": "Chromium verified pricing and resources mobile nav open correctly with language switch and menu button not overlapping.",
+    "structure": "Four pages each have one nav, one footer, one language switch, one site.js v20260614-5 reference, and balanced div/section counts."
+  }
+}

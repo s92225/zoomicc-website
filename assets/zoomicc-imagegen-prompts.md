@@ -1,4 +1,4 @@
-# Zoomicc Atelier Zero Image Prompts
+# Flow2 Atelier Zero Image Prompts
 
 ## Generated content set
 
@@ -18,9 +18,9 @@ Shared art direction: clear modern editorial collage, warm paper texture, black 
 
 Use these prompts to generate original editorial collage plates for the 16 existing image slots. Save each output over the matching `assets/<file>.png`.
 
-Style anchor for every slot: high-end Atelier Zero editorial collage for Zoomicc, a Hong Kong SME automation agency. Warm ivory handmade paper, scanned grain, dotted hairline rules, coral registration dots, restrained Swiss layout, Playfair-style italic emphasis, cropped plaster fragments, Hong Kong shopfront details, receipts, spreadsheets, WhatsApp message snippets, Make/n8n/Power Automate routing lines as abstract geometry. Premium, calm, tactile, no cartoon, no neon, no glossy 3D, no watermark, no misspelled random text.
+Style anchor for every slot: high-end Atelier Zero editorial collage for Flow2, a Hong Kong SME automation agency. Warm ivory handmade paper, scanned grain, dotted hairline rules, coral registration dots, restrained Swiss layout, Playfair-style italic emphasis, cropped plaster fragments, Hong Kong shopfront details, receipts, spreadsheets, WhatsApp message snippets, Make/n8n/Power Automate routing lines as abstract geometry. Premium, calm, tactile, no cartoon, no neon, no glossy 3D, no watermark, no misspelled random text.
 
-1. `hero.png` — Square hero plate with a large Zoomicc wordmark area, Hong Kong street-level SME storefront fragments, message bubbles turning into clean automation nodes, one coral dot as focal point.
+1. `hero.png` — Square hero plate with a large Flow2 wordmark area, Hong Kong street-level SME storefront fragments, message bubbles turning into clean automation nodes, one coral dot as focal point.
 2. `about.png` — Square collage showing manual office friction becoming organized lanes: receipt stack, laptop grid, calendar, approval stamp, plaster hand moving a paper token.
 3. `capabilities.png` — Square systems map with four service lanes: intake, operations, AI agents, reporting, arranged as precise editorial quadrants.
 4. `method-1.png` — Square audit plate with annotated workflow map, owner initials, trigger labels, exception notes, and thin black coordinate marks.
@@ -35,4 +35,4 @@ Style anchor for every slot: high-end Atelier Zero editorial collage for Zoomicc
 13. `work-1.png` — Portrait case study plate for follow-up machine: lead card, reminder clock, owner note, customer reply draft, synchronized cadence.
 14. `work-2.png` — Portrait case study plate for ecommerce operations layer: Shopify-like order card, inventory grid, courier path, invoice draft, customer update.
 15. `testimonial.png` — Square testimonial plate with a calm operations desk, completed request cards, human-in-the-loop marker, and quiet client note atmosphere.
-16. `cta.png` — Square CTA plate with one messy workflow folder opening into a clean automation map, coral ribbon, Zoomicc mark, and empty space for contact action.
+16. `cta.png` — Square CTA plate with one messy workflow folder opening into a clean automation map, coral ribbon, Flow2 mark, and empty space for contact action.
