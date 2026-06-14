@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "buildCommand": "node scripts/build-partials.js",
+  "outputDirectory": ".",
   "rewrites": [
     {
       "source": "/",
