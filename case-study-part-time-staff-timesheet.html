@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shiftwise Staffing Timesheet Automation Case Study - Flow2</title>
+  <meta name="description" content="A Flow2 case study showing how a part-time staffing workflow checks tomorrow's roster gaps in Google Sheets and returns a clean availability summary for scheduling follow-up.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@500;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css?v=20260614-21">
+  <style>
+    .case-page {
+      background:
+        radial-gradient(circle at 16% 7%, rgba(237, 111, 92, 0.08), transparent 34%),
+        radial-gradient(circle at 88% 19%, rgba(95, 111, 143, 0.08), transparent 30%),
+        linear-gradient(180deg, rgba(247, 241, 222, 0.72), rgba(239, 231, 210, 0));
+      color: var(--ink);
+    }
+
+    .case-hero {
+      padding: clamp(76px, 8vw, 112px) 0 54px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.68fr) minmax(330px, 0.32fr);
+      gap: clamp(34px, 5vw, 82px);
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 24px;
+      color: var(--ink-mute);
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--coral);
+    }
+
+    .case-hero h1,
+    .section-title,
+    .workflow-header h2,
+    .cta-panel h2 {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      text-transform: none;
+      text-wrap: balance;
+    }
+
+    .case-hero h1 {
+      max-width: 1060px;
+      font-size: clamp(48px, 7vw, 104px);
+      line-height: 0.88;
+    }
+
+    .case-hero h1 em,
+    .section-title em,
+    .workflow-header h2 em,
+    .cta-panel h2 em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      text-transform: none;
+    }
+
+    .case-hero p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: clamp(17px, 1.45vw, 21px);
+      line-height: 1.48;
+      text-wrap: pretty;
+    }
+
+    .hero-proof {
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.72);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-proof small,
+    .section-kicker,
+    .case-card small,
+    .case-map-node small,
+    .check-card small {
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: none;
+    }
+
+    .proof-row {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .proof-row:last-child { border-bottom: 0; }
+
+    .proof-icon,
+    .case-map-icon,
+    .check-icon {
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--case-color, var(--coral));
+      background: color-mix(in srgb, var(--case-color, var(--coral)) 12%, transparent);
+    }
+
+    .proof-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .proof-icon svg,
+    .check-icon svg {
+      width: 19px;
+      height: 19px;
+      stroke-width: 1.9;
+    }
+
+    .proof-row b {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--ink);
+      font: 520 15px/1.1 var(--sans);
+      letter-spacing: -0.015em;
+    }
+
+    .proof-row span {
+      color: var(--ink-mute);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .case-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-meta div {
+      min-height: 116px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+    }
+
+    .case-meta div:last-child { border-right: 0; }
+
+    .case-meta b {
+      color: var(--ink);
+      font: 520 20px/0.98 var(--sans);
+      letter-spacing: -0.035em;
+      text-transform: none;
+    }
+
+    .case-section {
+      padding: clamp(62px, 7vw, 106px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.34fr) minmax(0, 0.66fr);
+      gap: clamp(34px, 6vw, 94px);
+      align-items: start;
+    }
+
+    .section-kicker {
+      display: block;
+      margin: 0 0 18px;
+    }
+
+    .section-title {
+      font-size: clamp(30px, 4vw, 58px);
+      line-height: 0.94;
+    }
+
+    .lead-copy {
+      max-width: 780px;
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(18px, 1.55vw, 23px);
+      line-height: 1.46;
+      text-wrap: pretty;
+    }
+
+    .pain-grid,
+    .solution-grid,
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .case-card {
+      min-height: 180px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.62);
+      display: grid;
+      align-content: space-between;
+      gap: 22px;
+    }
+
+    .case-card h3 {
+      margin: 0;
+      color: var(--ink);
+      font: 520 24px/1 var(--sans);
+      letter-spacing: -0.04em;
+      text-transform: none;
+      text-wrap: balance;
+    }
+
+    .case-card p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .workflow-panel {
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.6);
+      box-shadow: var(--shadow);
+    }
+
+    .workflow-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.34fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .workflow-header h2 {
+      max-width: 840px;
+      font-size: clamp(30px, 4vw, 54px);
+      line-height: 0.92;
+    }
+
+    .workflow-header p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .case-solution-map {
+      min-height: 500px;
+      position: relative;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background:
+        linear-gradient(90deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        rgba(247, 241, 222, 0.78);
+      background-size: 28px 28px;
+      overflow: hidden;
+    }
+
+    .case-solution-map::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px dotted rgba(21, 20, 15, 0.18);
+      pointer-events: none;
+    }
+
+    .case-map-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .case-map-lines path {
+      fill: none;
+      stroke: rgba(21, 20, 15, 0.28);
+      stroke-width: 0.9;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .case-map-lines .primary {
+      stroke: rgba(237, 111, 92, 0.76);
+      stroke-width: 1.2;
+    }
+
+    .case-map-node {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      transform: translate(-50%, -50%);
+      width: min(176px, 20vw);
+      min-height: 60px;
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      gap: 9px;
+      align-items: center;
+      padding: 8px 12px 8px 0;
+      border: 1px solid color-mix(in srgb, var(--case-color, var(--ink)) 48%, transparent);
+      border-radius: 999px;
+      background: rgba(255, 252, 243, 0.93);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      z-index: 1;
+      box-shadow: 0 18px 30px -24px rgba(21, 20, 15, 0.5);
+    }
+
+    .case-map-node:focus-visible {
+      outline: 3px solid rgba(237, 111, 92, 0.28);
+      outline-offset: 3px;
+    }
+
+    .case-map-icon {
+      width: 36px;
+      height: 36px;
+      margin-left: 7px;
+    }
+
+    .case-map-icon svg {
+      width: 17px;
+      height: 17px;
+      stroke-width: 1.9;
+    }
+
+    .case-map-node small {
+      display: block;
+      margin: 0 0 3px;
+      color: var(--case-color, var(--ink-mute));
+      font-size: 7.5px;
+      letter-spacing: 0.1em;
+    }
+
+    .case-map-node b {
+      display: block;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: clamp(10.5px, 0.72vw, 12.5px);
+      font-weight: 520;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+
+    .case-map-note {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      min-height: 42px;
+      margin: 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background: rgba(247, 241, 222, 0.92);
+      color: var(--ink-mute);
+      font: 520 11px/1.45 var(--mono);
+      letter-spacing: 0.02em;
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .check-card {
+      min-height: 196px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255, 252, 243, 0.5);
+      display: grid;
+      align-content: space-between;
+      gap: 20px;
+    }
+
+    .check-icon {
+      width: 42px;
+      height: 42px;
+      margin-bottom: 14px;
+    }
+
+    .check-card h3 {
+      margin: 0 0 8px;
+      color: var(--ink);
+      font: 520 20px/1 var(--sans);
+      letter-spacing: -0.03em;
+      text-transform: none;
+    }
+
+    .check-card p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .cta-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 0.65fr) minmax(260px, 0.35fr);
+      gap: 28px;
+      align-items: end;
+      padding: clamp(28px, 4vw, 44px);
+      border: 1px solid var(--line);
+      background: var(--ink);
+      color: var(--bone);
+    }
+
+    .cta-panel h2 {
+      max-width: 860px;
+      color: var(--bone);
+      font-size: clamp(34px, 5vw, 70px);
+      line-height: 0.92;
+    }
+
+    .cta-panel p {
+      max-width: 660px;
+      margin: 18px 0 0;
+      color: rgba(247, 241, 222, 0.72);
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .btn-light {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 18px;
+      border: 1px solid rgba(247, 241, 222, 0.72);
+      border-radius: 999px;
+      color: var(--bone);
+      text-decoration: none;
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: none;
+    }
+
+    .btn-light.primary {
+      background: var(--bone);
+      color: var(--ink);
+    }
+
+    @media (max-width: 1080px) {
+      .case-hero-grid,
+      .section-grid,
+      .workflow-header,
+      .cta-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pain-grid,
+      .solution-grid,
+      .outcome-grid,
+      .check-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cta-actions {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .case-hero {
+        padding-top: 76px;
+      }
+
+      .container {
+        width: min(100% - 28px, var(--page-width));
+      }
+
+      .case-hero h1,
+      .section-title,
+      .workflow-header h2,
+      .cta-panel h2 {
+        letter-spacing: -0.04em;
+        overflow-wrap: anywhere;
+      }
+
+      .case-meta,
+      .pain-grid,
+      .solution-grid,
+      .outcome-grid,
+      .check-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta div {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .case-meta div:last-child { border-bottom: 0; }
+
+      .case-solution-map {
+        min-height: auto;
+        display: grid;
+        gap: 12px;
+        padding: 16px;
+        overflow: visible;
+      }
+
+      .case-map-lines,
+      .case-solution-map::before {
+        display: none;
+      }
+
+      .case-map-node {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        transform: none;
+        width: 100%;
+      }
+
+      .case-map-note {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+      }
+
+      .cta-actions {
+        display: grid;
+      }
+    }
+  </style>
+</head>
+<body class="case-page">
+  <!-- @partial nav -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Flow2 case study</span>
+    <span>Shiftwise Staffing</span>
+    <span>Roster automation</span>
+  </div>
+</div>
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html#top" aria-label="Flow2 home">
+      <span class="brand-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 17 17 7"></path>
+          <path d="M9 7h8v8"></path>
+        </svg>
+      </span>
+      <span class="brand-word">Flow2</span>
+    </a>
+    <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Services</a>
+      <a href="automation-blueprints.html">Resources</a>
+      <div class="nav-dropdown" aria-current="page">
+        <a class="nav-drop-link" href="index.html#work">Case study</a>
+        <div class="nav-submenu" aria-label="Case study pages">
+        <a href="case-study-template.html">LumeLuxe case</a>
+        <a href="case-study-swire-group.html">Swire Group case</a>
+        <a href="case-study-rsvp-ig-monitoring.html">RSVP case</a>
+        <a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a>
+        <a href="case-study-well-played-quotation.html">Well Played case</a>
+        <a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a>
+        </div>
+      </div>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#method">Method</a>
+      <a href="index.html#contact" class="nav-cta">Start audit</a>
+    </div>
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+      <button type="button" data-lang="zh" aria-pressed="false">繁中</button>
+    </div>
+    <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="primary-nav" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+<!-- /@partial nav -->
+
+  <main class="shell">
+    <section class="case-hero">
+      <div class="container case-hero-grid">
+        <div>
+          <div class="case-identity" aria-label="Shiftwise Staffing logo">
+            <span class="case-identity-logo"><img src="assets/case-logos/shiftwise-staffing.svg" alt="Shiftwise Staffing logo" loading="lazy"></span>
+            <span class="case-identity-text"><small>Client</small><b>Shiftwise Staffing</b></span>
+          </div>
+          <span class="eyebrow">Roster gap workflow</span>
+          <h1>Shiftwise Staffing ran part-time teams without the nightly <em>spreadsheet chase</em>.</h1>
+        </div>
+        <aside class="hero-proof" aria-label="Workflow proof points">
+          <small>Blueprint signal</small>
+          <div class="proof-row" style="--case-color:#ed6f5c;">
+            <span class="proof-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 2v4"></path><path d="M16 2v4"></path><path d="M4 8h16"></path><path d="M5 4h14v16H5z"></path></svg></span>
+            <span><b>Tomorrow first</b><span>The workflow checks the next roster date before the team starts manual follow-up.</span></span>
+          </div>
+          <div class="proof-row" style="--case-color:#5f6f8f;">
+            <span class="proof-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M5 10h14"></path><path d="M10 5v14"></path></svg></span>
+            <span><b>Google Sheets source</b><span>Roster rows and availability data stay inside the scheduling sheet.</span></span>
+          </div>
+          <div class="proof-row" style="--case-color:#1f7a4c;">
+            <span class="proof-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v10H8l-3 3z"></path><path d="M9 9h6"></path><path d="M9 12h4"></path></svg></span>
+            <span><b>Clean return summary</b><span>The subscenario returns a short staff availability note for the next action.</span></span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="case-meta" aria-label="Case summary">
+      <div><small>Client</small><b>Shiftwise Staffing</b></div>
+      <div><small>Business</small><b>Service operations</b></div>
+      <div><small>Workflow</small><b>Roster gap check</b></div>
+      <div><small>System role</small><b>Availability summary</b></div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The pain point</p>
+          <h2 class="section-title">A missing shift should not require another round of <em>manual checking</em>.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The team kept the roster in Google Sheets, but the operational work still depended on someone checking tomorrow's date, spotting empty staff slots, reading nearby availability rows, and turning that into a follow-up message.</p>
+          <div class="pain-grid">
+            <article class="case-card">
+              <small>01 / Visibility</small>
+              <div>
+                <h3>Gaps were hidden in the sheet</h3>
+                <p>Tomorrow's rows could still have empty staff columns, but the team had to manually scan for them.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>02 / Follow-up</small>
+              <div>
+                <h3>Availability needed context</h3>
+                <p>Finding one open date was not enough. The scheduler needed the nearby availability pattern before asking staff.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>03 / Handoff</small>
+              <div>
+                <h3>Summary work repeated</h3>
+                <p>Each check had to become a readable note before a manager or another automation could act on it.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The Flow2 solution</p>
+          <h2 class="section-title">Turn the roster sheet into a daily <em>gap-finder</em>.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">Flow2 structured the Make.com blueprint as a reusable subscenario. It filters tomorrow's roster rows, checks whether key staff slots are still empty, pulls the relevant availability range, aggregates the candidate names, and returns one clean text output to the parent workflow.</p>
+          <div class="solution-grid">
+            <article class="case-card">
+              <small>Detect</small>
+              <div>
+                <h3>Find tomorrow's open shifts</h3>
+                <p>The scenario filters for the next roster date and only keeps rows where the staff assignment columns are still blank.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>Read</small>
+              <div>
+                <h3>Pull the nearby schedule window</h3>
+                <p>The workflow reads the matching row plus the next few rows so the team can see availability context.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>Return</small>
+              <div>
+                <h3>Send back one clean summary</h3>
+                <p>The output is a compact text block that can feed a notification, AI message draft, or manager review step.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container workflow-panel">
+        <div class="workflow-header">
+          <h2>The workflow checks the roster, reads availability, then returns a <em>staffing summary</em>.</h2>
+          <p>This is a business-readable view of the blueprint. Sensitive spreadsheet IDs and account details are intentionally excluded from the case study.</p>
+        </div>
+        <div class="case-solution-map" data-case-map aria-label="Part-time staff timesheet automation workflow">
+          <svg class="case-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="primary" d="M10 50 C18 50 20 50 27 50"></path>
+            <path class="primary" d="M27 50 C34 50 36 34 44 34"></path>
+            <path class="primary" d="M44 34 C53 34 55 50 63 50"></path>
+            <path d="M27 50 C34 50 36 68 44 68"></path>
+            <path d="M44 68 C53 68 55 50 63 50"></path>
+            <path class="primary" d="M63 50 C71 50 74 50 81 50"></path>
+            <path class="primary" d="M81 50 C87 50 89 50 94 50"></path>
+          </svg>
+          <button class="case-map-node" type="button" style="--x:10%; --y:50%; --case-color:#15140f;" data-note="The parent scenario starts this subscenario when it needs an up-to-date view of tomorrow's roster gaps.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 5 13h6l-1 9 8-12h-6z"></path></svg></span>
+            <span><small>Trigger</small><b>Start subscenario</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:27%; --y:50%; --case-color:#ed6f5c;" data-note="Google Sheets is filtered for tomorrow's date and rows where the main staff assignment slots are still empty.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M5 10h14"></path><path d="M10 5v14"></path><path d="M15 5v14"></path></svg></span>
+            <span><small>Filter</small><b>Open roster rows</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:44%; --y:34%; --case-color:#5f6f8f;" data-note="The workflow reads the header row so the output can stay understandable instead of returning raw column positions.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h10"></path></svg></span>
+            <span><small>Context</small><b>Read headers</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:44%; --y:68%; --case-color:#5f6f8f;" data-note="For each open row, the scenario reads the matching schedule range so the availability pattern is visible.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3v4"></path><path d="M17 3v4"></path><path d="M4 8h16"></path><path d="M5 5h14v16H5z"></path><path d="M8 13h3"></path><path d="M13 13h3"></path><path d="M8 17h3"></path></svg></span>
+            <span><small>Window</small><b>Read availability</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:63%; --y:50%; --case-color:#1f7a4c;" data-note="The aggregator turns multiple sheet rows into a short roster note with row number, date, weekday, and candidate staff names.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6h12"></path><path d="M6 12h12"></path><path d="M6 18h8"></path></svg></span>
+            <span><small>Compose</small><b>Staff summary</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:81%; --y:50%; --case-color:#3f6f58;" data-note="The text output is returned to the parent scenario as sheetdata, ready for notification, AI drafting, or manager review.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14"></path><path d="m12 6 6 6-6 6"></path></svg></span>
+            <span><small>Return</small><b>sheetdata</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:94%; --y:50%; --case-color:#15140f;" data-note="The scheduling team can now follow up from one prepared summary instead of reopening the roster and checking rows manually.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v10H8l-3 3z"></path><path d="M9 9h6"></path><path d="M9 12h4"></path></svg></span>
+            <span><small>Next</small><b>Follow-up ready</b></span>
+          </button>
+          <p class="case-map-note" data-default-note="Hover or focus a node to see how the part-time staffing automation works.">Hover or focus a node to see how the part-time staffing automation works.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">What the automation checks</p>
+          <h2 class="section-title">The blueprint is small, but the decision rule is <em>specific</em>.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">This workflow is useful because it does not try to automate the whole staffing operation at once. It automates one repeatable check: which upcoming roster rows still need people, and who may be available for those dates.</p>
+          <div class="check-grid">
+            <article class="check-card" style="--case-color:#ed6f5c;">
+              <div>
+                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3v4"></path><path d="M17 3v4"></path><path d="M4 8h16"></path><path d="M5 5h14v16H5z"></path></svg></span>
+                <h3>Date match</h3>
+                <p>The filter looks for the next calendar date in the roster sheet.</p>
+              </div>
+              <small>Tomorrow</small>
+            </article>
+            <article class="check-card" style="--case-color:#15140f;">
+              <div>
+                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="M12 5v14"></path><path d="M6 6l12 12"></path></svg></span>
+                <h3>Empty slots</h3>
+                <p>Rows only matter when the main staff assignment fields have not been filled.</p>
+              </div>
+              <small>Gap detection</small>
+            </article>
+            <article class="check-card" style="--case-color:#5f6f8f;">
+              <div>
+                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M5 10h14"></path><path d="M10 5v14"></path></svg></span>
+                <h3>Sheet window</h3>
+                <p>The scenario reads the matching row plus nearby rows for availability context.</p>
+              </div>
+              <small>Context range</small>
+            </article>
+            <article class="check-card" style="--case-color:#1f7a4c;">
+              <div>
+                <span class="check-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6h12"></path><path d="M6 12h12"></path><path d="M6 18h8"></path></svg></span>
+                <h3>Readable output</h3>
+                <p>The result is returned as a short staff availability summary, not raw spreadsheet data.</p>
+              </div>
+              <small>Manager-ready</small>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The outcome</p>
+          <h2 class="section-title">A small automation gives the team a cleaner <em>daily handoff</em>.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The final asset is not a full workforce management system. It is a practical scheduling assistant that removes a repeated spreadsheet check and prepares the information needed for the next follow-up step.</p>
+          <div class="outcome-grid">
+            <article class="case-card">
+              <small>01</small>
+              <div><h3>Less manual scanning</h3><p>The team no longer needs to hunt through the roster sheet just to find tomorrow's unfilled shifts.</p></div>
+            </article>
+            <article class="case-card">
+              <small>02</small>
+              <div><h3>Better follow-up context</h3><p>Availability data is pulled together before the scheduler contacts part-time staff.</p></div>
+            </article>
+            <article class="case-card">
+              <small>03</small>
+              <div><h3>Reusable subscenario</h3><p>The output can feed a WhatsApp reminder, email alert, AI draft, or manager approval workflow later.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-banner-section" aria-label="Next step with Flow2">
+      <div class="container">
+        <div class="case-banner">
+          <div>
+            <h2>Need your roster flow built <em>properly?</em></h2>
+            <p>Flow2 can map your current scheduling sheet, define the right gap rules, and connect the output to WhatsApp, email, AI drafting, or manager review.</p>
+          </div>
+          <div class="case-banner-actions">
+            <a href="index.html#contact">Book a Flow Audit</a>
+            <a href="pricing.html">View pricing</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- @partial footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Flow2</h4>
+        <p>Flow2 builds practical automation systems for Hong Kong SMEs: sales follow-up, operations, reporting, and customer service working in one flow.</p>
+      </div>
+      <div><h4>Pages</h4><a href="index.html#about">About</a><a href="index.html#capabilities">Services</a><a href="automation-blueprints.html">Resources</a><a href="case-study-template.html">LumeLuxe case</a><a href="case-study-swire-group.html">Swire Group case</a><a href="case-study-rsvp-ig-monitoring.html">RSVP case</a><a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a><a href="case-study-well-played-quotation.html">Well Played case</a><a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a><a href="pricing.html">Pricing</a><a href="index.html#lab">Signals</a></div>
+      <div><h4>Stacks</h4><a href="index.html#capabilities">Make</a><a href="index.html#capabilities">n8n</a><a href="index.html#capabilities">Power Automate</a></div>
+      <div><h4>Focus</h4><a href="index.html#lab">Lead flow</a><a href="index.html#lab">Ecommerce ops</a><a href="index.html#lab">AI routing</a></div>
+      <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="index.html#contact">Audit request</a></div>
+    </div>
+    <div class="word" data-reveal="rise-lg">Business flows, <em>automated</em>.</div>
+  </div>
+</footer>
+<!-- /@partial footer -->
+
+  <script>
+    window.Flow2PageI18n = {
+      text: {
+        "Shiftwise Staffing Timesheet Automation Case Study - Flow2": "Flow2 Shiftwise Staffing 更表自動化案例研究",
+        "Shiftwise Staffing case": "Shiftwise Staffing 案例",
+        "Shiftwise Staffing": "Shiftwise Staffing",
+        "Roster automation": "更表自動化"
+      }
+    };
+  </script>
+  <script src="assets/site.js?v=20260614-21"></script>
+  <script>
+    (function () {
+      Array.prototype.slice.call(document.querySelectorAll("[data-case-map]")).forEach(function (map) {
+        var note = map.querySelector(".case-map-note");
+        var defaultNote = note ? note.getAttribute("data-default-note") : "";
+        Array.prototype.slice.call(map.querySelectorAll(".case-map-node")).forEach(function (node) {
+          function show() { if (note) note.textContent = node.getAttribute("data-note") || defaultNote; }
+          function reset() { if (note) note.textContent = defaultNote; }
+          node.addEventListener("mouseenter", show);
+          node.addEventListener("focus", show);
+          node.addEventListener("mouseleave", reset);
+          node.addEventListener("blur", reset);
+          node.addEventListener("click", show);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

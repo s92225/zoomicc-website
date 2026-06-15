@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RSVP Instagram Monitoring Case Study - Flow2</title>
+  <meta name="description" content="A Flow2 case study showing how RSVP turned Instagram monitoring into a structured Notion content intelligence workflow.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@500;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css?v=20260614-21">
+  <style>
+    .case-page {
+      background:
+        radial-gradient(circle at 18% 8%, rgba(237, 111, 92, 0.08), transparent 34%),
+        linear-gradient(180deg, rgba(247, 241, 222, 0.7), rgba(239, 231, 210, 0));
+      color: var(--ink);
+    }
+
+    .case-hero {
+      padding: 98px 0 52px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(320px, 0.28fr);
+      gap: clamp(36px, 5vw, 86px);
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 24px;
+      color: var(--ink-mute);
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--coral);
+    }
+
+    .case-hero h1 {
+      max-width: 980px;
+      margin: 0;
+      color: var(--ink);
+      font: 500 clamp(50px, 7vw, 108px)/0.88 var(--sans);
+      letter-spacing: -0.065em;
+      text-transform: none;
+    }
+
+    .case-hero h1 em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+
+    .case-hero p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: clamp(17px, 1.5vw, 21px);
+      line-height: 1.48;
+    }
+
+    .case-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-meta div {
+      min-height: 116px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+    }
+
+    .case-meta div:last-child { border-right: 0; }
+
+    .case-meta small {
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: none;
+    }
+
+    .case-meta b {
+      color: var(--ink);
+      font: 520 21px/0.95 var(--sans);
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+
+    .case-section {
+      padding: clamp(62px, 7vw, 106px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.34fr) minmax(0, 0.66fr);
+      gap: clamp(34px, 6vw, 94px);
+      align-items: start;
+    }
+
+    .section-kicker {
+      margin: 0 0 18px;
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--ink);
+      font: 500 clamp(30px, 4vw, 58px)/0.93 var(--sans);
+      letter-spacing: -0.058em;
+      text-transform: none;
+    }
+
+    .section-title em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      text-transform: none;
+    }
+
+    .lead-copy {
+      max-width: 760px;
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(18px, 1.55vw, 23px);
+      line-height: 1.46;
+    }
+
+    .pain-grid,
+    .solution-grid,
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .case-card {
+      min-height: 178px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.62);
+      display: grid;
+      align-content: space-between;
+      gap: 24px;
+    }
+
+    .case-card small {
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.13em;
+      text-transform: none;
+    }
+
+    .case-card h3 {
+      margin: 0;
+      color: var(--ink);
+      font: 520 25px/0.98 var(--sans);
+      letter-spacing: -0.05em;
+      text-transform: none;
+    }
+
+    .case-card p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .workflow-panel {
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.6);
+      box-shadow: var(--shadow);
+    }
+
+    .workflow-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.34fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .workflow-header h2 {
+      margin: 0;
+      max-width: 760px;
+      color: var(--ink);
+      font: 500 clamp(30px, 4vw, 54px)/0.92 var(--sans);
+      letter-spacing: -0.058em;
+      text-transform: none;
+    }
+
+    .workflow-header p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .case-solution-map {
+      min-height: 500px;
+      position: relative;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background:
+        linear-gradient(90deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        rgba(247, 241, 222, 0.78);
+      background-size: 28px 28px;
+      overflow: hidden;
+    }
+
+    .case-solution-map::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px dotted rgba(21, 20, 15, 0.18);
+      pointer-events: none;
+    }
+
+    .case-map-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .case-map-lines path {
+      fill: none;
+      stroke: rgba(21, 20, 15, 0.28);
+      stroke-width: 0.9;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .case-map-lines .primary {
+      stroke: rgba(237, 111, 92, 0.76);
+      stroke-width: 1.2;
+    }
+
+    .case-map-node {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      transform: translate(-50%, -50%);
+      width: min(166px, 19vw);
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+      padding: 8px 10px 8px 0;
+      border: 1px solid color-mix(in srgb, var(--case-color, var(--ink)) 48%, transparent);
+      border-radius: 999px;
+      background: rgba(255, 252, 243, 0.9);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      z-index: 1;
+      box-shadow: 0 18px 30px -24px rgba(21, 20, 15, 0.5);
+    }
+
+    .case-map-node:focus-visible {
+      outline: 3px solid rgba(237, 111, 92, 0.28);
+      outline-offset: 3px;
+    }
+
+    .case-map-icon {
+      width: 34px;
+      height: 34px;
+      margin-left: 7px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--case-color, var(--ink)) 12%, transparent);
+      color: var(--case-color, var(--ink));
+    }
+
+    .case-map-icon svg {
+      width: 17px;
+      height: 17px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .case-map-node small {
+      display: block;
+      margin: 0 0 3px;
+      font-family: var(--mono);
+      font-size: 7.5px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      text-transform: none;
+      color: var(--case-color, var(--ink-mute));
+    }
+
+    .case-map-node b {
+      display: block;
+      font-family: var(--sans);
+      font-size: clamp(10.5px, 0.72vw, 12.5px);
+      font-weight: 520;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .case-map-note {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      min-height: 42px;
+      margin: 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background: rgba(247, 241, 222, 0.92);
+      color: var(--ink-mute);
+      font: 520 11px/1.45 var(--mono);
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 1080px) {
+      .case-hero-grid,
+      .section-grid,
+      .workflow-header {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pain-grid,
+      .solution-grid,
+      .outcome-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .case-hero {
+        padding-top: 76px;
+      }
+
+      .container {
+        width: min(100% - 28px, var(--page-width));
+      }
+
+      .case-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta div {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .case-meta div:last-child { border-bottom: 0; }
+
+      .case-solution-map {
+        min-height: auto;
+        display: grid;
+        gap: 12px;
+        padding: 16px;
+        overflow: visible;
+      }
+
+      .case-map-lines {
+        display: none;
+      }
+
+      .case-map-node {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        transform: none;
+        width: 100%;
+      }
+
+      .case-map-note {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+      }
+    }
+  </style>
+</head>
+<body class="case-page">
+  <!-- @partial nav -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Flow2 case study</span>
+    <span>RSVP</span>
+    <span>Instagram monitoring</span>
+  </div>
+</div>
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html#top" aria-label="Flow2 home">
+      <span class="brand-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 17 17 7"></path>
+          <path d="M9 7h8v8"></path>
+        </svg>
+      </span>
+      <span class="brand-word">Flow2</span>
+    </a>
+    <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Services</a>
+      <a href="automation-blueprints.html">Resources</a>
+      <div class="nav-dropdown" aria-current="page">
+        <a class="nav-drop-link" href="index.html#work">Case study</a>
+        <div class="nav-submenu" aria-label="Case study pages">
+        <a href="case-study-template.html">LumeLuxe case</a>
+        <a href="case-study-swire-group.html">Swire Group case</a>
+        <a href="case-study-rsvp-ig-monitoring.html">RSVP case</a>
+        <a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a>
+        <a href="case-study-well-played-quotation.html">Well Played case</a>
+        <a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a>
+        </div>
+      </div>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#method">Method</a>
+      <a href="index.html#contact" class="nav-cta">Start audit</a>
+    </div>
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+      <button type="button" data-lang="zh" aria-pressed="false">繁中</button>
+    </div>
+    <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="primary-nav" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+<!-- /@partial nav -->
+
+  <main class="shell">
+    <section class="case-hero">
+      <div class="container case-hero-grid">
+        <div>
+          <div class="case-identity" aria-label="RSVP logo">
+            <span class="case-identity-logo"><img src="assets/case-logos/rsvp.png" alt="RSVP logo" loading="lazy"></span>
+            <span class="case-identity-text"><small>Client</small><b>RSVP</b></span>
+          </div>
+          <span class="eyebrow">Social monitoring workflow</span>
+          <h1>RSVP turned Instagram activity into a reusable <em>content signal</em></h1>
+        </div>
+        <p>A lightweight monitoring system that checks selected Instagram accounts, captures post metrics, and turns creative activity into a structured Notion database.</p>
+      </div>
+    </section>
+
+    <section class="case-meta" aria-label="Case summary">
+      <div><small>Client</small><b>RSVP</b></div>
+      <div><small>Business</small><b>Social content operations</b></div>
+      <div><small>Workflow</small><b>Instagram to Notion</b></div>
+      <div><small>System role</small><b>Monitoring database</b></div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The pain point</p>
+          <h2 class="section-title">Instagram signals were visible, but not easy to <em>review</em>.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The team needed a repeatable way to watch several public handles without manually opening each profile, copying captions, saving media URLs, and rebuilding a reporting table.</p>
+          <div class="pain-grid">
+            <article class="case-card">
+              <small>01 / Accounts</small>
+              <div>
+                <h3>Several handles</h3>
+                <p>The workflow had to monitor slash.horse, dotai.hk, and rsvpcom as one cycle.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>02 / Posts</small>
+              <div>
+                <h3>Metrics scattered</h3>
+                <p>Views, likes, comments, captions, post types, and media links lived inside Instagram.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>03 / Review</small>
+              <div>
+                <h3>No single board</h3>
+                <p>The team needed one place to scan creative output and compare recent activity.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The Flow2 solution</p>
+          <h2 class="section-title">Flow2 turned the monitoring run into a clean <em>content database</em>.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The automation cycles through a short list of Instagram handles, collects profile and media data, writes each post into Notion, and appends the image so reviewers can understand the creative without opening every post.</p>
+          <div class="solution-grid">
+            <article class="case-card">
+              <small>Track</small>
+              <div>
+                <h3>Handles are managed centrally</h3>
+                <p>The scenario starts from a controlled watchlist instead of ad hoc searches.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>Capture</small>
+              <div>
+                <h3>Post data is structured</h3>
+                <p>Captions, media type, product type, date, permalink, and engagement fields map into Notion.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>Review</small>
+              <div>
+                <h3>Creative is visible</h3>
+                <p>The image is attached to the record, so the database is useful as a review board.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container workflow-panel">
+        <div class="workflow-header">
+          <h2>The workflow turns Instagram activity into a reviewable board.</h2>
+          <p>The chart simplifies the Make.com blueprint into one review loop: watchlist, account scan, media capture, field enrichment, Notion record, visual review.</p>
+        </div>
+        <div class="case-solution-map" data-case-map aria-label="RSVP Instagram monitoring workflow">
+          <svg class="case-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="primary" d="M10 50 C17 50 20 50 27 50"></path>
+            <path class="primary" d="M27 50 C35 50 37 50 45 50"></path>
+            <path class="primary" d="M45 50 C54 50 53 30 62 30"></path>
+            <path class="primary" d="M45 50 C54 50 53 70 62 70"></path>
+            <path d="M62 30 C70 30 70 50 78 50"></path>
+            <path d="M62 70 C70 70 70 50 78 50"></path>
+            <path d="M78 50 C84 50 87 50 91 50"></path>
+          </svg>
+          <button class="case-map-node" type="button" style="--x:10%; --y:50%; --case-color:#15140f;" data-note="The scenario begins with a controlled watchlist: slash.horse, dotai.hk, and rsvpcom. New handles can be added without changing the review workflow.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 7h8"></path><path d="M8 12h8"></path><path d="M8 17h5"></path><path d="M5 4h14v16H5z"></path></svg></span>
+            <span><small>Watchlist</small><b>IG handles</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:27%; --y:50%; --case-color:#ed6f5c;" data-note="The workflow loops through each account, so the team does not need to open profiles one by one.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 2v5h-5"></path><path d="M20 12a8 8 0 1 1-2.34-5.66"></path></svg></span>
+            <span><small>Loop</small><b>One account at a time</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:45%; --y:50%; --case-color:#1f7a4c;" data-note="Instagram profile and recent media are fetched for each handle, including captions, post types, media URLs, timestamps, and engagement counts.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"></rect><circle cx="12" cy="12" r="3"></circle><path d="M17.5 6.5h.01"></path></svg></span>
+            <span><small>Capture</small><b>Profile + media</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:62%; --y:30%; --case-color:#5f6f8f;" data-note="Post metadata is normalised into fields the team can filter: post ID, caption, date, media type, product type, permalink, owner, and username.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h10"></path></svg></span>
+            <span><small>Structure</small><b>Post fields</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:62%; --y:70%; --case-color:#3f6f58;" data-note="Engagement signals are captured alongside the post record, so the team can review content performance without manually copying numbers.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="M8 16v-4"></path><path d="M12 16V8"></path><path d="M16 16v-6"></path></svg></span>
+            <span><small>Signals</small><b>Likes + views</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:78%; --y:50%; --case-color:#15140f;" data-note="Each Instagram post becomes a Notion database page with the fields mapped into the right properties.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4h12l2 2v14H6z"></path><path d="M9 8h6"></path><path d="M9 12h6"></path><path d="M9 16h4"></path></svg></span>
+            <span><small>Database</small><b>Notion record</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:91%; --y:50%; --case-color:#ed6f5c;" data-note="The media image is appended to the Notion page, turning the database into a visual review board instead of a spreadsheet-like log.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><circle cx="9" cy="9" r="1.5"></circle><path d="m5 17 5-5 3 3 2-2 4 4"></path></svg></span>
+            <span><small>Review</small><b>Image preview</b></span>
+          </button>
+          <p class="case-map-note" data-default-note="Hover or focus a node to see how the RSVP monitoring workflow works.">Hover or focus a node to see how the RSVP monitoring workflow works.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The outcome</p>
+          <h2 class="section-title">A simple watchlist became a lightweight <em>content intelligence</em> system.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The value is not just that posts are saved. RSVP now has a repeatable way to turn social content activity into a searchable review board with source links, creative previews, and engagement fields in one place.</p>
+          <div class="outcome-grid">
+            <article class="case-card">
+              <small>01</small>
+              <div><h3>Less manual checking</h3><p>One run checks the selected accounts instead of relying on ad hoc profile visits.</p></div>
+            </article>
+            <article class="case-card">
+              <small>02</small>
+              <div><h3>Cleaner review board</h3><p>Notion holds the post data, link, caption, metrics, and visual asset together.</p></div>
+            </article>
+            <article class="case-card">
+              <small>03</small>
+              <div><h3>Better content memory</h3><p>The team can compare recent activity without rebuilding context from Instagram.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-banner-section" aria-label="Next step with Flow2">
+      <div class="container">
+        <div class="case-banner">
+          <div>
+            <h2>Need this content monitoring flow built <em>properly?</em></h2>
+            <p>Flow2 can connect social handles, post metrics, image capture, and Notion review into one editorial monitoring lane.</p>
+          </div>
+          <div class="case-banner-actions">
+            <a href="index.html#contact">Book a Flow Audit</a>
+            <a href="pricing.html">View pricing</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- @partial footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Flow2</h4>
+        <p>Flow2 builds practical automation systems for Hong Kong SMEs: sales follow-up, operations, reporting, and customer service working in one flow.</p>
+      </div>
+      <div><h4>Pages</h4><a href="index.html#about">About</a><a href="index.html#capabilities">Services</a><a href="automation-blueprints.html">Resources</a><a href="case-study-template.html">LumeLuxe case</a><a href="case-study-swire-group.html">Swire Group case</a><a href="case-study-rsvp-ig-monitoring.html">RSVP case</a><a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a><a href="case-study-well-played-quotation.html">Well Played case</a><a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a><a href="pricing.html">Pricing</a><a href="index.html#lab">Signals</a></div>
+      <div><h4>Stacks</h4><a href="index.html#capabilities">Make</a><a href="index.html#capabilities">n8n</a><a href="index.html#capabilities">Power Automate</a></div>
+      <div><h4>Focus</h4><a href="index.html#lab">Lead flow</a><a href="index.html#lab">Ecommerce ops</a><a href="index.html#lab">AI routing</a></div>
+      <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="index.html#contact">Audit request</a></div>
+    </div>
+    <div class="word" data-reveal="rise-lg">Business flows, <em>automated</em>.</div>
+  </div>
+</footer>
+<!-- /@partial footer -->
+
+  <script>
+    window.Flow2PageI18n = {
+      text: {
+        "RSVP Instagram Monitoring Case Study - Flow2": "Flow2 RSVP Instagram 監測案例研究",
+        "Flow2 case study": "Flow2 案例研究",
+        "RSVP": "RSVP",
+        "Instagram monitoring": "Instagram 監測",
+        "Social monitoring workflow": "社群監測流程",
+        "RSVP turned Instagram activity into a reusable": "RSVP 把 Instagram 活動變成可重用的",
+        "content signal": "內容訊號",
+        "A lightweight monitoring system that checks selected Instagram accounts, captures post metrics, and turns creative activity into a structured Notion database.": "一套輕量監測系統，定期檢查指定 Instagram 帳號、擷取貼文指標，並把內容活動整理成結構化 Notion 資料庫。",
+        "Client": "客戶",
+        "Business": "業務",
+        "Social content operations": "社群內容營運",
+        "Workflow": "流程",
+        "Instagram to Notion": "Instagram 到 Notion",
+        "System role": "系統角色",
+        "Monitoring database": "監測資料庫",
+        "The pain point": "痛點",
+        "Instagram signals were visible, but not easy to": "Instagram 訊號看得到，但不容易",
+        "review": "審閱",
+        "The team needed a repeatable way to watch several public handles without manually opening each profile, copying captions, saving media URLs, and rebuilding a reporting table.": "團隊需要一個可重複的方法監測多個公開帳號，而不是逐個打開 profile、複製 caption、儲存媒體連結，再重新整理報告表。",
+        "Several handles": "多個帳號",
+        "The workflow had to monitor slash.horse, dotai.hk, and rsvpcom as one cycle.": "流程需要把 slash.horse、dotai.hk 和 rsvpcom 放在同一輪監測內。",
+        "Metrics scattered": "指標分散",
+        "Views, likes, comments, captions, post types, and media links lived inside Instagram.": "瀏覽、like、留言、caption、貼文類型和媒體連結都分散在 Instagram 裡。",
+        "No single board": "沒有統一看板",
+        "The team needed one place to scan creative output and compare recent activity.": "團隊需要一個地方掃描創意內容，並比較近期活動。",
+        "The Flow2 solution": "Flow2 解法",
+        "Flow2 turned the monitoring run into a clean": "Flow2 把監測流程變成乾淨的",
+        "content database": "內容資料庫",
+        "The automation cycles through a short list of Instagram handles, collects profile and media data, writes each post into Notion, and appends the image so reviewers can understand the creative without opening every post.": "自動化會逐一巡檢 Instagram 帳號清單，收集 profile 與 media 資料，把每篇貼文寫入 Notion，並附上圖片，讓審閱者不用打開每篇貼文也能理解內容。",
+        "Handles are managed centrally": "集中管理帳號",
+        "The scenario starts from a controlled watchlist instead of ad hoc searches.": "流程從受控 watchlist 開始，而不是臨時搜尋。",
+        "Post data is structured": "貼文資料結構化",
+        "Captions, media type, product type, date, permalink, and engagement fields map into Notion.": "Caption、媒體類型、產品類型、日期、永久連結和互動指標都會映射到 Notion。",
+        "Creative is visible": "創意內容可見",
+        "The image is attached to the record, so the database is useful as a review board.": "圖片會附到記錄裡，讓資料庫同時成為審閱看板。",
+                "The chart simplifies the Make.com blueprint into one review loop: watchlist, account scan, media capture, field enrichment, Notion record, visual review.": "???? Make.com blueprint ??????????????????????????????Notion ????????",
+"The workflow turns Instagram activity into a reviewable board.": "流程把 Instagram 活動變成可審閱看板。",
+        "The chart simplifies the Make.com blueprint into the business flow: watchlist, loop, capture, structure, store, preview, review.": "這張圖把 Make.com blueprint 簡化成業務流程：watchlist、巡檢、擷取、整理、儲存、預覽、審閱。",
+        "The outcome": "成果",
+        "A simple watchlist became a lightweight": "一份簡單 watchlist 變成輕量",
+        "content intelligence": "內容情報",
+        "system.": "系統。",
+        "The value is not just that posts are saved. RSVP now has a repeatable way to turn social content activity into a searchable review board with source links, creative previews, and engagement fields in one place.": "價值不只是保存貼文。RSVP 現在能用可重複的方法，把社群內容活動變成可搜尋的審閱看板，並把來源連結、創意預覽與互動指標放在同一處。",
+        "Less manual checking": "減少手動檢查",
+        "One run checks the selected accounts instead of relying on ad hoc profile visits.": "一次執行就能檢查指定帳號，不再依賴臨時打開 profile。",
+        "Cleaner review board": "更乾淨的審閱看板",
+        "Notion holds the post data, link, caption, metrics, and visual asset together.": "Notion 同時保存貼文資料、連結、caption、指標和視覺素材。",
+        "Better content memory": "更好的內容記憶",
+        "The team can compare recent activity without rebuilding context from Instagram.": "團隊能比較近期活動，不用每次從 Instagram 重新建立上下文。",
+        "Watchlist": "監測清單",
+        "IG handles": "IG 帳號",
+        "Loop": "巡檢",
+        "One account at a time": "逐個帳號",
+        "Capture": "擷取",
+        "Profile + media": "Profile + media",
+        "Structure": "整理",
+        "Post fields": "貼文欄位",
+        "Signals": "訊號",
+        "Likes + views": "Like + 瀏覽",
+        "Database": "資料庫",
+        "Notion record": "Notion 記錄",
+        "Review": "審閱",
+        "Image preview": "圖片預覽"
+      },
+      attrs: {
+        "aria-label": {
+          "Case summary": "案例摘要",
+          "RSVP Instagram monitoring workflow": "RSVP Instagram 監測流程"
+        },
+        "data-default-note": {
+          "Hover or focus a node to see how the RSVP monitoring workflow works.": "移到或聚焦節點，查看 RSVP 監測流程如何運作。"
+        },
+        "data-note": {
+          "The scenario begins with a controlled watchlist: slash.horse, dotai.hk, and rsvpcom. New handles can be added without changing the review workflow.": "流程由受控 watchlist 開始：slash.horse、dotai.hk 和 rsvpcom。之後可加入新帳號，而不需要改變審閱流程。",
+          "The workflow loops through each account, so the team does not need to open profiles one by one.": "流程會逐一巡檢每個帳號，團隊不用手動打開每個 profile。",
+          "Instagram profile and recent media are fetched for each handle, including captions, post types, media URLs, timestamps, and engagement counts.": "系統會為每個帳號擷取 profile 與近期 media，包括 caption、貼文類型、媒體連結、時間與互動數據。",
+          "Post metadata is normalised into fields the team can filter: post ID, caption, date, media type, product type, permalink, owner, and username.": "貼文 metadata 會整理成可篩選欄位：post ID、caption、日期、媒體類型、產品類型、永久連結、owner 和 username。",
+          "Engagement signals are captured alongside the post record, so the team can review content performance without manually copying numbers.": "互動訊號會和貼文記錄一起保存，團隊不用手動複製數字也能審閱內容表現。",
+          "Each Instagram post becomes a Notion database page with the fields mapped into the right properties.": "每篇 Instagram 貼文會變成一個 Notion database page，欄位會映射到對應 properties。",
+          "The media image is appended to the Notion page, turning the database into a visual review board instead of a spreadsheet-like log.": "媒體圖片會附加到 Notion page，讓資料庫變成視覺審閱看板，而不是純文字記錄。"
+        }
+      }
+    };
+  </script>
+  <script src="assets/site.js?v=20260614-21"></script>
+  <script>
+    (function () {
+      Array.prototype.slice.call(document.querySelectorAll("[data-case-map]")).forEach(function (map) {
+        var note = map.querySelector(".case-map-note");
+        var defaultNote = note ? note.getAttribute("data-default-note") : "";
+        Array.prototype.slice.call(map.querySelectorAll(".case-map-node")).forEach(function (node) {
+          function show() { if (note) note.textContent = node.getAttribute("data-note") || defaultNote; }
+          function reset() { if (note) note.textContent = defaultNote; }
+          node.addEventListener("mouseenter", show);
+          node.addEventListener("focus", show);
+          node.addEventListener("mouseleave", reset);
+          node.addEventListener("blur", reset);
+          node.addEventListener("click", show);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harbour Weekly EDM Automation Case Study - Flow2</title>
+  <meta name="description" content="A Flow2 case study showing how Harbour Weekly turned hundreds of Notion news items into an AI-assisted weekly EDM draft in Google Docs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@500;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css?v=20260614-21">
+  <style>
+    .case-page {
+      background:
+        radial-gradient(circle at 18% 8%, rgba(237, 111, 92, 0.08), transparent 34%),
+        linear-gradient(180deg, rgba(247, 241, 222, 0.7), rgba(239, 231, 210, 0));
+      color: var(--ink);
+    }
+
+    .case-hero {
+      padding: 98px 0 52px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(320px, 0.28fr);
+      gap: clamp(36px, 5vw, 86px);
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 24px;
+      color: var(--ink-mute);
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--coral);
+    }
+
+    .case-hero h1 {
+      max-width: 1040px;
+      margin: 0;
+      color: var(--ink);
+      font: 500 clamp(50px, 7vw, 108px)/0.88 var(--sans);
+      letter-spacing: -0.065em;
+      text-transform: none;
+    }
+
+    .case-hero h1 em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+
+    .case-hero p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: clamp(17px, 1.5vw, 21px);
+      line-height: 1.48;
+    }
+
+    .case-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-meta div {
+      min-height: 116px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+    }
+
+    .case-meta div:last-child { border-right: 0; }
+
+    .case-meta small {
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: none;
+    }
+
+    .case-meta b {
+      color: var(--ink);
+      font: 520 21px/0.95 var(--sans);
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+
+    .case-section {
+      padding: clamp(62px, 7vw, 106px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.34fr) minmax(0, 0.66fr);
+      gap: clamp(34px, 6vw, 94px);
+      align-items: start;
+    }
+
+    .section-kicker {
+      margin: 0 0 18px;
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--ink);
+      font: 500 clamp(30px, 4vw, 58px)/0.93 var(--sans);
+      letter-spacing: -0.058em;
+      text-transform: none;
+    }
+
+    .section-title em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      text-transform: none;
+    }
+
+    .lead-copy {
+      max-width: 740px;
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(18px, 1.55vw, 23px);
+      line-height: 1.46;
+    }
+
+    .pain-grid,
+    .solution-grid,
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .case-card {
+      min-height: 154px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.62);
+      display: grid;
+      align-content: space-between;
+      gap: 20px;
+    }
+
+    .case-card small {
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.13em;
+      text-transform: none;
+    }
+
+    .case-card h3 {
+      margin: 0;
+      color: var(--ink);
+      font: 520 25px/0.98 var(--sans);
+      letter-spacing: -0.05em;
+      text-transform: none;
+    }
+
+    .case-card p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .workflow-panel {
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.6);
+      box-shadow: var(--shadow);
+    }
+
+    .workflow-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.34fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .workflow-header h2 {
+      margin: 0;
+      max-width: 780px;
+      color: var(--ink);
+      font: 500 clamp(30px, 4vw, 54px)/0.92 var(--sans);
+      letter-spacing: -0.058em;
+      text-transform: none;
+    }
+
+    .workflow-header p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .case-solution-map {
+      min-height: 500px;
+      position: relative;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background:
+        linear-gradient(90deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        rgba(247, 241, 222, 0.78);
+      background-size: 28px 28px;
+      overflow: hidden;
+    }
+
+    .case-solution-map::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px dotted rgba(21, 20, 15, 0.18);
+      pointer-events: none;
+    }
+
+    .case-map-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .case-map-lines path {
+      fill: none;
+      stroke: rgba(21, 20, 15, 0.28);
+      stroke-width: 0.9;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .case-map-lines .primary {
+      stroke: rgba(237, 111, 92, 0.76);
+      stroke-width: 1.2;
+    }
+
+    .case-map-node {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      transform: translate(-50%, -50%);
+      width: min(166px, 19vw);
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+      padding: 8px 10px 8px 0;
+      border: 1px solid color-mix(in srgb, var(--case-color, var(--ink)) 48%, transparent);
+      border-radius: 999px;
+      background: rgba(255, 252, 243, 0.9);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      z-index: 1;
+      box-shadow: 0 18px 30px -24px rgba(21, 20, 15, 0.5);
+    }
+
+    .case-map-node:focus-visible {
+      outline: 3px solid rgba(237, 111, 92, 0.28);
+      outline-offset: 3px;
+    }
+
+    .case-map-icon {
+      width: 34px;
+      height: 34px;
+      margin-left: 7px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--case-color, var(--ink)) 12%, transparent);
+      color: var(--case-color, var(--ink));
+    }
+
+    .case-map-icon svg {
+      width: 17px;
+      height: 17px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .case-map-node small {
+      display: block;
+      margin: 0 0 3px;
+      font-family: var(--mono);
+      font-size: 7.5px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      text-transform: none;
+      color: var(--case-color, var(--ink-mute));
+    }
+
+    .case-map-node b {
+      display: block;
+      font-family: var(--sans);
+      font-size: clamp(10.5px, 0.72vw, 12.5px);
+      font-weight: 520;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .case-map-note {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      min-height: 42px;
+      margin: 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background: rgba(247, 241, 222, 0.92);
+      color: var(--ink-mute);
+      font: 520 11px/1.45 var(--mono);
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 1080px) {
+      .case-hero-grid,
+      .section-grid,
+      .workflow-header {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pain-grid,
+      .solution-grid,
+      .outcome-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .case-hero {
+        padding-top: 76px;
+      }
+
+      .container {
+        width: min(100% - 28px, var(--page-width));
+      }
+
+      .case-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta div {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .case-meta div:last-child { border-bottom: 0; }
+
+      .case-solution-map {
+        min-height: auto;
+        display: grid;
+        gap: 12px;
+        padding: 16px;
+        overflow: visible;
+      }
+
+      .case-map-lines {
+        display: none;
+      }
+
+      .case-map-node {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        transform: none;
+        width: 100%;
+      }
+
+      .case-map-note {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+      }
+    }
+  </style>
+</head>
+<body class="case-page">
+  <!-- @partial nav -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Flow2 case study</span>
+    <span>Harbour Weekly</span>
+    <span>EDM automation</span>
+  </div>
+</div>
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html#top" aria-label="Flow2 home">
+      <span class="brand-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 17 17 7"></path>
+          <path d="M9 7h8v8"></path>
+        </svg>
+      </span>
+      <span class="brand-word">Flow2</span>
+    </a>
+    <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Services</a>
+      <a href="automation-blueprints.html">Resources</a>
+      <div class="nav-dropdown" aria-current="page">
+        <a class="nav-drop-link" href="index.html#work">Case study</a>
+        <div class="nav-submenu" aria-label="Case study pages">
+        <a href="case-study-template.html">LumeLuxe case</a>
+        <a href="case-study-swire-group.html">Swire Group case</a>
+        <a href="case-study-rsvp-ig-monitoring.html">RSVP case</a>
+        <a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a>
+        <a href="case-study-well-played-quotation.html">Well Played case</a>
+        <a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a>
+        </div>
+      </div>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#method">Method</a>
+      <a href="index.html#contact" class="nav-cta">Start audit</a>
+    </div>
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+      <button type="button" data-lang="zh" aria-pressed="false">繁中</button>
+    </div>
+    <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="primary-nav" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+<!-- /@partial nav -->
+
+  <main class="shell">
+    <section class="case-hero">
+      <div class="container case-hero-grid">
+        <div>
+          <div class="case-identity" aria-label="Harbour Weekly logo">
+            <span class="case-identity-logo"><img src="assets/case-logos/harbour-weekly.svg" alt="Harbour Weekly logo" loading="lazy"></span>
+            <span class="case-identity-text"><small>Client</small><b>Harbour Weekly</b></span>
+          </div>
+          <span class="eyebrow">Weekly EDM workflow</span>
+          <h1>Harbour Weekly turned hundreds of news items into an AI-assisted <em>newsletter draft</em></h1>
+        </div>
+        <p>A publishing workflow that collects the week&apos;s Notion research, asks AI to shape it into a structured EDM, then stores the Google Docs draft back into the editorial record.</p>
+      </div>
+    </section>
+
+    <section class="case-meta" aria-label="Case summary">
+      <div><small>Client</small><b>Harbour Weekly</b></div>
+      <div><small>Business</small><b>AI / automation editorial</b></div>
+      <div><small>Workflow</small><b>Notion to Google Docs</b></div>
+      <div><small>System role</small><b>Weekly draft engine</b></div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The pain point</p>
+          <h2 class="section-title">The news was collected, but the weekly draft still took too much <em>editorial time</em>.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The team already kept AI and automation news in Notion. The bottleneck was turning more than a hundred raw items into a clear EDM with sections, links, analysis, and a ready-to-review draft.</p>
+          <div class="pain-grid">
+            <article class="case-card">
+              <small>01 / Volume</small>
+              <div>
+                <h3>Too many stories</h3>
+                <p>Hundreds of weekly items had to be reviewed before a usable issue could take shape.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>02 / Structure</small>
+              <div>
+                <h3>Changing themes</h3>
+                <p>Each issue needed a different editorial hierarchy, not a fixed newsletter template.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>03 / Handoff</small>
+              <div>
+                <h3>Drafts lived apart</h3>
+                <p>The final Google Docs draft and the Notion record needed to stay connected for review.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The Flow2 solution</p>
+          <h2 class="section-title">Flow2 built a weekly drafting engine from research database to <em>editable issue</em>.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The automation filters the past seven days of Notion items, compresses the material into a single editorial brief, asks Gemini to write a structured Traditional Chinese issue, then creates a Google Docs draft and stores the link back in Notion.</p>
+          <div class="solution-grid">
+            <article class="case-card">
+              <small>Gather</small>
+              <div>
+                <h3>Seven-day source window</h3>
+                <p>Only the current week&apos;s research enters the drafting run.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>Shape</small>
+              <div>
+                <h3>AI acts as editor</h3>
+                <p>The prompt builds sections, focus topics, data angles, and practical takeaways.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>Record</small>
+              <div>
+                <h3>Draft link returns to Notion</h3>
+                <p>The issue is easy to review, approve, and find again later.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container workflow-panel">
+        <div class="workflow-header">
+          <h2>The workflow turns raw weekly research into an editable EDM draft.</h2>
+          <p>The chart simplifies the Make.com blueprint into the editorial flow: filter the week, pack the sources, draft the issue, preserve references, and return the review record.</p>
+        </div>
+        <div class="case-solution-map" data-case-map aria-label="Harbour Weekly EDM automation workflow">
+          <svg class="case-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="primary" d="M10 50 C17 50 19 50 25 50"></path>
+            <path class="primary" d="M25 50 C32 50 34 50 40 50"></path>
+            <path class="primary" d="M40 50 C47 50 49 50 55 50"></path>
+            <path d="M40 50 C47 50 49 72 55 72"></path>
+            <path class="primary" d="M55 50 C63 50 66 50 74 50"></path>
+            <path d="M55 72 C64 72 66 50 74 50"></path>
+            <path class="primary" d="M74 50 C82 50 84 50 91 50"></path>
+          </svg>
+          <button class="case-map-node" type="button" style="--x:10%; --y:50%; --case-color:#15140f;" data-note="The run starts from a Notion research database, keeping the editorial source of truth in one place.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4h12l2 2v14H6z"></path><path d="M9 8h6"></path><path d="M9 12h6"></path><path d="M9 16h4"></path></svg></span>
+            <span><small>Source</small><b>Notion news base</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:25%; --y:50%; --case-color:#ed6f5c;" data-note="Only items from the latest seven-day window move forward, so the draft stays focused on the current issue.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3v4"></path><path d="M17 3v4"></path><path d="M4 8h16"></path><path d="M5 5h14v16H5z"></path><path d="M8 12h3"></path><path d="M13 12h3"></path><path d="M8 16h3"></path></svg></span>
+            <span><small>Filter</small><b>Last 7 days</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:40%; --y:50%; --case-color:#ed6f5c;" data-note="The workflow compresses the weekly material into one editorial packet instead of making the editor copy items one by one.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h10"></path></svg></span>
+            <span><small>Gather</small><b>Article packet</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:55%; --y:50%; --case-color:#1f7a4c;" data-note="Gemini receives the structured source material and writes the issue as a professional Traditional Chinese technology newsletter.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"></path><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8z"></path></svg></span>
+            <span><small>Editor</small><b>AI draft</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:55%; --y:72%; --case-color:#3f6f58;" data-note="All original references stay attached to the draft path, so the editor can fact-check before approving the issue.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"></path><path d="M14 11a5 5 0 0 0-7.1 0l-2 2a5 5 0 0 0 7.1 7.1l1.1-1.1"></path></svg></span>
+            <span><small>Trust</small><b>Source links</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:74%; --y:50%; --case-color:#15140f;" data-note="The generated issue includes a subject line, sections, source-backed takeaways, and a reader interaction prompt inside an editable Google Doc.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M8 9h8"></path><path d="M8 13h8"></path><path d="M8 17h5"></path></svg></span>
+            <span><small>Draft</small><b>Google Docs</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:91%; --y:50%; --case-color:#ed6f5c;" data-note="A Notion record stores the issue title, draft link, and generated content so the weekly process has a searchable audit trail.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M9 9h6"></path><path d="M9 13h6"></path><path d="M9 17h3"></path></svg></span>
+            <span><small>Record</small><b>Review queue</b></span>
+          </button>
+          <p class="case-map-note" data-default-note="Hover or focus a node to see how the Harbour Weekly drafting workflow works.">Hover or focus a node to see how the Harbour Weekly drafting workflow works.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The outcome</p>
+          <h2 class="section-title">The team moved from manual compilation to a repeatable <em>editorial system</em>.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The final asset is not an auto-sent email. It is a high-quality first draft with the right sections, links, and review trail, so editors spend time judging the issue instead of assembling it.</p>
+          <div class="outcome-grid">
+            <article class="case-card">
+              <small>01</small>
+              <div><h3>Faster first draft</h3><p>The weekly issue starts from AI-organised source material instead of a blank document.</p></div>
+            </article>
+            <article class="case-card">
+              <small>02</small>
+              <div><h3>Editorial control</h3><p>Google Docs keeps the final review human, collaborative, and easy to approve.</p></div>
+            </article>
+            <article class="case-card">
+              <small>03</small>
+              <div><h3>Clean audit trail</h3><p>Notion stores the generated draft link and body, so each issue remains searchable.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-banner-section" aria-label="Next step with Flow2">
+      <div class="container">
+        <div class="case-banner">
+          <div>
+            <h2>Need this weekly report flow built <em>properly?</em></h2>
+            <p>Flow2 can turn article sources, AI drafting, Google Docs, and Notion review into one publish-ready weekly issue.</p>
+          </div>
+          <div class="case-banner-actions">
+            <a href="index.html#contact">Book a Flow Audit</a>
+            <a href="pricing.html">View pricing</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- @partial footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Flow2</h4>
+        <p>Flow2 builds practical automation systems for Hong Kong SMEs: sales follow-up, operations, reporting, and customer service working in one flow.</p>
+      </div>
+      <div><h4>Pages</h4><a href="index.html#about">About</a><a href="index.html#capabilities">Services</a><a href="automation-blueprints.html">Resources</a><a href="case-study-template.html">LumeLuxe case</a><a href="case-study-swire-group.html">Swire Group case</a><a href="case-study-rsvp-ig-monitoring.html">RSVP case</a><a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a><a href="case-study-well-played-quotation.html">Well Played case</a><a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a><a href="pricing.html">Pricing</a><a href="index.html#lab">Signals</a></div>
+      <div><h4>Stacks</h4><a href="index.html#capabilities">Make</a><a href="index.html#capabilities">n8n</a><a href="index.html#capabilities">Power Automate</a></div>
+      <div><h4>Focus</h4><a href="index.html#lab">Lead flow</a><a href="index.html#lab">Ecommerce ops</a><a href="index.html#lab">AI routing</a></div>
+      <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="index.html#contact">Audit request</a></div>
+    </div>
+    <div class="word" data-reveal="rise-lg">Business flows, <em>automated</em>.</div>
+  </div>
+</footer>
+<!-- /@partial footer -->
+
+  <script>
+    window.Flow2PageI18n = {
+      text: {
+        "Harbour Weekly EDM Automation Case Study - Flow2": "Flow2 Harbour Weekly EDM 自動化案例研究",
+        "Flow2 case study": "Flow2 案例研究",
+        "Harbour Weekly": "Harbour Weekly",
+        "EDM automation": "EDM 自動化",
+        "Weekly EDM workflow": "週報 EDM 流程",
+        "Harbour Weekly turned hundreds of news items into an AI-assisted": "Harbour Weekly 把過百篇新聞素材變成 AI 輔助的",
+        "newsletter draft": "電子報草稿",
+        "A publishing workflow that collects the week's Notion research, asks AI to shape it into a structured EDM, then stores the Google Docs draft back into the editorial record.": "一套出版流程會收集每週 Notion 研究素材，讓 AI 整理成結構化 EDM，再把 Google Docs 草稿回寫到編輯記錄。",
+        "Client": "客戶",
+        "Business": "業務",
+        "AI / automation editorial": "AI / 自動化編輯",
+        "Workflow": "流程",
+        "Notion to Google Docs": "Notion 到 Google Docs",
+        "System role": "系統角色",
+        "Weekly draft engine": "週報草稿引擎",
+        "The pain point": "痛點",
+        "The news was collected, but the weekly draft still took too much": "新聞已經收集好，但每週草稿仍然耗費太多",
+        "editorial time": "編輯時間",
+        "The team already kept AI and automation news in Notion. The bottleneck was turning more than a hundred raw items into a clear EDM with sections, links, analysis, and a ready-to-review draft.": "團隊已經把 AI 與自動化新聞收集在 Notion。瓶頸是把過百條原始素材整理成有章節、連結、分析，並可審閱的 EDM 草稿。",
+        "Too many stories": "素材太多",
+        "Hundreds of weekly items had to be reviewed before a usable issue could take shape.": "每週有大量新聞項目要先整理，才能形成一份可用週報。",
+        "Changing themes": "主題每週不同",
+        "Each issue needed a different editorial hierarchy, not a fixed newsletter template.": "每期都需要不同的編輯排序，而不是固定模板硬套。",
+        "Drafts lived apart": "草稿與記錄分散",
+        "The final Google Docs draft and the Notion record needed to stay connected for review.": "Google Docs 草稿和 Notion 記錄需要保持連結，方便審批與追蹤。",
+        "The Flow2 solution": "Flow2 解法",
+        "Flow2 built a weekly drafting engine from research database to": "Flow2 建立一套由研究資料庫到",
+        "editable issue": "可編輯週報",
+        "The automation filters the past seven days of Notion items, compresses the material into a single editorial brief, asks Gemini to write a structured Traditional Chinese issue, then creates a Google Docs draft and stores the link back in Notion.": "自動化會篩選過去七天的 Notion 項目，整理成單一編輯 brief，讓 Gemini 撰寫結構化繁中週報，再建立 Google Docs 草稿並把連結回寫 Notion。",
+        "Seven-day source window": "七天素材窗口",
+        "Only the current week's research enters the drafting run.": "只有本週研究素材會進入草稿流程。",
+        "AI acts as editor": "AI 作為編輯",
+        "The prompt builds sections, focus topics, data angles, and practical takeaways.": "Prompt 會建立章節、焦點議題、數據角度與落地啟示。",
+        "Draft link returns to Notion": "草稿連結回寫 Notion",
+        "The issue is easy to review, approve, and find again later.": "週報可被審閱、批准，也方便日後搜尋。",
+                "The chart simplifies the Make.com blueprint into the editorial flow: filter the week, pack the sources, draft the issue, preserve references, and return the review record.": "???? Make.com blueprint ???????????????????????????????????????",
+        "Filter": "??",
+        "Last 7 days": "?? 7 ?",
+        "AI draft": "AI ??",
+        "The run starts from a Notion research database, keeping the editorial source of truth in one place.": "??? Notion ????????????????????????",
+        "Only items from the latest seven-day window move forward, so the draft stays focused on the current issue.": "????????????????????????????",
+        "All original references stay attached to the draft path, so the editor can fact-check before approving the issue.": "???????????????????????????",
+        "The generated issue includes a subject line, sections, source-backed takeaways, and a reader interaction prompt inside an editable Google Doc.": "??????????? Google Doc ?????????????????????????",
+"The workflow turns raw weekly research into an editable EDM draft.": "流程把每週原始研究變成可編輯 EDM 草稿。",
+        "The chart simplifies the Make.com blueprint into the business flow: filter, aggregate, write, draft, record, review, publish.": "這張圖把 Make.com blueprint 簡化成業務流程：篩選、彙整、撰寫、起草、記錄、審閱、發布。",
+        "The outcome": "成果",
+        "The team moved from manual compilation to a repeatable": "團隊由手動彙整轉成可重複的",
+        "editorial system": "編輯系統",
+        "The final asset is not an auto-sent email. It is a high-quality first draft with the right sections, links, and review trail, so editors spend time judging the issue instead of assembling it.": "最終產物不是自動寄出的電郵，而是一份有章節、連結和審閱記錄的高品質初稿，讓編輯把時間放在判斷內容，而不是組裝內容。",
+        "Faster first draft": "更快產出初稿",
+        "The weekly issue starts from AI-organised source material instead of a blank document.": "週報從 AI 整理好的素材開始，不再由空白文件起步。",
+        "Editorial control": "保留編輯控制",
+        "Google Docs keeps the final review human, collaborative, and easy to approve.": "Google Docs 讓最後審閱仍由人控制，並可協作批改。",
+        "Clean audit trail": "清晰追蹤記錄",
+        "Notion stores the generated draft link and body, so each issue remains searchable.": "Notion 保存草稿連結與內容，讓每期週報都可搜尋。",
+        "Source": "來源",
+        "Notion news base": "Notion 新聞庫",
+        "Gather": "彙整",
+        "Article packet": "新聞素材包",
+        "Editor": "編輯",
+        "AI issue draft": "AI 週報草稿",
+        "Structure": "結構",
+        "EDM sections": "EDM 章節",
+        "Trust": "可信度",
+        "Source links": "來源連結",
+        "Draft": "草稿",
+        "Google Docs": "Google Docs",
+        "Record": "記錄",
+        "Review queue": "審閱隊列"
+      },
+      attrs: {
+        "aria-label": {
+          "Case summary": "案例摘要",
+          "Harbour Weekly EDM automation workflow": "Harbour Weekly EDM 自動化流程"
+        },
+        "data-default-note": {
+          "Hover or focus a node to see how the Harbour Weekly drafting workflow works.": "移到或聚焦節點，查看 Harbour Weekly 草稿流程如何運作。"
+        },
+        "data-note": {
+          "The run starts from a Notion research database and only pulls items created within the last seven days.": "流程由 Notion 研究資料庫開始，只抓取過去七天建立的項目。",
+          "The workflow compresses the weekly material into one editorial packet instead of making the editor copy items one by one.": "流程把每週素材壓縮成一份編輯素材包，不需要編輯逐條複製。",
+          "Gemini receives the structured source material and writes the issue as a professional Traditional Chinese technology newsletter.": "Gemini 會接收結構化素材，並撰寫成專業繁中科技週報。",
+          "The generated issue includes a subject line, table of contents, focus sections, data angle, practical takeaways, and reader interaction prompt.": "生成週報包含電郵標題、目錄、焦點章節、數據角度、落地啟示和讀者互動問題。",
+          "All original references remain available in the generated copy so the editor can fact-check and refine before sending.": "所有原始參考連結會保留在草稿中，方便編輯在發送前核對與修訂。",
+          "The draft is created as a Google Docs file, making it easy for the editorial team to edit, comment, and approve.": "草稿會建立成 Google Docs 文件，方便編輯團隊修改、留言和批准。",
+          "A Notion record stores the issue title, draft link, and generated content so the weekly process has a searchable audit trail.": "Notion 記錄會保存週報標題、草稿連結和生成內容，讓每週流程有可搜尋的追蹤記錄。"
+        }
+      }
+    };
+  </script>
+  <script src="assets/site.js?v=20260614-21"></script>
+  <script>
+    (function () {
+      Array.prototype.slice.call(document.querySelectorAll("[data-case-map]")).forEach(function (map) {
+        var note = map.querySelector(".case-map-note");
+        var defaultNote = note ? note.getAttribute("data-default-note") : "";
+        Array.prototype.slice.call(map.querySelectorAll(".case-map-node")).forEach(function (node) {
+          function show() { if (note) note.textContent = node.getAttribute("data-note") || defaultNote; }
+          function reset() { if (note) note.textContent = defaultNote; }
+          node.addEventListener("mouseenter", show);
+          node.addEventListener("focus", show);
+          node.addEventListener("mouseleave", reset);
+          node.addEventListener("blur", reset);
+          node.addEventListener("click", show);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

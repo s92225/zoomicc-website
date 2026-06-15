@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Well Played Quotation Automation Case Study - Flow2</title>
+  <meta name="description" content="A Flow2 case study showing how Well Played turned quotation form responses into quote documents, calendar holds, contact records, and Notion follow-up tasks.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@500;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css?v=20260614-21">
+  <style>
+    .case-page {
+      background:
+        radial-gradient(circle at 18% 8%, rgba(237, 111, 92, 0.08), transparent 34%),
+        linear-gradient(180deg, rgba(247, 241, 222, 0.7), rgba(239, 231, 210, 0));
+      color: var(--ink);
+    }
+
+    .case-hero {
+      padding: 98px 0 52px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(320px, 0.28fr);
+      gap: clamp(36px, 5vw, 86px);
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 24px;
+      color: var(--ink-mute);
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--coral);
+    }
+
+    .case-hero h1 {
+      max-width: 980px;
+      margin: 0;
+      color: var(--ink);
+      font: 500 clamp(50px, 7vw, 108px)/0.88 var(--sans);
+      letter-spacing: -0.065em;
+      text-transform: none;
+    }
+
+    .case-hero h1 em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+
+    .case-hero p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: clamp(17px, 1.5vw, 21px);
+      line-height: 1.48;
+    }
+
+    .case-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-meta div {
+      min-height: 116px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+    }
+
+    .case-meta div:last-child { border-right: 0; }
+
+    .case-meta small {
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: none;
+    }
+
+    .case-meta b {
+      color: var(--ink);
+      font: 520 21px/0.95 var(--sans);
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+
+    .case-section {
+      padding: clamp(62px, 7vw, 106px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.34fr) minmax(0, 0.66fr);
+      gap: clamp(34px, 6vw, 94px);
+      align-items: start;
+    }
+
+    .section-kicker {
+      margin: 0 0 18px;
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--ink);
+      font: 500 clamp(30px, 4vw, 58px)/0.93 var(--sans);
+      letter-spacing: -0.058em;
+      text-transform: none;
+    }
+
+    .section-title em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      text-transform: none;
+    }
+
+    .lead-copy {
+      max-width: 760px;
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(18px, 1.55vw, 23px);
+      line-height: 1.46;
+    }
+
+    .pain-grid,
+    .solution-grid,
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .case-card {
+      min-height: 190px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.62);
+      display: grid;
+      align-content: space-between;
+      gap: 24px;
+    }
+
+    .case-card small {
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.13em;
+      text-transform: none;
+    }
+
+    .case-card h3 {
+      margin: 0;
+      color: var(--ink);
+      font: 520 25px/0.98 var(--sans);
+      letter-spacing: -0.05em;
+      text-transform: none;
+    }
+
+    .case-card p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .workflow-panel {
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.6);
+      box-shadow: var(--shadow);
+    }
+
+    .workflow-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.34fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .workflow-header h2 {
+      margin: 0;
+      max-width: 760px;
+      color: var(--ink);
+      font: 500 clamp(30px, 4vw, 54px)/0.92 var(--sans);
+      letter-spacing: -0.058em;
+      text-transform: none;
+    }
+
+    .workflow-header p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .case-solution-map {
+      min-height: 454px;
+      position: relative;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background:
+        linear-gradient(90deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        rgba(247, 241, 222, 0.78);
+      background-size: 28px 28px;
+      overflow: hidden;
+    }
+
+    .case-solution-map::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px dotted rgba(21, 20, 15, 0.18);
+      pointer-events: none;
+    }
+
+    .case-map-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .case-map-lines path {
+      fill: none;
+      stroke: rgba(21, 20, 15, 0.28);
+      stroke-width: 0.9;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .case-map-lines .primary {
+      stroke: rgba(237, 111, 92, 0.76);
+      stroke-width: 1.2;
+    }
+
+    .case-map-node {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      transform: translate(-50%, -50%);
+      width: min(166px, 19vw);
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+      padding: 8px 10px 8px 0;
+      border: 1px solid color-mix(in srgb, var(--case-color, var(--ink)) 48%, transparent);
+      border-radius: 999px;
+      background: rgba(255, 252, 243, 0.9);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      z-index: 1;
+      box-shadow: 0 18px 30px -24px rgba(21, 20, 15, 0.5);
+    }
+
+    .case-map-node:focus-visible {
+      outline: 3px solid rgba(237, 111, 92, 0.28);
+      outline-offset: 3px;
+    }
+
+    .case-map-icon {
+      width: 34px;
+      height: 34px;
+      margin-left: 7px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--case-color, var(--ink)) 12%, transparent);
+      color: var(--case-color, var(--ink));
+    }
+
+    .case-map-icon svg {
+      width: 17px;
+      height: 17px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .case-map-node small {
+      display: block;
+      margin: 0 0 3px;
+      font-family: var(--mono);
+      font-size: 7.5px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      text-transform: none;
+      color: var(--case-color, var(--ink-mute));
+    }
+
+    .case-map-node b {
+      display: block;
+      font-family: var(--sans);
+      font-size: clamp(10.5px, 0.72vw, 12.5px);
+      font-weight: 520;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .case-map-note {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      min-height: 42px;
+      margin: 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background: rgba(247, 241, 222, 0.92);
+      color: var(--ink-mute);
+      font: 520 11px/1.45 var(--mono);
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 1080px) {
+      .case-hero-grid,
+      .section-grid,
+      .workflow-header {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pain-grid,
+      .solution-grid,
+      .outcome-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .case-hero {
+        padding-top: 76px;
+      }
+
+      .container {
+        width: min(100% - 28px, var(--page-width));
+      }
+
+      .case-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta div {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .case-meta div:last-child { border-bottom: 0; }
+
+      .case-solution-map {
+        min-height: 620px;
+      }
+
+      .case-map-node {
+        width: min(178px, 42vw);
+      }
+    }
+  </style>
+</head>
+<body class="case-page">
+  <!-- @partial nav -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Flow2 case study</span>
+    <span>Well Played</span>
+    <span>Quotation automation</span>
+  </div>
+</div>
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html#top" aria-label="Flow2 home">
+      <span class="brand-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 17 17 7"></path>
+          <path d="M9 7h8v8"></path>
+        </svg>
+      </span>
+      <span class="brand-word">Flow2</span>
+    </a>
+    <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Services</a>
+      <a href="automation-blueprints.html">Resources</a>
+      <div class="nav-dropdown" aria-current="page">
+        <a class="nav-drop-link" href="index.html#work">Case study</a>
+        <div class="nav-submenu" aria-label="Case study pages">
+        <a href="case-study-template.html">LumeLuxe case</a>
+        <a href="case-study-swire-group.html">Swire Group case</a>
+        <a href="case-study-rsvp-ig-monitoring.html">RSVP case</a>
+        <a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a>
+        <a href="case-study-well-played-quotation.html">Well Played case</a>
+        <a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a>
+        </div>
+      </div>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#method">Method</a>
+      <a href="index.html#contact" class="nav-cta">Start audit</a>
+    </div>
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+      <button type="button" data-lang="zh" aria-pressed="false">繁中</button>
+    </div>
+    <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="primary-nav" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+<!-- /@partial nav -->
+
+  <main class="shell">
+    <section class="case-hero">
+      <div class="container case-hero-grid">
+        <div>
+          <div class="case-identity" aria-label="Well Played logo">
+            <span class="case-identity-logo"><img src="assets/case-logos/well-played.png" alt="Well Played logo" loading="lazy"></span>
+            <span class="case-identity-text"><small>Client</small><b>Well Played</b></span>
+          </div>
+          <span class="eyebrow">Quotation workflow</span>
+          <h1>Well Played turned quote requests into a booking-ready <em>operating flow</em></h1>
+        </div>
+        <p>A quotation workflow that starts from a Google Sheets form response, prepares the quote document, creates the calendar hold, stores the contact, and gives the team one Notion task to follow.</p>
+      </div>
+    </section>
+
+    <section class="case-meta" aria-label="Case summary">
+      <div><small>Client</small><b>Well Played</b></div>
+      <div><small>Business</small><b>Events and booking operations</b></div>
+      <div><small>Workflow</small><b>Quote request to calendar</b></div>
+      <div><small>System role</small><b>Sales operations handoff</b></div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The pain point</p>
+          <h2 class="section-title">One enquiry needed the same details in too many places.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">A new quotation request was only the start. The team still had to save the customer, prepare a quote, block the activity date, and create a follow-up task before anyone could confidently move the job forward.</p>
+          <div class="pain-grid">
+            <article class="case-card">
+              <small>01 / Request</small>
+              <div><h3>Form data was not enough</h3><p>The Google Sheets row captured the enquiry, but it did not create the operational follow-up by itself.</p></div>
+            </article>
+            <article class="case-card">
+              <small>02 / Quote</small>
+              <div><h3>Documents took manual assembly</h3><p>Each quote needed the same customer and event fields copied into a Word template.</p></div>
+            </article>
+            <article class="case-card">
+              <small>03 / Handoff</small>
+              <div><h3>Follow-up lived across tools</h3><p>Contacts, calendar holds, quote links, and task notes needed to stay aligned after the first reply.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The Flow2 solution</p>
+          <h2 class="section-title">Flow2 turned each quote response into a ready-to-action sales record.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The automation watches the quotation sheet, creates a Notion follow-up task, adds the customer to Google Contacts, generates the quote document from a template, places the activity into Google Calendar, and writes the working links back to Notion.</p>
+          <div class="solution-grid">
+            <article class="case-card">
+              <small>Capture</small>
+              <div><h3>Quote request becomes a task</h3><p>The first operational record is created as soon as the form response arrives.</p></div>
+            </article>
+            <article class="case-card">
+              <small>Prepare</small>
+              <div><h3>Quote document is generated</h3><p>The Word template is filled with the booking details instead of rebuilt by hand.</p></div>
+            </article>
+            <article class="case-card">
+              <small>Coordinate</small>
+              <div><h3>Calendar and notes stay together</h3><p>The event hold, quote link, and raw form details all return to the same Notion task.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container workflow-panel">
+        <div class="workflow-header">
+          <h2>The workflow keeps the quote, contact, calendar, and task moving together.</h2>
+          <p>The chart simplifies the Make.com blueprint into a sales-operations flow: receive the request, create the follow-up record, branch into customer and quote preparation, then return the working links to Notion.</p>
+        </div>
+        <div class="case-solution-map" data-case-map aria-label="Well Played quotation automation workflow">
+          <svg class="case-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="primary" d="M9 50 C16 50 18 50 24 50"></path>
+            <path class="primary" d="M24 50 C31 50 33 34 40 34"></path>
+            <path class="primary" d="M24 50 C31 50 33 58 40 58"></path>
+            <path d="M40 34 C47 34 50 42 57 50"></path>
+            <path class="primary" d="M40 58 C47 58 50 54 57 50"></path>
+            <path class="primary" d="M57 50 C64 50 66 50 72 50"></path>
+            <path class="primary" d="M72 50 C79 50 81 50 88 50"></path>
+            <path d="M57 50 C64 58 66 73 72 76"></path>
+          </svg>
+          <button class="case-map-node" type="button" style="--x:9%; --y:50%; --case-color:#15140f;" data-note="A new row in the quotation response sheet starts the workflow, keeping the form as the intake source of truth.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M5 10h14"></path><path d="M10 5v14"></path></svg></span>
+            <span><small>Trigger</small><b>Quote request</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:24%; --y:50%; --case-color:#ed6f5c;" data-note="A Notion task is created first so the team has one place to track the enquiry from the start.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 5h12v14H6z"></path><path d="M9 9h6"></path><path d="M9 13h6"></path><path d="M9 17h3"></path></svg></span>
+            <span><small>Task</small><b>Follow-up record</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:40%; --y:34%; --case-color:#5f6f8f;" data-note="Customer name, company, phone, and email are saved to Google Contacts so the next conversation is easier to find.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path><path d="M5 21a7 7 0 0 1 14 0"></path></svg></span>
+            <span><small>CRM</small><b>Contact saved</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:40%; --y:58%; --case-color:#1f7a4c;" data-note="The quote document is generated from a prepared template, reducing copy-paste work and formatting mistakes.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4h9l3 3v13H6z"></path><path d="M15 4v4h4"></path><path d="M9 12h6"></path><path d="M9 16h6"></path></svg></span>
+            <span><small>Quote</small><b>Document draft</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:57%; --y:50%; --case-color:#ed6f5c;" data-note="The event or quote date is placed into Google Calendar as an all-day hold, so availability is visible to the team.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3v4"></path><path d="M17 3v4"></path><path d="M4 8h16"></path><path d="M5 5h14v16H5z"></path></svg></span>
+            <span><small>Schedule</small><b>Calendar hold</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:72%; --y:50%; --case-color:#15140f;" data-note="The Notion task is updated with the generated quote link, keeping the working file attached to the follow-up.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"></path><path d="M14 11a5 5 0 0 0-7.1 0l-2 2a5 5 0 0 0 7.1 7.1l1.1-1.1"></path></svg></span>
+            <span><small>Update</small><b>Quote link</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:88%; --y:50%; --case-color:#3f6f58;" data-note="The original form details are appended to the task, giving the team context without opening the raw spreadsheet.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M8 9h8"></path><path d="M8 13h8"></path><path d="M8 17h5"></path></svg></span>
+            <span><small>Context</small><b>Form notes</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:72%; --y:76%; --case-color:#5f6f8f;" data-note="If the quote preparation path needs attention, the workflow can send an internal Telegram reply for human review.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 4 3 11l7 2 2 7z"></path><path d="M10 13 21 4"></path></svg></span>
+            <span><small>Alert</small><b>Review ping</b></span>
+          </button>
+          <p class="case-map-note" data-default-note="Hover or focus a node to see how the Well Played quotation workflow works.">Hover or focus a node to see how the Well Played quotation workflow works.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The outcome</p>
+          <h2 class="section-title">The team can respond from one organised record instead of rebuilding the quote by hand.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The workflow does not replace the sales decision. It prepares the admin layer around the enquiry so staff can review the request, edit the quote, and follow up with the customer from a cleaner starting point.</p>
+          <div class="outcome-grid">
+            <article class="case-card">
+              <small>01</small>
+              <div><h3>Cleaner first response</h3><p>The quote file and customer details are ready before the team starts replying.</p></div>
+            </article>
+            <article class="case-card">
+              <small>02</small>
+              <div><h3>Fewer missed handoffs</h3><p>Calendar, contacts, document links, and Notion tasks stay connected.</p></div>
+            </article>
+            <article class="case-card">
+              <small>03</small>
+              <div><h3>Human review stays in place</h3><p>Exception alerts keep the workflow from pretending every quote can be fully automatic.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-banner-section" aria-label="Next step with Flow2">
+      <div class="container">
+        <div class="case-banner">
+          <div>
+            <h2>Need this quotation flow built <em>properly?</em></h2>
+            <p>Flow2 can connect quote requests, contacts, documents, calendar holds, and follow-up tasks into one clean sales handoff.</p>
+          </div>
+          <div class="case-banner-actions">
+            <a href="index.html#contact">Book a Flow Audit</a>
+            <a href="pricing.html">View pricing</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- @partial footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Flow2</h4>
+        <p>Flow2 builds practical automation systems for Hong Kong SMEs: sales follow-up, operations, reporting, and customer service working in one flow.</p>
+      </div>
+      <div><h4>Pages</h4><a href="index.html#about">About</a><a href="index.html#capabilities">Services</a><a href="automation-blueprints.html">Resources</a><a href="case-study-template.html">LumeLuxe case</a><a href="case-study-swire-group.html">Swire Group case</a><a href="case-study-rsvp-ig-monitoring.html">RSVP case</a><a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a><a href="case-study-well-played-quotation.html">Well Played case</a><a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a><a href="pricing.html">Pricing</a><a href="index.html#lab">Signals</a></div>
+      <div><h4>Stacks</h4><a href="index.html#capabilities">Make</a><a href="index.html#capabilities">n8n</a><a href="index.html#capabilities">Power Automate</a></div>
+      <div><h4>Focus</h4><a href="index.html#lab">Lead flow</a><a href="index.html#lab">Ecommerce ops</a><a href="index.html#lab">AI routing</a></div>
+      <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="index.html#contact">Audit request</a></div>
+    </div>
+    <div class="word" data-reveal="rise-lg">Business flows, <em>automated</em>.</div>
+  </div>
+</footer>
+<!-- /@partial footer -->
+
+  <script>
+    window.Flow2PageI18n = {
+          "text": {
+                "Well Played Quotation Automation Case Study - Flow2": "Flow2 Well Played 報價自動化案例研究",
+                "Flow2 case study": "Flow2 案例研究",
+                "Well Played": "Well Played",
+                "Quotation automation": "報價自動化",
+                "Quotation workflow": "報價流程",
+                "Well Played turned quote requests into a booking-ready": "Well Played 把報價查詢變成可安排的",
+                "operating flow": "營運流程",
+                "A quotation workflow that starts from a Google Sheets form response, prepares the quote document, creates the calendar hold, stores the contact, and gives the team one Notion task to follow.": "這條報價流程從 Google Sheets 表單回覆開始，自動準備報價文件、建立日曆預留、儲存聯絡人，並給團隊一個可跟進的 Notion 任務。",
+                "Client": "客戶",
+                "Business": "業務",
+                "Events and booking operations": "活動與預約營運",
+                "Workflow": "流程",
+                "Quote request to calendar": "報價查詢到日曆安排",
+                "System role": "系統角色",
+                "Sales operations handoff": "銷售營運交接",
+                "The pain point": "痛點",
+                "One enquiry needed the same details in too many places.": "一個查詢要把同一批資料放進太多地方。",
+                "A new quotation request was only the start. The team still had to save the customer, prepare a quote, block the activity date, and create a follow-up task before anyone could confidently move the job forward.": "新的報價查詢只是開始。團隊仍要儲存客戶資料、準備報價、預留活動日期，並建立跟進任務，才可以放心推進工作。",
+                "Form data was not enough": "表單資料本身還不夠",
+                "Documents took manual assembly": "文件仍要手動組裝",
+                "Follow-up lived across tools": "跟進分散在多個工具",
+                "The Flow2 solution": "Flow2 解法",
+                "Flow2 turned each quote response into a ready-to-action sales record.": "Flow2 把每個報價回覆變成可立即跟進的銷售記錄。",
+                "Quote request becomes a task": "報價查詢變成任務",
+                "Quote document is generated": "報價文件自動生成",
+                "Calendar and notes stay together": "日曆與備註保持同步",
+                "The workflow keeps the quote, contact, calendar, and task moving together.": "流程讓報價、聯絡人、日曆與任務一起前進。",
+                "Quote request": "報價查詢",
+                "Follow-up record": "跟進記錄",
+                "Contact saved": "聯絡人已儲存",
+                "Document draft": "文件草稿",
+                "Calendar hold": "日曆預留",
+                "Quote link": "報價連結",
+                "Form notes": "表單備註",
+                "Review ping": "審閱提醒",
+                "The outcome": "成果",
+                "The team can respond from one organised record instead of rebuilding the quote by hand.": "團隊可以從一份整理好的記錄回覆客戶，不用手動重建報價。",
+                "Cleaner first response": "首次回覆更乾淨",
+                "Fewer missed handoffs": "減少交接漏項",
+                "Human review stays in place": "保留人工審閱"
+          },
+          "attrs": {
+                "aria-label": {
+                      "Case summary": "案例摘要",
+                      "Well Played quotation automation workflow": "Well Played 報價自動化流程"
+                },
+                "data-default-note": {
+                      "Hover or focus a node to see how the Well Played quotation workflow works.": "移到或聚焦節點，查看 Well Played 報價流程如何運作。"
+                }
+          }
+    };
+  </script>
+  <script src="assets/site.js?v=20260614-21"></script>
+  <script>
+    (function () {
+      Array.prototype.slice.call(document.querySelectorAll("[data-case-map]")).forEach(function (map) {
+        var note = map.querySelector(".case-map-note");
+        var defaultNote = note ? note.getAttribute("data-default-note") : "";
+        Array.prototype.slice.call(map.querySelectorAll(".case-map-node")).forEach(function (node) {
+          function show() { if (note) note.textContent = node.getAttribute("data-note") || defaultNote; }
+          function reset() { if (note) note.textContent = defaultNote; }
+          node.addEventListener("mouseenter", show);
+          node.addEventListener("focus", show);
+          node.addEventListener("mouseleave", reset);
+          node.addEventListener("blur", reset);
+          node.addEventListener("click", show);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

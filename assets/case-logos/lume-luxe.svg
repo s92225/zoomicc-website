@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" role="img" aria-labelledby="title desc">
+  <title id="title">LumeLuxe logo</title>
+  <desc id="desc">Original wordmark for the LumeLuxe case study.</desc>
+  <rect width="320" height="120" rx="28" fill="#f7f1de"/>
+  <circle cx="72" cy="60" r="34" fill="#17140f"/>
+  <path d="M60 76V44h10v23h20v9H60Z" fill="#f1c46f"/>
+  <path d="M99 36c18 9 27 22 27 39-15 0-28-5-39-15 3-10 7-18 12-24Z" fill="#d96b4a"/>
+  <text x="140" y="57" fill="#17140f" font-family="Georgia, serif" font-size="27" font-weight="500">LumeLuxe</text>
+  <text x="142" y="82" fill="#6f6758" font-family="Arial, sans-serif" font-size="12" letter-spacing="1.8">CONSIGNMENT FLOW</text>
+</svg>

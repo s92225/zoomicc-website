@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LumeLuxe Case Study - Flow2</title>
+  <meta name="description" content="A Flow2 case study showing how LumeLuxe moved consignment intake, receipts, inventory, Shopify records, and payout work into one automation flow.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@500;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css?v=20260614-21">
+  <style>
+    .case-page {
+      background:
+        radial-gradient(circle at 18% 8%, rgba(237, 111, 92, 0.08), transparent 34%),
+        linear-gradient(180deg, rgba(247, 241, 222, 0.7), rgba(239, 231, 210, 0));
+      color: var(--ink);
+    }
+
+    .case-hero {
+      padding: 98px 0 52px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(320px, 0.28fr);
+      gap: clamp(36px, 5vw, 86px);
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 24px;
+      color: var(--ink-mute);
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--coral);
+    }
+
+    .case-hero h1 {
+      max-width: 980px;
+      margin: 0;
+      color: var(--ink);
+      font: 500 clamp(50px, 7vw, 108px)/0.88 var(--sans);
+      letter-spacing: -0.065em;
+      text-transform: none;
+    }
+
+    .case-hero h1 em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+
+    .case-hero p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: clamp(17px, 1.5vw, 21px);
+      line-height: 1.48;
+    }
+
+    .case-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-meta div {
+      min-height: 116px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+    }
+
+    .case-meta div:last-child { border-right: 0; }
+
+    .case-meta small {
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: none;
+    }
+
+    .case-meta b {
+      color: var(--ink);
+      font: 520 21px/0.95 var(--sans);
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+
+    .case-section {
+      padding: clamp(62px, 7vw, 106px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.34fr) minmax(0, 0.66fr);
+      gap: clamp(34px, 6vw, 94px);
+      align-items: start;
+    }
+
+    .section-kicker {
+      margin: 0 0 18px;
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--ink);
+      font: 500 clamp(30px, 4vw, 58px)/0.93 var(--sans);
+      letter-spacing: -0.058em;
+      text-transform: none;
+    }
+
+    .section-title em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      text-transform: none;
+    }
+
+    .lead-copy {
+      max-width: 760px;
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(18px, 1.55vw, 23px);
+      line-height: 1.46;
+    }
+
+    .pain-grid,
+    .solution-grid,
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .case-card {
+      min-height: 190px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.62);
+      display: grid;
+      align-content: space-between;
+      gap: 24px;
+    }
+
+    .case-card small {
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.13em;
+      text-transform: none;
+    }
+
+    .case-card h3 {
+      margin: 0;
+      color: var(--ink);
+      font: 520 25px/0.98 var(--sans);
+      letter-spacing: -0.05em;
+      text-transform: none;
+    }
+
+    .case-card p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .workflow-panel {
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.6);
+      box-shadow: var(--shadow);
+    }
+
+    .workflow-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.34fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .workflow-header h2 {
+      margin: 0;
+      max-width: 760px;
+      color: var(--ink);
+      font: 500 clamp(30px, 4vw, 54px)/0.92 var(--sans);
+      letter-spacing: -0.058em;
+      text-transform: none;
+    }
+
+    .workflow-header p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .case-solution-map {
+      min-height: 454px;
+      position: relative;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background:
+        linear-gradient(90deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        rgba(247, 241, 222, 0.78);
+      background-size: 28px 28px;
+      overflow: hidden;
+    }
+
+    .case-solution-map::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px dotted rgba(21, 20, 15, 0.18);
+      pointer-events: none;
+    }
+
+    .case-map-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .case-map-lines path {
+      fill: none;
+      stroke: rgba(21, 20, 15, 0.28);
+      stroke-width: 0.9;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .case-map-lines .primary {
+      stroke: rgba(237, 111, 92, 0.76);
+      stroke-width: 1.2;
+    }
+
+    .case-map-node {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      transform: translate(-50%, -50%);
+      width: min(166px, 19vw);
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+      padding: 8px 10px 8px 0;
+      border: 1px solid color-mix(in srgb, var(--case-color, var(--ink)) 48%, transparent);
+      border-radius: 999px;
+      background: rgba(255, 252, 243, 0.9);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      z-index: 1;
+      box-shadow: 0 18px 30px -24px rgba(21, 20, 15, 0.5);
+    }
+
+    .case-map-node:focus-visible {
+      outline: 3px solid rgba(237, 111, 92, 0.28);
+      outline-offset: 3px;
+    }
+
+    .case-map-icon {
+      width: 34px;
+      height: 34px;
+      margin-left: 7px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--case-color, var(--ink)) 12%, transparent);
+      color: var(--case-color, var(--ink));
+    }
+
+    .case-map-icon svg {
+      width: 17px;
+      height: 17px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .case-map-node small {
+      display: block;
+      margin: 0 0 3px;
+      font-family: var(--mono);
+      font-size: 7.5px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      text-transform: none;
+      color: var(--case-color, var(--ink-mute));
+    }
+
+    .case-map-node b {
+      display: block;
+      font-family: var(--sans);
+      font-size: clamp(10.5px, 0.72vw, 12.5px);
+      font-weight: 520;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .case-map-note {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      min-height: 42px;
+      margin: 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background: rgba(247, 241, 222, 0.92);
+      color: var(--ink-mute);
+      font: 520 11px/1.45 var(--mono);
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 1080px) {
+      .case-hero-grid,
+      .section-grid,
+      .workflow-header {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pain-grid,
+      .solution-grid,
+      .outcome-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .case-hero {
+        padding-top: 76px;
+      }
+
+      .container {
+        width: min(100% - 28px, var(--page-width));
+      }
+
+      .case-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta div {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .case-meta div:last-child { border-bottom: 0; }
+
+      .case-solution-map {
+        min-height: 620px;
+      }
+
+      .case-map-node {
+        width: min(178px, 42vw);
+      }
+    }
+  </style>
+</head>
+<body class="case-page">
+  <!-- @partial nav -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Flow2 case study</span>
+    <span>LumeLuxe</span>
+    <span>Consignment operations</span>
+  </div>
+</div>
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html#top" aria-label="Flow2 home">
+      <span class="brand-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 17 17 7"></path>
+          <path d="M9 7h8v8"></path>
+        </svg>
+      </span>
+      <span class="brand-word">Flow2</span>
+    </a>
+    <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Services</a>
+      <a href="automation-blueprints.html">Resources</a>
+      <div class="nav-dropdown" aria-current="page">
+        <a class="nav-drop-link" href="index.html#work">Case study</a>
+        <div class="nav-submenu" aria-label="Case study pages">
+        <a href="case-study-template.html">LumeLuxe case</a>
+        <a href="case-study-swire-group.html">Swire Group case</a>
+        <a href="case-study-rsvp-ig-monitoring.html">RSVP case</a>
+        <a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a>
+        <a href="case-study-well-played-quotation.html">Well Played case</a>
+        <a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a>
+        </div>
+      </div>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#method">Method</a>
+      <a href="index.html#contact" class="nav-cta">Start audit</a>
+    </div>
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+      <button type="button" data-lang="zh" aria-pressed="false">繁中</button>
+    </div>
+    <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="primary-nav" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+<!-- /@partial nav -->
+
+  <main class="shell">
+    <section class="case-hero">
+      <div class="container case-hero-grid">
+        <div>
+          <div class="case-identity" aria-label="LumeLuxe logo">
+            <span class="case-identity-logo"><img src="assets/case-logos/lume-luxe.png" alt="LumeLuxe logo" loading="lazy"></span>
+            <span class="case-identity-text"><small>Client</small><b>LumeLuxe</b></span>
+          </div>
+          <span class="eyebrow">Consignment operations</span>
+          <h1>LumeLuxe turned consignment admin into one <em>operating flow</em>.</h1>
+        </div>
+        <p>A public-facing case study on how Flow2 helped LumeLuxe reduce repeated intake, confirmation, inventory, and payout admin across its consignment workflow.</p>
+      </div>
+    </section>
+
+    <section class="case-meta" aria-label="Case summary">
+      <div><small>Client</small><b>LumeLuxe</b></div>
+      <div><small>Business</small><b>Handbag consignment</b></div>
+      <div><small>Workflow</small><b>Intake to payout</b></div>
+      <div><small>System role</small><b>Operations automation</b></div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The pain point</p>
+          <h2 class="section-title">Too many handoffs for one <em>consignment</em>.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">LumeLuxe was not missing effort. The team already had the right tools: client forms, WhatsApp, inventory notes, Shopify, CMS records, and Google Sheets. The problem was that one handbag consignment had to be retyped and checked across too many places before staff could trust the record.</p>
+          <div class="pain-grid">
+            <article class="case-card">
+              <small>01 / Intake</small>
+              <div>
+                <h3>Client details scattered</h3>
+                <p>Signed intake information arrived before the team had one clean operational record to work from.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>02 / Handoff</small>
+              <div>
+                <h3>Receipts and replies repeated</h3>
+                <p>Staff still needed to prepare confirmation copy and move the same details into WhatsApp and internal records.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>03 / Reconciliation</small>
+              <div>
+                <h3>Payout work waited until later</h3>
+                <p>Shopify sales and CMS data had to be reconciled into spreadsheet views before payout work was clear.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The Flow2 solution</p>
+          <h2 class="section-title">Make the record move once, then let every system follow.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">Flow2 redesigned the workflow around a single operational sequence. The signed intake became the trigger. The system collected structured form data, generated the client-facing confirmation, synced inventory and commerce records, and kept payout data ready for the team.</p>
+          <div class="solution-grid">
+            <article class="case-card">
+              <small>Trigger</small>
+              <div>
+                <h3>Signed intake starts the flow</h3>
+                <p>The workflow only moves forward after the client has completed the core fields and approved the consignment intake.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>Automation</small>
+              <div>
+                <h3>Client and internal records stay aligned</h3>
+                <p>Receipt text, WhatsApp confirmation, inventory notes, Shopify data, and CMS records follow the same source of truth.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>Output</small>
+              <div>
+                <h3>Payout view is ready sooner</h3>
+                <p>The final sheet gives staff a cleaner view for sales and payout work without rebuilding the record at day end.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container workflow-panel">
+        <div class="workflow-header">
+          <h2>Workflow chart as the visual representation of the solution.</h2>
+          <p>Each oval node is intentionally short. The chart is not a technical dump; it shows the client-facing business flow and where automation removes repeated handoffs.</p>
+        </div>
+        <div class="case-solution-map" data-case-map aria-label="LumeLuxe automation workflow">
+          <svg class="case-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="primary" d="M13 50 C20 50 22 34 30 34"></path>
+            <path class="primary" d="M30 34 C40 34 41 50 50 50"></path>
+            <path class="primary" d="M50 50 C59 50 60 28 69 28"></path>
+            <path class="primary" d="M50 50 C59 50 60 72 69 72"></path>
+            <path d="M69 28 C77 28 77 50 86 50"></path>
+            <path d="M69 72 C77 72 77 50 86 50"></path>
+          </svg>
+          <button class="case-map-node" type="button" style="--x:13%; --y:50%; --case-color:#15140f;" data-note="The client completes the intake form and signs off before the operational record moves forward.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4h10l3 3v13H7z"></path><path d="M17 4v4h4"></path><path d="m9 15 2 2 4-5"></path></svg></span>
+            <span><small>Trigger</small><b>Signed intake</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:30%; --y:34%; --case-color:#ed6f5c;" data-note="Completed fields are collected into one structured record instead of being retyped into multiple places.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h10"></path></svg></span>
+            <span><small>Collect</small><b>Form data</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:50%; --y:50%; --case-color:#1f7a4c;" data-note="The system prepares receipt details and WhatsApp confirmation copy from the same intake record.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v10H8l-3 3z"></path><path d="M9 9h6"></path><path d="M9 12h4"></path></svg></span>
+            <span><small>Action</small><b>Receipt + WhatsApp</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:69%; --y:28%; --case-color:#5f6f8f;" data-note="Inventory, Shopify, and CMS records stay aligned as the item moves through the business.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m4 8 8-4 8 4-8 4z"></path><path d="M4 8v8l8 4 8-4V8"></path><path d="M12 12v8"></path></svg></span>
+            <span><small>Sync</small><b>Inventory records</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:69%; --y:72%; --case-color:#3f6f58;" data-note="Shopify and CMS sales data feed the same payout calculation view.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 11H7z"></path><path d="M9 8a3 3 0 0 1 6 0"></path></svg></span>
+            <span><small>Sales</small><b>Shopify + CMS</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:86%; --y:50%; --case-color:#15140f;" data-note="The team gets a cleaner inventory and payout sheet without rebuilding the record at day end.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M5 10h14"></path><path d="M10 5v14"></path><path d="M13 15h3"></path></svg></span>
+            <span><small>Goal</small><b>Payout sheet</b></span>
+          </button>
+          <p class="case-map-note" data-default-note="Hover or focus a node to see how the LumeLuxe automation works.">Hover or focus a node to see how the LumeLuxe automation works.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The outcome</p>
+          <h2 class="section-title">One intake now carries the work from client confirmation to payout review.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The strongest change was not another app. It was a clearer operating lane: one signed intake record became the source for customer confirmation, inventory updates, commerce records, and the payout sheet.</p>
+          <div class="outcome-grid">
+            <article class="case-card">
+              <small>01</small>
+              <div><h3>Cleaner client handoff</h3><p>Staff no longer rebuild the same consignment details before replying to the client.</p></div>
+            </article>
+            <article class="case-card">
+              <small>02</small>
+              <div><h3>Aligned product records</h3><p>Inventory, Shopify, CMS, and spreadsheet views follow the same intake source.</p></div>
+            </article>
+            <article class="case-card">
+              <small>03</small>
+              <div><h3>Faster payout review</h3><p>Sales and payout information is easier to review because the record is already connected.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-banner-section" aria-label="Next step with Flow2">
+      <div class="container">
+        <div class="case-banner">
+          <div>
+            <h2>Need this consignment flow built <em>properly?</em></h2>
+            <p>Flow2 can map your intake, WhatsApp, inventory, Shopify, and payout handoffs into one reliable operating lane.</p>
+          </div>
+          <div class="case-banner-actions">
+            <a href="index.html#contact">Book a Flow Audit</a>
+            <a href="pricing.html">View pricing</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- @partial footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Flow2</h4>
+        <p>Flow2 builds practical automation systems for Hong Kong SMEs: sales follow-up, operations, reporting, and customer service working in one flow.</p>
+      </div>
+      <div><h4>Pages</h4><a href="index.html#about">About</a><a href="index.html#capabilities">Services</a><a href="automation-blueprints.html">Resources</a><a href="case-study-template.html">LumeLuxe case</a><a href="case-study-swire-group.html">Swire Group case</a><a href="case-study-rsvp-ig-monitoring.html">RSVP case</a><a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a><a href="case-study-well-played-quotation.html">Well Played case</a><a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a><a href="pricing.html">Pricing</a><a href="index.html#lab">Signals</a></div>
+      <div><h4>Stacks</h4><a href="index.html#capabilities">Make</a><a href="index.html#capabilities">n8n</a><a href="index.html#capabilities">Power Automate</a></div>
+      <div><h4>Focus</h4><a href="index.html#lab">Lead flow</a><a href="index.html#lab">Ecommerce ops</a><a href="index.html#lab">AI routing</a></div>
+      <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="index.html#contact">Audit request</a></div>
+    </div>
+    <div class="word" data-reveal="rise-lg">Business flows, <em>automated</em>.</div>
+  </div>
+</footer>
+<!-- /@partial footer -->
+
+  <script>
+    window.Flow2PageI18n = {
+      text: {
+        "LumeLuxe Case Study - Flow2": "Flow2 LumeLuxe 案例研究",
+        "LumeLuxe showcase": "LumeLuxe 展示案例",
+        "Consignment operations": "寄售營運流程",
+        "LumeLuxe turned consignment admin into one": "LumeLuxe 把寄售行政變成一條",
+        "operating flow": "營運流程",
+        "A public-facing case study on how Flow2 helped LumeLuxe reduce repeated intake, confirmation, inventory, and payout admin across its consignment workflow.": "一個公開案例，展示 Flow2 如何協助 LumeLuxe 減少寄售流程中的重複入庫、確認、庫存與 payout 行政工作。",
+        "Client": "客戶",
+        "Business": "業務",
+        "Handbag consignment": "手袋寄售",
+        "Workflow": "流程",
+        "Intake to payout": "入庫到薪酬計算",
+        "System role": "系統角色",
+        "Operations automation": "營運自動化",
+        "The pain point": "痛點",
+        "Too many handoffs for one": "一件寄售品要經過太多",
+        "consignment": "交接",
+        "LumeLuxe was not missing effort. The team already had the right tools: client forms, WhatsApp, inventory notes, Shopify, CMS records, and Google Sheets. The problem was that one handbag consignment had to be retyped and checked across too many places before staff could trust the record.": "LumeLuxe 不是不夠努力；團隊已經有合適工具：客戶表格、WhatsApp、庫存記錄、Shopify、CMS 和 Google Sheets。真正問題是，一件手袋寄售要在太多地方重複輸入和核對，員工才敢相信資料正確。",
+        "Client details scattered": "客戶資料分散",
+        "Signed intake information arrived before the team had one clean operational record to work from.": "客戶已完成簽署，但團隊還未有一份乾淨、可直接使用的營運記錄。",
+        "Receipts and replies repeated": "收據與回覆重複處理",
+        "Staff still needed to prepare confirmation copy and move the same details into WhatsApp and internal records.": "員工仍要準備確認文字，並把同一批資料搬到 WhatsApp 和內部記錄。",
+        "Payout work waited until later": "薪酬計算延後才清楚",
+        "Shopify sales and CMS data had to be reconciled into spreadsheet views before payout work was clear.": "Shopify 銷售與 CMS 資料要再整理到表格中，薪酬計算才會清楚。",
+        "The Flow2 solution": "Flow2 解法",
+        "Make the record move once, then let every system follow.": "讓記錄只流動一次，其他系統跟著同步。",
+        "Flow2 redesigned the workflow around a single operational sequence. The signed intake became the trigger. The system collected structured form data, generated the client-facing confirmation, synced inventory and commerce records, and kept payout data ready for the team.": "Flow2 把流程重新整理成一條營運序列：簽署入庫成為觸發點，系統收集表格資料、產生客戶確認內容、同步庫存與電商記錄，並把薪酬計算所需資料準備好。",
+        "Signed intake starts the flow": "簽署入庫啟動流程",
+        "The workflow only moves forward after the client has completed the core fields and approved the consignment intake.": "只有客戶完成核心欄位並確認寄售入庫後，流程才會進入下一步。",
+        "Client and internal records stay aligned": "客戶與內部記錄保持一致",
+        "Receipt text, WhatsApp confirmation, inventory notes, Shopify data, and CMS records follow the same source of truth.": "收據文字、WhatsApp 確認、庫存記錄、Shopify 資料和 CMS 記錄都跟同一份資料同步。",
+        "Payout view is ready sooner": "薪酬視圖更早準備好",
+        "The final sheet gives staff a cleaner view for sales and payout work without rebuilding the record at day end.": "最終表格讓員工更快看到銷售與薪酬計算資料，不用到日結時重新整理。",
+        "Workflow chart as the visual representation of the solution.": "以流程圖呈現解法。",
+        "Each oval node is intentionally short. The chart is not a technical dump; it shows the client-facing business flow and where automation removes repeated handoffs.": "每個橢圓節點都刻意保持精簡。這不是技術步驟傾倒，而是展示客戶能理解的業務流程，以及自動化如何移除重複交接。",
+        "The outcome": "成果",
+        "One intake now carries the work from client confirmation to payout review.": "一份入庫資料，現在能一路支撐客戶確認到 payout 審閱。",
+        "The strongest change was not another app. It was a clearer operating lane: one signed intake record became the source for customer confirmation, inventory updates, commerce records, and the payout sheet.": "最大的改變不是多一個 app，而是一條更清楚的營運路徑：一份已簽署入庫記錄成為客戶確認、庫存更新、電商記錄與 payout 表格的共同來源。",
+        "Cleaner client handoff": "更乾淨的客戶交接",
+        "Staff no longer rebuild the same consignment details before replying to the client.": "員工回覆客戶前，不再需要重建同一批寄售資料。",
+        "Aligned product records": "產品記錄保持一致",
+        "Inventory, Shopify, CMS, and spreadsheet views follow the same intake source.": "庫存、Shopify、CMS 與表格視圖都跟隨同一份入庫來源。",
+        "Faster payout review": "更快進入 payout 審閱",
+        "Sales and payout information is easier to review because the record is already connected.": "因為記錄已經連接，銷售與 payout 資料更容易審閱。",
+      },
+      attrs: {
+        "aria-label": {
+          "Case summary": "案例摘要",
+          "LumeLuxe automation workflow": "LumeLuxe 自動化流程",
+        },
+        "data-default-note": {
+          "Hover or focus a node to see how the LumeLuxe automation works.": "移到或聚焦節點，查看 LumeLuxe 自動化如何運作。"
+        }
+      }
+    };
+  </script>
+  <script src="assets/site.js?v=20260614-21"></script>
+  <script>
+    (function () {
+      Array.prototype.slice.call(document.querySelectorAll("[data-case-map]")).forEach(function (map) {
+        var note = map.querySelector(".case-map-note");
+        var defaultNote = note ? note.getAttribute("data-default-note") : "";
+        Array.prototype.slice.call(map.querySelectorAll(".case-map-node")).forEach(function (node) {
+          function show() { if (note) note.textContent = node.getAttribute("data-note") || defaultNote; }
+          function reset() { if (note) note.textContent = defaultNote; }
+          node.addEventListener("mouseenter", show);
+          node.addEventListener("focus", show);
+          node.addEventListener("mouseleave", reset);
+          node.addEventListener("blur", reset);
+          node.addEventListener("click", show);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

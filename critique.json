@@ -4,31 +4,33 @@
   "axes": {
     "clarity": {
       "score": 4,
-      "notes": "Language switch now applies full-page Traditional Chinese content across landing, pricing, and resources pages, not just nav labels."
+      "notes": "The landing page case study section now acts as a clean index into the dedicated case pages instead of trying to explain workflows inline."
     },
     "hierarchy": {
       "score": 4,
-      "notes": "Translated headings preserve the existing section structure and short display-line rhythm."
+      "notes": "Six case cards make the available case studies scannable while preserving the full workflow charts for the individual pages."
     },
     "typography": {
       "score": 4,
-      "notes": "Chinese copy uses existing font stack and avoids adding new layout-affecting styles."
+      "notes": "The new landing cards use medium-weight sentence-case titles and small metadata labels consistent with the current case-study direction."
     },
-    "motion": {
+    "execution": {
       "score": 4,
-      "notes": "MutationObserver translates dynamic ticker, pricing, and resource-page state text without interrupting existing motion or interactions."
+      "notes": "Both landing entry files were updated, shared CSS/JS cache versions were advanced, and the partial build still completes."
     },
     "brand": {
       "score": 4,
-      "notes": "Copy uses Flow2 brand context for Hong Kong SMEs while preserving platform and client brand names in English where appropriate."
+      "notes": "Each landing card uses the correct local case logo and points to the respective case study page."
     }
   },
   "checks": {
-    "build": "npm run build passed",
-    "syntax": "node --check assets/site.js passed",
-    "desktopLanguage": "Chromium verified four pages switch to zh-Hant with translated nav/title/h1 and CJK body content.",
-    "englishRestore": "Chromium verified switching back to EN restores English nav and page language.",
-    "mobileNav": "Chromium verified pricing and resources mobile nav open correctly with language switch and menu button not overlapping.",
-    "structure": "Four pages each have one nav, one footer, one language switch, one site.js v20260614-5 reference, and balanced div/section counts."
+    "build": "npm run build completed and rendered all shared partials.",
+    "syntax": "node --check assets/site.js and node --check scripts/build-partials.js passed.",
+    "landing_cases": "index-hero-scroll-prototype.html and index.html each contain 6 landing-case-card links with no data-case-map, case-map-node, swire-flow-chart, case-tabs, or data-case-showcase tokens inside the work section.",
+    "links": "All 6 landing case links resolve to existing case-study HTML files and all referenced logo assets exist.",
+    "versions": "All HTML files reference assets/site.css?v=20260614-21 and assets/site.js?v=20260614-21 exactly once.",
+    "html_balance": "index-hero-scroll-prototype.html and index.html have balanced div and section counts.",
+    "format": "git diff --check passed with only existing CRLF normalization warnings.",
+    "browser": "A local browser binary was not available in this run, so verification used build, syntax, file, and DOM-structure checks."
   }
 }

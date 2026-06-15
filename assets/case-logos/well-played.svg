@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" role="img" aria-labelledby="title desc">
+  <title id="title">Well Played logo</title>
+  <desc id="desc">Original wordmark for the Well Played quotation case study.</desc>
+  <rect width="320" height="120" rx="28" fill="#f7f1de"/>
+  <circle cx="76" cy="60" r="36" fill="#17140f"/>
+  <path d="M58 60h36M76 42v36" stroke="#f7f1de" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="97" cy="39" r="10" fill="#d96b4a"/>
+  <text x="132" y="58" fill="#17140f" font-family="Georgia, serif" font-size="28" font-weight="500">Well Played</text>
+  <text x="134" y="83" fill="#6f6758" font-family="Arial, sans-serif" font-size="12" letter-spacing="1.7">QUOTE TO BOOKING</text>
+</svg>

@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swire Group Case Study - Flow2</title>
+  <meta name="description" content="A Flow2 case study showing how Swire Group turned email and SharePoint incident updates into a cleaner AI-ready knowledge base workflow.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@500;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css?v=20260614-21">
+  <style>
+    .case-page {
+      background:
+        radial-gradient(circle at 18% 8%, rgba(237, 111, 92, 0.08), transparent 34%),
+        linear-gradient(180deg, rgba(247, 241, 222, 0.7), rgba(239, 231, 210, 0));
+      color: var(--ink);
+    }
+
+    .case-hero {
+      padding: 98px 0 52px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(320px, 0.28fr);
+      gap: clamp(36px, 5vw, 86px);
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 24px;
+      color: var(--ink-mute);
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--coral);
+    }
+
+    .case-hero h1 {
+      max-width: 980px;
+      margin: 0;
+      color: var(--ink);
+      font: 500 clamp(50px, 7vw, 108px)/0.88 var(--sans);
+      letter-spacing: -0.065em;
+      text-transform: none;
+    }
+
+    .case-hero h1 em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+
+    .case-hero p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: clamp(17px, 1.5vw, 21px);
+      line-height: 1.48;
+    }
+
+    .case-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-meta div {
+      min-height: 116px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+    }
+
+    .case-meta div:last-child { border-right: 0; }
+
+    .case-meta small {
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: none;
+    }
+
+    .case-meta b {
+      color: var(--ink);
+      font: 520 21px/0.95 var(--sans);
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+
+    .case-section {
+      padding: clamp(62px, 7vw, 106px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.34fr) minmax(0, 0.66fr);
+      gap: clamp(34px, 6vw, 94px);
+      align-items: start;
+    }
+
+    .section-kicker {
+      margin: 0 0 18px;
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--ink);
+      font: 500 clamp(30px, 4vw, 58px)/0.93 var(--sans);
+      letter-spacing: -0.058em;
+      text-transform: none;
+    }
+
+    .section-title em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      text-transform: none;
+    }
+
+    .lead-copy {
+      max-width: 760px;
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(18px, 1.55vw, 23px);
+      line-height: 1.46;
+    }
+
+    .pain-grid,
+    .solution-grid,
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .case-card {
+      min-height: 190px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.62);
+      display: grid;
+      align-content: space-between;
+      gap: 24px;
+    }
+
+    .case-card small {
+      color: var(--ink-faint);
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.13em;
+      text-transform: none;
+    }
+
+    .case-card h3 {
+      margin: 0;
+      color: var(--ink);
+      font: 520 25px/0.98 var(--sans);
+      letter-spacing: -0.05em;
+      text-transform: none;
+    }
+
+    .case-card p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .workflow-panel {
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      background: rgba(247, 241, 222, 0.6);
+      box-shadow: var(--shadow);
+    }
+
+    .workflow-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.34fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .workflow-header h2 {
+      margin: 0;
+      max-width: 760px;
+      color: var(--ink);
+      font: 500 clamp(30px, 4vw, 54px)/0.92 var(--sans);
+      letter-spacing: -0.058em;
+      text-transform: none;
+    }
+
+    .workflow-header p {
+      margin: 0;
+      color: var(--ink-mute);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .case-solution-map {
+      min-height: 560px;
+      position: relative;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background:
+        linear-gradient(90deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(21, 20, 15, 0.045) 1px, transparent 1px),
+        rgba(247, 241, 222, 0.78);
+      background-size: 28px 28px;
+      overflow: hidden;
+    }
+
+    .case-solution-map::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px dotted rgba(21, 20, 15, 0.18);
+      pointer-events: none;
+    }
+
+    .case-map-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .case-map-lines path {
+      fill: none;
+      stroke: rgba(21, 20, 15, 0.28);
+      stroke-width: 0.9;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .case-map-lines .primary {
+      stroke: rgba(237, 111, 92, 0.76);
+      stroke-width: 1.2;
+    }
+
+    .case-map-node {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      transform: translate(-50%, -50%);
+      width: min(166px, 19vw);
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 8px;
+      align-items: center;
+      padding: 8px 10px 8px 0;
+      border: 1px solid color-mix(in srgb, var(--case-color, var(--ink)) 48%, transparent);
+      border-radius: 999px;
+      background: rgba(255, 252, 243, 0.9);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      z-index: 1;
+      box-shadow: 0 18px 30px -24px rgba(21, 20, 15, 0.5);
+    }
+
+    .case-map-node:focus-visible {
+      outline: 3px solid rgba(237, 111, 92, 0.28);
+      outline-offset: 3px;
+    }
+
+    .case-map-icon {
+      width: 34px;
+      height: 34px;
+      margin-left: 7px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--case-color, var(--ink)) 12%, transparent);
+      color: var(--case-color, var(--ink));
+    }
+
+    .case-map-icon svg {
+      width: 17px;
+      height: 17px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .case-map-node small {
+      display: block;
+      margin: 0 0 3px;
+      font-family: var(--mono);
+      font-size: 7.5px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      text-transform: none;
+      color: var(--case-color, var(--ink-mute));
+    }
+
+    .case-map-node b {
+      display: block;
+      font-family: var(--sans);
+      font-size: clamp(10.5px, 0.72vw, 12.5px);
+      font-weight: 520;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .case-map-note {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      min-height: 42px;
+      margin: 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(21, 20, 15, 0.12);
+      background: rgba(247, 241, 222, 0.92);
+      color: var(--ink-mute);
+      font: 520 11px/1.45 var(--mono);
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 1080px) {
+      .case-hero-grid,
+      .section-grid,
+      .workflow-header {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pain-grid,
+      .solution-grid,
+      .outcome-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .case-hero {
+        padding-top: 76px;
+      }
+
+      .container {
+        width: min(100% - 28px, var(--page-width));
+      }
+
+      .case-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .case-meta div {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .case-meta div:last-child { border-bottom: 0; }
+
+      .case-solution-map {
+        min-height: 620px;
+      }
+
+      .case-map-node {
+        width: min(178px, 42vw);
+      }
+
+      .case-solution-map.swire-detailed-map {
+        min-height: auto;
+        display: grid;
+        gap: 12px;
+        padding: 16px;
+        overflow: visible;
+      }
+
+      .swire-detailed-map .case-map-lines {
+        display: none;
+      }
+
+      .swire-detailed-map .case-map-node {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        transform: none;
+        width: 100%;
+      }
+
+      .swire-detailed-map .case-map-note {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+      }
+    }
+  </style>
+</head>
+<body class="case-page">
+  <!-- @partial nav -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Flow2 case study</span>
+    <span>Swire Group</span>
+    <span>Knowledge base automation</span>
+  </div>
+</div>
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html#top" aria-label="Flow2 home">
+      <span class="brand-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M7 17 17 7"></path>
+          <path d="M9 7h8v8"></path>
+        </svg>
+      </span>
+      <span class="brand-word">Flow2</span>
+    </a>
+    <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Services</a>
+      <a href="automation-blueprints.html">Resources</a>
+      <div class="nav-dropdown" aria-current="page">
+        <a class="nav-drop-link" href="index.html#work">Case study</a>
+        <div class="nav-submenu" aria-label="Case study pages">
+        <a href="case-study-template.html">LumeLuxe case</a>
+        <a href="case-study-swire-group.html">Swire Group case</a>
+        <a href="case-study-rsvp-ig-monitoring.html">RSVP case</a>
+        <a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a>
+        <a href="case-study-well-played-quotation.html">Well Played case</a>
+        <a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a>
+        </div>
+      </div>
+      <a href="pricing.html">Pricing</a>
+      <a href="index.html#method">Method</a>
+      <a href="index.html#contact" class="nav-cta">Start audit</a>
+    </div>
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" data-lang="en" class="is-active" aria-pressed="true">EN</button>
+      <button type="button" data-lang="zh" aria-pressed="false">繁中</button>
+    </div>
+    <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="primary-nav" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+<!-- /@partial nav -->
+
+  <main class="shell">
+    <section class="case-hero">
+      <div class="container case-hero-grid">
+        <div>
+          <div class="case-identity" aria-label="Swire Group logo">
+            <span class="case-identity-logo logo-wide"><img src="assets/case-logos/swire-group.svg" alt="Swire Group logo" loading="lazy"></span>
+            <span class="case-identity-text"><small>Client</small><b>Swire Group</b></span>
+          </div>
+          <span class="eyebrow">Enterprise knowledge workflow</span>
+          <h1>Swire Group turned incident updates into a reusable <em>knowledge flow</em>.</h1>
+        </div>
+        <p>Flow2 connected Line to Take emails, SharePoint incident folders, AI summaries, knowledge-base publishing, and Excel trace IDs into one governed workflow.</p>
+      </div>
+    </section>
+
+    <section class="case-meta" aria-label="Case summary">
+      <div><small>Client</small><b>Swire Group</b></div>
+      <div><small>Business</small><b>Enterprise operations</b></div>
+      <div><small>Workflow</small><b>Line to Take knowledge base</b></div>
+      <div><small>System role</small><b>AI-ready records</b></div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The pain point</p>
+          <h2 class="section-title">The team had the information. The risk was losing context between systems.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">Line to Take emails and SharePoint incident files already carried useful response material. The challenge was turning changing incident updates into reliable knowledge records without losing source, status, or system ID context.</p>
+          <div class="pain-grid">
+            <article class="case-card">
+              <small>01 / Intake</small>
+              <div>
+                <h3>Email and files did not match</h3>
+                <p>Line to Take emails and SharePoint incident folders arrived with different structure and review timing.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>02 / Publishing</small>
+              <div>
+                <h3>Active status mattered</h3>
+                <p>Only active items should reach the knowledge base; inactive material still needed a clean internal note.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>03 / Audit</small>
+              <div>
+                <h3>Trace IDs had to survive</h3>
+                <p>Collection IDs and chunk IDs needed to return to Excel so every answer could be traced to the original incident row.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The Flow2 solution</p>
+          <h2 class="section-title">Flow2 kept the three automation paths, but made the operating model understandable.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">The build still uses three flows: email intake, incident upload, and direct chunk creation. The user-facing model is simpler: capture the update, clean it with AI, decide active vs reference, publish the useful record, then write the trace ID back.</p>
+          <div class="solution-grid">
+            <article class="case-card">
+              <small>Flow A</small>
+              <div>
+                <h3>Email becomes a logged note</h3>
+                <p>AI structures the Line to Take email, creates a markdown note in SharePoint, and logs the record in Excel.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>Flow B</small>
+              <div>
+                <h3>Incident rows are reviewed</h3>
+                <p>Each row is cleaned, dated, classified active or inactive, and uploaded only when it should become live knowledge.</p>
+              </div>
+            </article>
+            <article class="case-card">
+              <small>Flow C</small>
+              <div>
+                <h3>Chunks publish directly</h3>
+                <p>Where the file handoff is unnecessary, the workflow creates UAT knowledge chunks and writes the chunk ID back to Excel.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container workflow-panel">
+        <div class="workflow-header">
+          <h2>The workflow, simplified into one visual system.</h2>
+          <p>The chart keeps the technical build readable: two sources, one AI preparation lane, an active/reference gate, and three controlled outputs.</p>
+        </div>
+        <div class="case-solution-map swire-detailed-map" data-case-map aria-label="Swire Group knowledge workflow">
+          <svg class="case-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="primary" d="M11 30 C17 30 19 43 26 50"></path>
+            <path class="primary" d="M11 70 C17 70 19 57 26 50"></path>
+            <path class="primary" d="M26 50 C31 50 36 50 42 50"></path>
+            <path class="primary" d="M42 50 C47 50 51 50 56 50"></path>
+            <path d="M56 50 C61 42 64 30 70 24"></path>
+            <path d="M70 24 C76 24 82 24 88 24"></path>
+            <path d="M56 50 C61 50 64 50 70 50"></path>
+            <path d="M70 50 C76 50 82 50 88 50"></path>
+            <path d="M56 50 C61 58 64 70 70 76"></path>
+            <path d="M70 76 C76 76 82 76 88 76"></path>
+          </svg>
+          <button class="case-map-node" type="button" style="--x:11%; --y:30%; --case-color:#15140f;" data-note="Flow A starts when a Line to Take email arrives. AI Builder reads the message and prepares it for a structured SharePoint note.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"></path><path d="m4 7 8 6 8-6"></path></svg></span>
+            <span><small>Source A</small><b>Line to Take email</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:11%; --y:70%; --case-color:#15140f;" data-note="Flow B and Flow C start when the IncidentTable folder changes in SharePoint. The system reviews every incident row instead of waiting for manual updates.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h7l2 2h9v10H3z"></path><path d="M7 13h10"></path><path d="M7 16h6"></path></svg></span>
+            <span><small>Source B</small><b>Incident folder</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:26%; --y:50%; --case-color:#ed6f5c;" data-note="Incoming material is turned into a usable business record: email text, incident rows, dates, and response notes become one clean working summary.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h10"></path></svg></span>
+            <span><small>Prepare</small><b>Clean summary</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:42%; --y:50%; --case-color:#ed6f5c;" data-note="AI normalises dates and makes the incident easier to compare, so the next step can decide what should be published and what should remain internal.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3v4"></path><path d="M17 3v4"></path><path d="M4 8h16"></path><path d="M5 5h14v15H5z"></path><path d="m8 14 2 2 5-5"></path></svg></span>
+            <span><small>Normalise</small><b>Date + status</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:56%; --y:50%; --case-color:#1f7a4c;" data-note="The workflow separates live knowledge from reference-only material before anything is written into the active knowledge base.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v10H8l-3 3z"></path><path d="M9 9h6"></path><path d="M9 12h4"></path></svg></span>
+            <span><small>Decision</small><b>Active or reference</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:70%; --y:24%; --case-color:#5f6f8f;" data-note="The email path creates a markdown note in SharePoint, giving the team a readable record before it is logged.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4h10l3 3v13H7z"></path><path d="M17 4v4h4"></path><path d="M9 13h6"></path><path d="M9 16h4"></path></svg></span>
+            <span><small>Flow A</small><b>SharePoint note</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:88%; --y:24%; --case-color:#5f6f8f;" data-note="The upload path sends active incident content into the knowledge base, then returns the collection ID to the Excel tracker.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m4 8 8-4 8 4-8 4z"></path><path d="M4 8v8l8 4 8-4V8"></path><path d="M12 12v8"></path></svg></span>
+            <span><small>Flow B</small><b>KB upload</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:70%; --y:50%; --case-color:#1f7a4c;" data-note="The V4 path removes a file handoff by creating UAT knowledge chunks directly from the prepared incident content.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h7v7H4z"></path><path d="M13 7h7v7h-7z"></path><path d="M4 16h7v4H4z"></path><path d="M13 16h7v4h-7z"></path></svg></span>
+            <span><small>Flow C</small><b>Direct chunks</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:88%; --y:50%; --case-color:#1f7a4c;" data-note="Excel receives the collection ID or chunk ID, so the published knowledge item remains tied to the original incident row.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M5 10h14"></path><path d="M10 5v14"></path><path d="M13 15h3"></path></svg></span>
+            <span><small>Trace</small><b>Excel ID writeback</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:70%; --y:76%; --case-color:#3f6f58;" data-note="Inactive rows are still cleaned into a reference note, but they do not pollute the active knowledge base.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 11H7z"></path><path d="M9 8a3 3 0 0 1 6 0"></path><path d="M9 13h6"></path></svg></span>
+            <span><small>Reference</small><b>Inactive note</b></span>
+          </button>
+          <button class="case-map-node" type="button" style="--x:88%; --y:76%; --case-color:#3f6f58;" data-note="The team keeps a clean internal reference record for later review, without presenting it as active answer material.">
+            <span class="case-map-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"></path><path d="M8 9h8"></path><path d="M8 13h8"></path><path d="M8 17h5"></path></svg></span>
+            <span><small>Govern</small><b>Review record</b></span>
+          </button>
+          <p class="case-map-note" data-default-note="Hover or focus a node to see how the Swire Group knowledge workflow works.">Hover or focus a node to see how the Swire Group knowledge workflow works.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">The outcome</p>
+          <h2 class="section-title">The result: knowledge records that are publishable and traceable.</h2>
+        </div>
+        <div>
+          <p class="lead-copy">Swire Group gets a cleaner path from incident material to knowledge-base content. The team can see what came in, how AI prepared it, whether it was published, and which Excel ID proves the source.</p>
+          <div class="outcome-grid">
+            <article class="case-card">
+              <small>01</small>
+              <div><h3>Cleaner intake</h3><p>Email and SharePoint updates become structured records instead of repeated manual rewrites.</p></div>
+            </article>
+            <article class="case-card">
+              <small>02</small>
+              <div><h3>Controlled publishing</h3><p>Active content can enter the knowledge base while inactive material stays as internal reference.</p></div>
+            </article>
+            <article class="case-card">
+              <small>03</small>
+              <div><h3>Visible audit trail</h3><p>Collection IDs and chunk IDs keep every published answer connected to its source row.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-banner-section" aria-label="Next step with Flow2">
+      <div class="container">
+        <div class="case-banner">
+          <div>
+            <h2>Need this knowledge flow built <em>properly?</em></h2>
+            <p>Flow2 can turn email and SharePoint updates into governed records, knowledge-base entries, and traceable Excel logs.</p>
+          </div>
+          <div class="case-banner-actions">
+            <a href="index.html#contact">Book a Flow Audit</a>
+            <a href="pricing.html">View pricing</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- @partial footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Flow2</h4>
+        <p>Flow2 builds practical automation systems for Hong Kong SMEs: sales follow-up, operations, reporting, and customer service working in one flow.</p>
+      </div>
+      <div><h4>Pages</h4><a href="index.html#about">About</a><a href="index.html#capabilities">Services</a><a href="automation-blueprints.html">Resources</a><a href="case-study-template.html">LumeLuxe case</a><a href="case-study-swire-group.html">Swire Group case</a><a href="case-study-rsvp-ig-monitoring.html">RSVP case</a><a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a><a href="case-study-well-played-quotation.html">Well Played case</a><a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a><a href="pricing.html">Pricing</a><a href="index.html#lab">Signals</a></div>
+      <div><h4>Stacks</h4><a href="index.html#capabilities">Make</a><a href="index.html#capabilities">n8n</a><a href="index.html#capabilities">Power Automate</a></div>
+      <div><h4>Focus</h4><a href="index.html#lab">Lead flow</a><a href="index.html#lab">Ecommerce ops</a><a href="index.html#lab">AI routing</a></div>
+      <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="index.html#contact">Audit request</a></div>
+    </div>
+    <div class="word" data-reveal="rise-lg">Business flows, <em>automated</em>.</div>
+  </div>
+</footer>
+<!-- /@partial footer -->
+  <script>
+    window.Flow2PageI18n = {
+      text: {
+        "Swire Group Case Study - Flow2": "Flow2 Swire Group 案例研究",
+        "Flow2 case study": "Flow2 案例研究",
+        "Knowledge base automation": "知識庫自動化",
+        "Enterprise knowledge workflow": "企業知識流程",
+        "Swire Group turned incident updates into a reusable": "Swire Group 把事件更新變成可重用的",
+        "knowledge flow": "知識流程",
+        "Flow2 simplified a complex SharePoint and Power Automate build into a practical operating story: incoming Line to Take emails and incident table changes become structured, traceable knowledge records.": "Flow2 把複雜的 SharePoint 與 Power Automate 建置，整理成一個容易理解的營運故事：Line to Take 電郵與事件表格更新，會變成結構化、可追蹤的知識記錄。",
+        "Enterprise operations": "企業營運",
+        "Line to Take knowledge base": "Line to Take 知識庫",
+        "AI-ready records": "AI 可用記錄",
+        "Important updates were trapped between email, files, and": "重要更新原本卡在電郵、檔案與",
+        "manual records": "人手記錄之間",
+        "Swire Group had the raw material for a stronger knowledge base: Line to Take emails, SharePoint files, incident tables, and internal response notes. The challenge was that useful information still needed to be cleaned, classified, logged, and written back across multiple systems before it could be trusted by an AI knowledge workflow.": "Swire Group 已有建立知識庫所需的原始材料：Line to Take 電郵、SharePoint 檔案、事件表格與內部回應筆記。真正的挑戰是，這些有用資訊仍要先被整理、分類、記錄並回寫到多個系統，才可以成為 AI 知識流程可信任的內容。",
+        "Updates arrived in different shapes": "更新來源格式不一致",
+        "Email requests and SharePoint incident files carried related information, but they did not arrive as one consistent record.": "電郵要求和 SharePoint 事件檔案承載相關資訊，但它們並不是以同一種可用記錄形式到達。",
+        "Status needed judgement": "狀態需要先判斷",
+        "Teams needed to know whether an incident was still active before it entered a searchable knowledge base.": "在資料進入可搜尋知識庫前，團隊需要知道事件是否仍然有效。",
+        "Records had to stay traceable": "記錄需要可追蹤",
+        "Once an item was published, the team still needed Excel IDs and SharePoint files to show where each knowledge record came from.": "資料發布後，團隊仍需要 Excel ID 和 SharePoint 檔案來追溯每筆知識記錄的來源。",
+        "Turn each update into one clean record before it reaches the knowledge base.": "每次更新先變成一筆乾淨記錄，再進入知識庫。",
+        "Flow2 kept the architecture powerful, but simplified the operating model for the team. Email updates become SharePoint notes and Excel records. Incident table changes are checked, cleaned by AI, and only active items are pushed into the knowledge base. The result is a workflow that respects governance while reducing repeated manual handling.": "Flow2 保留架構的完整能力，但把團隊操作模型簡化。電郵更新會變成 SharePoint 筆記和 Excel 記錄；事件表格更新會先被檢查，再由 AI 整理，只有有效項目才進入知識庫。結果是一條兼顧治理與減少重複人手處理的流程。",
+        "Email and SharePoint both start cleanly": "電郵與 SharePoint 都能乾淨啟動流程",
+        "The system accepts Line to Take emails and incident table updates without asking staff to rebuild the same record manually.": "系統可接收 Line to Take 電郵與事件表格更新，不需要員工手動重建同一筆記錄。",
+        "AI prepares the usable summary": "AI 準備可用摘要",
+        "AI Builder turns raw notes into structured text, normalises dates, and separates active knowledge from reference-only items.": "AI Builder 把原始筆記整理成結構化文字，標準化日期，並把有效知識與只作參考的項目分開。",
+        "Knowledge records stay linked back": "知識記錄保留來源連結",
+        "SharePoint files, Excel logs, collection IDs, and chunk IDs give the team a clear audit trail after publishing.": "SharePoint 檔案、Excel 記錄、collection ID 與 chunk ID，讓團隊在發布後仍有清楚審計軌跡。",
+        "The technical build contains three flows, but the public story is simpler: capture the update, clean it, decide whether it is active, publish the useful record, and keep the audit trail intact.": "技術建置包含三條 flow，但公開案例可以更簡單：捕捉更新、整理內容、判斷是否有效、發布有用記錄，並保留審計軌跡。",
+        "Email + files": "電郵 + 檔案",
+        "AI summary": "AI 摘要",
+        "Active check": "有效性檢查",
+        "Knowledge item": "知識項目",
+        "Inactive note": "非有效筆記",
+        "Excel ID": "Excel ID",
+        "A complex automation becomes a workflow the team can explain and maintain.": "複雜自動化變成團隊能解釋、能維護的流程。",
+        "The value of the build is not only that records move automatically. It is that the team can see which source triggered the update, how AI prepared the content, whether the item entered the active knowledge base, and which ID connects the published record back to Excel.": "這個建置的價值不只是記錄會自動流動，而是團隊可以清楚看到哪個來源觸發更新、AI 如何整理內容、項目是否進入有效知識庫，以及哪個 ID 把發布記錄連回 Excel。",
+        "Less repeated rewriting": "減少重複改寫",
+        "Email and incident table updates are converted once, then reused across SharePoint, Excel, and the knowledge base.": "電郵與事件表格更新只需轉換一次，之後即可在 SharePoint、Excel 與知識庫中重用。",
+        "Clear active / inactive handling": "清楚處理有效 / 非有效狀態",
+        "The workflow makes a simple publishing decision before knowledge records are created.": "建立知識記錄前，流程會先做出清楚的發布判斷。",
+        "Traceable knowledge records": "可追蹤知識記錄",
+        "SharePoint notes and Excel IDs keep the searchable knowledge base connected to its source material.": "SharePoint 筆記與 Excel ID 讓可搜尋知識庫保留與來源材料的連結。",
+        "Hover or focus a node to see how the Swire Group knowledge workflow works.": "移到或聚焦節點，查看 Swire Group 知識流程如何運作。"
+      },
+      attrs: {
+        "aria-label": {
+          "Swire Group knowledge workflow": "Swire Group 知識流程"
+        },
+        "data-default-note": {
+          "Hover or focus a node to see how the Swire Group knowledge workflow works.": "移到或聚焦節點，查看 Swire Group 知識流程如何運作。"
+        }
+      }
+    };
+  </script>
+  <script>
+    (function () {
+      window.Flow2PageI18n = window.Flow2PageI18n || { text: {}, attrs: {} };
+      window.Flow2PageI18n.text = Object.assign(window.Flow2PageI18n.text || {}, {
+        "A cleaner way to turn emails, SharePoint updates, AI summaries, and Excel IDs into one traceable knowledge workflow.": "把電郵、SharePoint 更新、AI 摘要和 Excel ID 整理成一條可追蹤的知識流程。",
+        "The work was not missing data. It was missing a": "這項工作不是缺資料，而是缺一條",
+        "single path": "清楚路徑",
+        "The team already had the inputs. Flow2 helped make them usable, traceable, and ready for knowledge-base publishing.": "團隊已經有輸入來源；Flow2 讓它們變得可用、可追蹤，並準備好進入知識庫。",
+        "Two inputs": "兩個輸入",
+        "Email and SharePoint updates arrived in different shapes.": "電郵和 SharePoint 更新以不同格式到達。",
+        "Status gate": "狀態判斷",
+        "Active items publish; inactive items stay as reference.": "有效項目發布；非有效項目保留作參考。",
+        "Trace IDs": "追蹤 ID",
+        "Every published item keeps a link back to Excel.": "每個發布項目都保留回到 Excel 的連結。",
+        "Flow2 made the workflow easier to see, govern, and": "Flow2 讓流程更容易看見、治理和",
+        "reuse": "重用",
+        "The automation still has three paths, but the team experiences it as one operating model: capture, clean, decide, publish, trace.": "自動化仍有三條路徑，但團隊看到的是一個操作模型：捕捉、整理、判斷、發布、追蹤。",
+        "Email becomes a draft": "電郵變成草稿",
+        "Line to Take messages become structured SharePoint notes.": "Line to Take 訊息會變成結構化 SharePoint 筆記。",
+        "Rows are classified": "事件列先分類",
+        "AI prepares dates, status, and readable incident content.": "AI 整理日期、狀態和可讀事件內容。",
+        "Chunks publish directly": "分塊直接發布",
+        "Active content can move straight into the UAT knowledge base.": "有效內容可以直接進入 UAT 知識庫。",
+        "The workflow, simplified into one visual system.": "把工作流簡化成一套視覺系統。",
+        "The chart shows the real architecture without exposing every implementation step.": "這張圖展示真實架構，但不暴露每個實作細節。",
+        "The result: a knowledge flow with a visible": "結果是一條可看見",
+        "audit trail": "審計軌跡",
+        "The value is clarity: what came in, what AI prepared, what was published, and which ID proves where it came from.": "價值在於清楚：什麼進來、AI 整理了什麼、什麼被發布，以及哪個 ID 證明來源。",
+        "Less rewriting": "減少重寫",
+        "Updates become reusable records once.": "更新只需轉成可重用記錄一次。",
+        "Clear publishing": "清楚發布",
+        "Active and reference content are separated.": "有效內容和參考內容會被分開。",
+        "Traceable records": "可追蹤記錄",
+        "Excel IDs keep the source trail visible.": "Excel ID 讓來源軌跡保持可見。",
+        "Flow2 turned a multi-flow SharePoint and Power Automate build into a governed knowledge workflow: emails, incident-table updates, AI summaries, knowledge-base uploads, and Excel tracking all stay connected.": "Flow2 把多條 SharePoint 與 Power Automate 流程整理成一個可治理的知識工作流：電郵、事件表更新、AI 摘要、知識庫上傳和 Excel 追蹤都保持連接。",
+        "Swire Group had the raw material for a stronger knowledge base: Line to Take emails, SharePoint incident folders, Excel tracking rows, and internal response notes. The challenge was not simply moving files. The team needed a way to turn changing incident material into reliable knowledge records, while still knowing which source, status, and system ID each answer came from.": "Swire Group 已有建立更強知識庫所需的原始材料：Line to Take 電郵、SharePoint 事件資料夾、Excel 追蹤列和內部回應筆記。挑戰不只是搬移檔案，而是把不斷更新的事件材料變成可信的知識記錄，同時保留每個答案來自哪個來源、狀態和系統 ID。",
+        "Two sources started the same story": "兩個來源啟動同一條故事線",
+        "Line to Take emails and SharePoint incident-table updates were related, but each arrived with different structure, timing, and context.": "Line to Take 電郵和 SharePoint 事件表更新彼此相關，但到達時的結構、時間點和上下文都不同。",
+        "Status changed what should happen": "狀態決定下一步處理方式",
+        "Active items needed to become searchable knowledge. Inactive items still needed a cleaned internal record without being published as live knowledge.": "有效項目需要成為可搜尋知識；非有效項目仍要整理成內部記錄，但不應發布成即時知識。",
+        "Every answer needed a source trail": "每個答案都需要來源軌跡",
+        "After upload or chunk creation, Excel still had to hold the collection ID or chunk ID so staff could trace the answer back to the original incident row.": "上傳或建立分塊後，Excel 仍要保留 collection ID 或 chunk ID，讓員工可以把答案追溯回原始事件列。",
+        "Flow2 kept the architecture powerful but made the operating model understandable. One flow turns incoming emails into SharePoint notes and Excel records. A second flow reviews incident-table updates and uploads active records into the knowledge base. A third, more direct flow creates knowledge chunks for UAT while writing the chunk ID back to Excel. Together they form one governed content pipeline.": "Flow2 保留架構能力，但把操作模型變得容易理解。一條流程把 incoming email 轉成 SharePoint 筆記與 Excel 記錄；第二條流程檢查事件表更新，並把有效記錄上傳到知識庫；第三條更直接的流程為 UAT 建立知識分塊，同時把 chunk ID 回寫到 Excel。三者合起來是一條可治理的內容管線。",
+        "Email becomes a logged knowledge draft": "電郵變成可記錄的知識草稿",
+        "The email flow reads the Line to Take message, asks AI to structure it, creates a markdown note in SharePoint, and logs the record in Excel.": "電郵流程讀取 Line to Take 訊息，交由 AI 整理結構，然後在 SharePoint 建立 markdown 筆記，並把記錄寫入 Excel。",
+        "Incident rows are classified before publishing": "事件列發布前先分類",
+        "The upload flow normalises dates, checks active status, prepares readable content, and only pushes live material into the knowledge base.": "上傳流程會標準化日期、檢查 active 狀態、準備可讀內容，並只把 live material 推入知識庫。",
+        "V4 removes the file handoff where it can": "V4 在可行位置移除檔案交接",
+        "The chunk flow writes active content directly into the UAT knowledge base and stores the chunk ID back in Excel for traceability.": "分塊流程把有效內容直接寫入 UAT 知識庫，並把 chunk ID 回寫到 Excel，方便追蹤。",
+        "The build has three connected automation paths. The chart keeps the story readable while still showing the real workflow: email intake, incident-table review, active knowledge publishing, UAT chunk creation, and Excel traceability.": "這個建置有三條互相連接的自動化路徑。圖表保持可讀，同時展示真實工作流：電郵 intake、事件表審閱、有效知識發布、UAT 分塊建立，以及 Excel 追蹤。",
+        "Source A": "來源 A",
+        "Line to Take email": "Line to Take 電郵",
+        "Source B": "來源 B",
+        "Incident folder": "事件資料夾",
+        "Prepare": "整理",
+        "Clean summary": "乾淨摘要",
+        "Normalise": "標準化",
+        "Date + status": "日期 + 狀態",
+        "Decision": "判斷",
+        "Active or reference": "有效或參考",
+        "Flow A": "Flow A",
+        "SharePoint note": "SharePoint 筆記",
+        "Flow B": "Flow B",
+        "KB upload": "知識庫上傳",
+        "Flow C": "Flow C",
+        "Direct chunks": "直接分塊",
+        "Trace": "追蹤",
+        "Excel ID writeback": "Excel ID 回寫",
+        "Govern": "治理",
+        "Review record": "審閱記錄",
+        "Three technical flows become one workflow the team can explain and maintain.": "三條技術流程變成團隊能解釋、能維護的一條工作流。",
+        "The value of the build is not only that records move automatically. It is that the team can see which source triggered the update, how AI prepared the content, which route handled the item, whether it became active knowledge, and which Excel ID connects the published answer back to its source.": "這個建置的價值不只是記錄會自動流動，而是團隊可以清楚看到哪個來源觸發更新、AI 如何整理內容、哪條路徑處理項目、它是否成為有效知識，以及哪個 Excel ID 把發布答案連回來源。",
+        "Email and incident-table updates are converted into reusable records instead of being rewritten across SharePoint, Excel, and the knowledge base.": "電郵和事件表更新會先變成可重用記錄，而不是在 SharePoint、Excel 和知識庫之間重複改寫。",
+        "Clear publishing rules": "清楚的發布規則",
+        "The workflow separates active answer material from internal reference notes before the knowledge base is updated.": "更新知識庫前，流程會先把有效答案材料和內部參考筆記分開。",
+        "SharePoint notes, collection IDs, and chunk IDs keep the searchable knowledge base connected to its source material.": "SharePoint 筆記、collection ID 和 chunk ID 讓可搜尋知識庫保留與來源材料的連結。"
+      });
+      window.Flow2PageI18n.attrs = window.Flow2PageI18n.attrs || {};
+      window.Flow2PageI18n.attrs["data-note"] = Object.assign(window.Flow2PageI18n.attrs["data-note"] || {}, {
+        "Flow A starts when a Line to Take email arrives. AI Builder reads the message and prepares it for a structured SharePoint note.": "Flow A 從 Line to Take 電郵開始。AI Builder 讀取訊息，並把內容整理成可建立 SharePoint 筆記的結構。",
+        "Flow B and Flow C start when the IncidentTable folder changes in SharePoint. The system reviews every incident row instead of waiting for manual updates.": "Flow B 和 Flow C 由 SharePoint 的 IncidentTable 資料夾變更觸發。系統會審閱每一列事件，而不是等待人手更新。",
+        "Incoming material is turned into a usable business record: email text, incident rows, dates, and response notes become one clean working summary.": "進來的材料會變成可用的業務記錄：電郵文字、事件列、日期和回應筆記會整理成一份乾淨摘要。",
+        "AI normalises dates and makes the incident easier to compare, so the next step can decide what should be published and what should remain internal.": "AI 會標準化日期，讓事件更容易比較，下一步即可判斷哪些要發布、哪些只留作內部參考。",
+        "The workflow separates live knowledge from reference-only material before anything is written into the active knowledge base.": "任何內容寫入有效知識庫之前，流程會先把 live knowledge 和 reference-only material 分開。",
+        "The email path creates a markdown note in SharePoint, giving the team a readable record before it is logged.": "電郵路徑會在 SharePoint 建立 markdown 筆記，讓團隊在記錄前已有可讀版本。",
+        "The upload path sends active incident content into the knowledge base, then returns the collection ID to the Excel tracker.": "上傳路徑會把有效事件內容送入知識庫，然後把 collection ID 回寫到 Excel tracker。",
+        "The V4 path removes a file handoff by creating UAT knowledge chunks directly from the prepared incident content.": "V4 路徑會直接從整理後的事件內容建立 UAT 知識分塊，減少一次檔案交接。",
+        "Excel receives the collection ID or chunk ID, so the published knowledge item remains tied to the original incident row.": "Excel 會收到 collection ID 或 chunk ID，讓發布後的知識項目仍可連回原始事件列。",
+        "Inactive rows are still cleaned into a reference note, but they do not pollute the active knowledge base.": "非有效列仍會整理成參考筆記，但不會污染有效知識庫。",
+        "The team keeps a clean internal reference record for later review, without presenting it as active answer material.": "團隊保留乾淨的內部參考記錄供日後審閱，但不把它呈現為有效答案材料。"
+      });
+    })();
+  </script>
+  <script src="assets/site.js?v=20260614-21"></script>
+  <script>
+    (function () {
+      Array.prototype.slice.call(document.querySelectorAll("[data-case-map]")).forEach(function (map) {
+        var note = map.querySelector(".case-map-note");
+        var defaultNote = note ? note.getAttribute("data-default-note") : "";
+        Array.prototype.slice.call(map.querySelectorAll(".case-map-node")).forEach(function (node) {
+          function show() { if (note) note.textContent = node.getAttribute("data-note") || defaultNote; }
+          function reset() { if (note) note.textContent = defaultNote; }
+          node.addEventListener("mouseenter", show);
+          node.addEventListener("focus", show);
+          node.addEventListener("mouseleave", reset);
+          node.addEventListener("blur", reset);
+          node.addEventListener("click", show);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

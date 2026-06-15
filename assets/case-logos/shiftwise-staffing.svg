@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" role="img" aria-labelledby="title desc">
+  <title id="title">Shiftwise Staffing logo</title>
+  <desc id="desc">Original wordmark for the Shiftwise Staffing timesheet case study.</desc>
+  <rect width="320" height="120" rx="28" fill="#f7f1de"/>
+  <rect x="42" y="32" width="68" height="58" rx="18" fill="#17140f"/>
+  <path d="M57 50h38M57 64h30M57 78h24" stroke="#f7f1de" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="98" cy="82" r="12" fill="#d96b4a"/>
+  <text x="132" y="56" fill="#17140f" font-family="Georgia, serif" font-size="25" font-weight="500">Shiftwise</text>
+  <text x="132" y="82" fill="#17140f" font-family="Georgia, serif" font-size="25" font-weight="500">Staffing</text>
+</svg>

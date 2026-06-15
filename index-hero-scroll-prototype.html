@@ -2871,7 +2871,7 @@
       .word { font-size: clamp(64px, 22vw, 116px); }
     }
   </style>
-  <link rel="stylesheet" href="assets/site.css?v=20260614-4">
+  <link rel="stylesheet" href="assets/site.css?v=20260614-21">
 </head>
 <body>
   <div class="shell">
@@ -2891,7 +2891,17 @@
       <a href="index.html#about">About</a>
       <a href="index.html#capabilities">Services</a>
       <a href="automation-blueprints.html">Resources</a>
-      <a href="index.html#work">Case study</a>
+      <div class="nav-dropdown">
+        <a class="nav-drop-link" href="index.html#work">Case study</a>
+        <div class="nav-submenu" aria-label="Case study pages">
+        <a href="case-study-template.html">LumeLuxe case</a>
+        <a href="case-study-swire-group.html">Swire Group case</a>
+        <a href="case-study-rsvp-ig-monitoring.html">RSVP case</a>
+        <a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a>
+        <a href="case-study-well-played-quotation.html">Well Played case</a>
+        <a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a>
+        </div>
+      </div>
       <a href="pricing.html">Pricing</a>
       <a href="index.html#method">Method</a>
       <a href="index.html#contact" class="nav-cta">Start audit</a>
@@ -3228,117 +3238,78 @@
                   <h2>Business workflows shaped into <em>reliable</em> systems<span class="dot">.</span></h2>
                   <p class="lead" style="margin-top: 22px;">A closer look at how one owner workflow can become a practical automation system.</p>
                 </div>
-                <div class="case-list" data-case-showcase="">
-                  <div class="case-tabs" role="tablist" aria-label="Case studies">
-                    <button class="case-tab is-active" type="button" role="tab" id="case-tab-lume" aria-selected="true" aria-controls="case-panel-lume" data-case-tab="lume">
-                      <small>Case study 1</small>
-                      <b>Lume Lux handbag consignment</b>
-                    </button>
-                    <button class="case-tab" type="button" role="tab" id="case-tab-mnc" aria-selected="false" aria-controls="case-panel-mnc" data-case-tab="mnc">
-                      <small>Case study 2</small>
-                      <b>Internal communication system</b>
-                    </button>
-                  </div>
+                <div class="case-list landing-case-index" aria-label="Case study pages">
+                  <a class="landing-case-card" href="case-study-template.html" data-reveal="">
+                    <div>
+                      <div class="landing-case-top">
+                        <span class="landing-case-logo"><img src="assets/case-logos/lume-luxe.png" alt="LumeLuxe logo" loading="lazy"></span>
+                        <small>Consignment operations</small>
+                      </div>
+                      <h3>LumeLuxe handbag intake</h3>
+                      <p>Client sign-off, receipt creation, inventory updates, Shopify sales data, and payout sheets connected into one working flow.</p>
+                    </div>
+                    <span class="landing-case-link">View case</span>
+                  </a>
 
-                  <article class="case-feature case-panel is-active" id="case-panel-lume" role="tabpanel" aria-labelledby="case-tab-lume" data-case-panel="lume" data-reveal="">
-                    <div class="case-main">
-                      <span class="small-label">Case study 1 / Handbag consignment</span>
-                      <h3>Lume Lux handbag consignment</h3>
-                      <p class="case-summary">Lume Lux handles handbag consignment intake, client sign-off, receipts, inventory, Shopify records, and day-end spreadsheet work. The automation turns that intake flow into a cleaner operating system.</p>
-                      <ul class="case-points">
-                        <li>Clients complete most intake fields and sign off before the record moves forward.</li>
-                        <li>Receipts, WhatsApp copies, inventory records, and sales data stay connected.</li>
-                        <li>Shopify and CMS data feed Google Sheets for staff payout calculation.</li>
-                      </ul>
+                  <a class="landing-case-card" href="case-study-swire-group.html" data-reveal="">
+                    <div>
+                      <div class="landing-case-top">
+                        <span class="landing-case-logo"><img src="assets/case-logos/swire-group.svg" alt="Swire Group logo" loading="lazy"></span>
+                        <small>Knowledge base automation</small>
+                      </div>
+                      <h3>Swire Group knowledge flow</h3>
+                      <p>Line to Take emails and SharePoint incident updates become structured records, knowledge-base entries, and traceable Excel IDs.</p>
                     </div>
-                    <div class="case-solution-map" data-case-map="" aria-label="Lume Lux automation workflow">
-                      <svg class="case-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                        <path class="primary" d="M13 50 C20 50 22 34 30 34"></path>
-                        <path class="primary" d="M30 34 C40 34 41 50 50 50"></path>
-                        <path class="primary" d="M50 50 C59 50 60 28 69 28"></path>
-                        <path class="primary" d="M50 50 C59 50 60 72 69 72"></path>
-                        <path d="M69 28 C77 28 77 50 86 50"></path>
-                        <path d="M69 72 C77 72 77 50 86 50"></path>
-                      </svg>
-                      <button class="case-map-node" type="button" style="--x:13%; --y:50%; --case-color:#15140f;" data-note="Client completes intake fields and signs the consignment form before the record moves forward.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"></path><path d="M14 2v6h6"></path><path d="M9 14h6"></path></svg></span>
-                        <span><small>Trigger</small><b>Signed intake</b></span>
-                      </button>
-                      <button class="case-map-node" type="button" style="--x:30%; --y:34%; --case-color:#ed6f5c;" data-note="A scheduled system collects completed form data and keeps the intake record ready for the next action.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18"></path><path d="M5 8h14"></path><path d="M5 16h14"></path></svg></span>
-                        <span><small>Collect</small><b>Form data</b></span>
-                      </button>
-                      <button class="case-map-node" type="button" style="--x:50%; --y:50%; --case-color:#1f7a4c;" data-note="Receipt generation and WhatsApp copy happen automatically, so the client receives confirmation without a manual handoff.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v18l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4z"></path><path d="M9.5 9h5"></path><path d="M9.5 13h5"></path></svg></span>
-                        <span><small>Action</small><b>Receipt + WhatsApp</b></span>
-                      </button>
-                      <button class="case-map-node" type="button" style="--x:69%; --y:28%; --case-color:#5f6f8f;" data-note="Inventory, Shopify sales, and CMS records remain aligned as consignment items move through the business.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"></path><path d="M5 10h14"></path><path d="M10 4v16"></path></svg></span>
-                        <span><small>Sync</small><b>Inventory records</b></span>
-                      </button>
-                      <button class="case-map-node" type="button" style="--x:69%; --y:72%; --case-color:#3f6f58;" data-note="Shopify and CMS data stream into Google Sheets for payout calculation from sales data.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 11H7z"></path><path d="M9 8a3 3 0 0 1 6 0"></path></svg></span>
-                        <span><small>Sales</small><b>Shopify + CMS</b></span>
-                      </button>
-                      <button class="case-map-node" type="button" style="--x:86%; --y:50%; --case-color:#15140f;" data-note="The final sheet gives the team a clear inventory and payout view without day-end re-entry.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="M8 16v-5"></path><path d="M12 16V8"></path><path d="M16 16v-3"></path></svg></span>
-                        <span><small>Goal</small><b>Payout sheet</b></span>
-                      </button>
-                      <p class="case-map-note" data-default-note="Hover or focus a node to see how the Lume Lux automation works.">Hover or focus a node to see how the Lume Lux automation works.</p>
-                    </div>
-                  </article>
+                    <span class="landing-case-link">View case</span>
+                  </a>
 
-                  <article class="case-feature case-panel" id="case-panel-mnc" role="tabpanel" aria-labelledby="case-tab-mnc" data-case-panel="mnc" data-reveal="">
-                    <div class="case-main">
-                      <span class="small-label">Case study 2 / Internal communication</span>
-                      <h3>Internal communication synchronisation system</h3>
-                      <p class="case-summary">A Hong Kong-headquartered MNC manages a large portfolio of malls and shopping arcades. The team needed a central way to prepare internal updates for PR, marketing, media handling, public enquiry response, and frontline incident routing.</p>
-                      <ul class="case-points">
-                        <li>Promotion and event data from mall apps is consolidated into distribution-ready material.</li>
-                        <li>Frontline incident reports move to headquarters with department routing rules.</li>
-                        <li>Microsoft Power Automate keeps the data stream and notification flow coordinated.</li>
-                      </ul>
+                  <a class="landing-case-card" href="case-study-rsvp-ig-monitoring.html" data-reveal="">
+                    <div>
+                      <div class="landing-case-top">
+                        <span class="landing-case-logo"><img src="assets/case-logos/rsvp.png" alt="RSVP logo" loading="lazy"></span>
+                        <small>Instagram monitoring</small>
+                      </div>
+                      <h3>RSVP content watchlist</h3>
+                      <p>Selected Instagram accounts are scanned into a Notion review database with post metadata, signals, and image previews.</p>
                     </div>
-                    <div class="case-solution-map" data-case-map="" aria-label="Internal communication automation workflow">
-                      <svg class="case-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                        <path class="primary" d="M13 32 C22 32 25 50 35 50"></path>
-                        <path class="primary" d="M13 70 C22 70 25 50 35 50"></path>
-                        <path d="M35 50 C48 50 50 25 63 25"></path>
-                        <path d="M63 25 C74 25 76 34 86 34"></path>
-                        <path d="M35 50 C48 50 50 75 63 75"></path>
-                        <path d="M63 75 C74 75 76 66 86 66"></path>
-                      </svg>
-                      <button class="case-map-node" type="button" style="--x:13%; --y:32%; --case-color:#15140f;" data-note="The mall app provides active promotions and upcoming event information from across the property portfolio.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2"></rect><path d="M10 18h4"></path></svg></span>
-                        <span><small>Source</small><b>Mall app</b></span>
-                      </button>
-                      <button class="case-map-node" type="button" style="--x:13%; --y:70%; --case-color:#ed6f5c;" data-note="Frontline teams submit incident reports through a structured intake path for headquarters visibility.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 21h20z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg></span>
-                        <span><small>Source</small><b>Incident report</b></span>
-                      </button>
-                      <button class="case-map-node" type="button" style="--x:35%; --y:50%; --case-color:#5f6f8f;" data-note="Microsoft Power Automate consolidates source data, applies routing logic, and prepares the next action.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 5 13h6l-1 9 8-12h-6z"></path></svg></span>
-                        <span><small>Engine</small><b>Power Automate</b></span>
-                      </button>
-                      <button class="case-map-node" type="button" style="--x:63%; --y:25%; --case-color:#3f6f58;" data-note="Promotion and event records become ready-to-use internal material for marketing, PR, and frontline distribution.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"></path><path d="M14 2v6h6"></path><path d="M9 14h6"></path></svg></span>
-                        <span><small>Prepare</small><b>Info pack</b></span>
-                      </button>
-                      <button class="case-map-node" type="button" style="--x:86%; --y:34%; --case-color:#15140f;" data-note="PR, marketing, media response, and public enquiry teams work from the same prepared source.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17V7l8-4 8 4v10l-8 4z"></path><path d="M12 3v18"></path><path d="m4 7 8 5 8-5"></path></svg></span>
-                        <span><small>Distribute</small><b>PR + media</b></span>
-                      </button>
-                      <button class="case-map-node" type="button" style="--x:63%; --y:75%; --case-color:#ed6f5c;" data-note="Incident reports reach headquarters quickly with clear context from the frontline.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="M8 16v-5"></path><path d="M12 16V8"></path><path d="M16 16v-3"></path></svg></span>
-                        <span><small>Route</small><b>HQ view</b></span>
-                      </button>
-                      <button class="case-map-node" type="button" style="--x:86%; --y:66%; --case-color:#5f6f8f;" data-note="The system sends the report to the relevant department automatically for emergency handling and follow-through.">
-                        <span class="case-map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.5"></circle><path d="M5 21a7 7 0 0 1 14 0"></path></svg></span>
-                        <span><small>Notify</small><b>Departments</b></span>
-                      </button>
-                      <p class="case-map-note" data-default-note="Hover or focus a node to see how the internal communication system works.">Hover or focus a node to see how the internal communication system works.</p>
+                    <span class="landing-case-link">View case</span>
+                  </a>
+
+                  <a class="landing-case-card" href="case-study-harbour-weekly-edm.html" data-reveal="">
+                    <div>
+                      <div class="landing-case-top">
+                        <span class="landing-case-logo"><img src="assets/case-logos/harbour-weekly.svg" alt="Harbour Weekly logo" loading="lazy"></span>
+                        <small>EDM automation</small>
+                      </div>
+                      <h3>Harbour Weekly editorial draft</h3>
+                      <p>Recent Notion news items are filtered, packed, drafted with AI, and turned into a Google Docs weekly issue for review.</p>
                     </div>
-                  </article>
+                    <span class="landing-case-link">View case</span>
+                  </a>
+
+                  <a class="landing-case-card" href="case-study-well-played-quotation.html" data-reveal="">
+                    <div>
+                      <div class="landing-case-top">
+                        <span class="landing-case-logo"><img src="assets/case-logos/well-played.png" alt="Well Played logo" loading="lazy"></span>
+                        <small>Quotation automation</small>
+                      </div>
+                      <h3>Well Played quote follow-up</h3>
+                      <p>A new quote request creates the contact, document, calendar hold, Notion task, and review alert without repeated admin entry.</p>
+                    </div>
+                    <span class="landing-case-link">View case</span>
+                  </a>
+
+                  <a class="landing-case-card" href="case-study-part-time-staff-timesheet.html" data-reveal="">
+                    <div>
+                      <div class="landing-case-top">
+                        <span class="landing-case-logo"><img src="assets/case-logos/shiftwise-staffing.svg" alt="Shiftwise Staffing logo" loading="lazy"></span>
+                        <small>Roster automation</small>
+                      </div>
+                      <h3>Shiftwise Staffing timesheets</h3>
+                      <p>Roster submissions, staff hours, approval records, and payroll-ready summaries stay aligned for daily staffing operations.</p>
+                    </div>
+                    <span class="landing-case-link">View case</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -3421,7 +3392,7 @@
         <h4>Flow2</h4>
         <p>Flow2 builds practical automation systems for Hong Kong SMEs: sales follow-up, operations, reporting, and customer service working in one flow.</p>
       </div>
-      <div><h4>Pages</h4><a href="index.html#about">About</a><a href="index.html#capabilities">Services</a><a href="automation-blueprints.html">Resources</a><a href="pricing.html">Pricing</a><a href="index.html#lab">Signals</a></div>
+      <div><h4>Pages</h4><a href="index.html#about">About</a><a href="index.html#capabilities">Services</a><a href="automation-blueprints.html">Resources</a><a href="case-study-template.html">LumeLuxe case</a><a href="case-study-swire-group.html">Swire Group case</a><a href="case-study-rsvp-ig-monitoring.html">RSVP case</a><a href="case-study-harbour-weekly-edm.html">Harbour Weekly case</a><a href="case-study-well-played-quotation.html">Well Played case</a><a href="case-study-part-time-staff-timesheet.html">Shiftwise Staffing case</a><a href="pricing.html">Pricing</a><a href="index.html#lab">Signals</a></div>
       <div><h4>Stacks</h4><a href="index.html#capabilities">Make</a><a href="index.html#capabilities">n8n</a><a href="index.html#capabilities">Power Automate</a></div>
       <div><h4>Focus</h4><a href="index.html#lab">Lead flow</a><a href="index.html#lab">Ecommerce ops</a><a href="index.html#lab">AI routing</a></div>
       <div><h4>Contact</h4><a href="https://wa.me/85200000000?text=Hi%20Flow2%2C%20I%20want%20to%20automate%20one%20business%20workflow." target="_blank" rel="noreferrer">WhatsApp</a><a href="index.html#contact">Audit request</a></div>
@@ -3432,7 +3403,7 @@
 <!-- /@partial footer -->
   </div>
 
-  <script src="assets/site.js?v=20260614-6"></script>
+  <script src="assets/site.js?v=20260614-21"></script>
   <script>
     (function () {
       var heroSection = document.querySelector("[data-hero-scroll-section]");
