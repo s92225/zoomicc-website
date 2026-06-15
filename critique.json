@@ -1,36 +1,11 @@
-{
+﻿{
   "kind": "critique-panel",
   "score": 4,
   "axes": {
-    "clarity": {
-      "score": 4,
-      "notes": "The landing page case study section now acts as a clean index into the dedicated case pages instead of trying to explain workflows inline."
-    },
-    "hierarchy": {
-      "score": 4,
-      "notes": "Six case cards make the available case studies scannable while preserving the full workflow charts for the individual pages."
-    },
-    "typography": {
-      "score": 4,
-      "notes": "The new landing cards use medium-weight sentence-case titles and small metadata labels consistent with the current case-study direction."
-    },
-    "execution": {
-      "score": 4,
-      "notes": "Both landing entry files were updated, shared CSS/JS cache versions were advanced, and the partial build still completes."
-    },
-    "brand": {
-      "score": 4,
-      "notes": "Each landing card uses the correct local case logo and points to the respective case study page."
-    }
-  },
-  "checks": {
-    "build": "npm run build completed and rendered all shared partials.",
-    "syntax": "node --check assets/site.js and node --check scripts/build-partials.js passed.",
-    "landing_cases": "index-hero-scroll-prototype.html and index.html each contain 6 landing-case-card links with no data-case-map, case-map-node, swire-flow-chart, case-tabs, or data-case-showcase tokens inside the work section.",
-    "links": "All 6 landing case links resolve to existing case-study HTML files and all referenced logo assets exist.",
-    "versions": "All HTML files reference assets/site.css?v=20260614-21 and assets/site.js?v=20260614-21 exactly once.",
-    "html_balance": "index-hero-scroll-prototype.html and index.html have balanced div and section counts.",
-    "format": "git diff --check passed with only existing CRLF normalization warnings.",
-    "browser": "A local browser binary was not available in this run, so verification used build, syntax, file, and DOM-structure checks."
+    "clarity": { "score": 4, "notes": "The quotation case now uses a fictional company name, PlayNest Events, across the case page, landing card, dropdown, footer, and translations." },
+    "hierarchy": { "score": 4, "notes": "The case page keeps the approved flow-chart structure and hero logo lockup while replacing the prior brand identity." },
+    "typography": { "score": 4, "notes": "No all-caps or heavy title style was reintroduced; the case typography remains aligned with the normalized case-page system." },
+    "content": { "score": 4, "notes": "The workflow story remains focused on quotation operations, with no public-facing copy using the previous source name." },
+    "verification": { "score": 4, "notes": "Build, JS syntax checks, HTML balance checks, asset existence checks, and production-file string scans passed. Any remaining source-name text is only in untracked input material." }
   }
 }

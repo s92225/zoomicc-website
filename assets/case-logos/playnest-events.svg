@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="112" viewBox="0 0 360 112" role="img" aria-labelledby="title desc">
+  <title id="title">PlayNest Events logo</title>
+  <desc id="desc">Original wordmark for the PlayNest Events quotation automation case study.</desc>
+  <rect width="360" height="112" rx="18" fill="#fff7e8"/>
+  <circle cx="58" cy="56" r="30" fill="#17140f"/>
+  <path d="M49 70V42h17.5c8 0 13.5 5 13.5 12.3S74.5 66.5 66.2 66.5H58v3.5h-9Z" fill="#ed6f5c"/>
+  <path d="M58 49.5v9.7h7.3c3.2 0 5.5-1.8 5.5-4.8 0-3.1-2.3-4.9-5.5-4.9H58Z" fill="#fff7e8"/>
+  <path d="M94 33h1v46h-1z" fill="#d9cdb2"/>
+  <text x="116" y="53" fill="#17140f" font-family="Avenir Next, Segoe UI, system-ui, sans-serif" font-size="27" font-weight="600" letter-spacing="-0.8">PlayNest</text>
+  <text x="116" y="77" fill="#6f6758" font-family="JetBrains Mono, IBM Plex Mono, ui-monospace, monospace" font-size="11" font-weight="500" letter-spacing="1.5">EVENTS</text>
+</svg>

@@ -8,7 +8,7 @@ const caseLinks = [
   ["Swire Group case", "case-study-swire-group.html"],
   ["RSVP case", "case-study-rsvp-ig-monitoring.html"],
   ["Harbour Weekly case", "case-study-harbour-weekly-edm.html"],
-  ["Well Played case", "case-study-well-played-quotation.html"],
+  ["PlayNest Events case", "case-study-playnest-events-quotation.html"],
   ["Shiftwise Staffing case", "case-study-part-time-staff-timesheet.html"]
 ];
 
@@ -102,12 +102,12 @@ const pages = {
     nav: markCurrent(baseNav, "Case study"),
     footer: baseFooter
   },
-  "case-study-well-played-quotation.html": {
+  "case-study-playnest-events-quotation.html": {
     navClass: "",
     navAttrs: "",
     toggleClass: "menu-button",
     homeHref: "index.html#top",
-    topbar: topbar(["Flow2 case study", "Well Played", "Quotation automation"]),
+    topbar: topbar(["Flow2 case study", "PlayNest Events", "Quotation automation"]),
     nav: markCurrent(baseNav, "Case study"),
     footer: baseFooter
   },
